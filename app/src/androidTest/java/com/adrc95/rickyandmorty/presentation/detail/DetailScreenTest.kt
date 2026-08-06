@@ -22,7 +22,6 @@ import com.adrc95.rickyandmorty.presentation.core.model.CharacterDisplayModel
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterStatusDisplayModel
 import com.adrc95.rickyandmorty.presentation.ui.theme.RickyAndMortyTheme
 import com.adrc95.rickyandmorty.testing.extension.string
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -184,7 +183,7 @@ class DetailScreenTest {
         )
         composeTestRule.onNodeWithContentDescription(R.string.back.string()).performClick()
         composeTestRule.onNodeWithContentDescription(R.string.settings.string()).performClick()
-        composeTestRule.onNodeWithContentDescription(R.string.favourite.string()).performClick()
+        composeTestRule.onNodeWithContentDescription(R.string.add_favourite.string()).performClick()
         assertTrue(backClicked)
         assertTrue(settingsClicked)
         assertTrue(favouriteClicked)
