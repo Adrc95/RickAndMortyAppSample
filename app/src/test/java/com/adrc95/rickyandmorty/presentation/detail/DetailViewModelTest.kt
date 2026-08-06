@@ -64,7 +64,7 @@ class DetailViewModelTest {
         getLocationByIdUseCase = getLocationByIdUseCase,
         getEpisodesByIdsUseCase = getEpisodesByIdsUseCase,
         isCharacterFavouriteUseCase = isCharacterFavouriteUseCase,
-        toggleFavouriteUseCase = toggleFavouriteUseCase,
+        toggleFavouriteUseCase = toggleFavouriteUseCase
     )
 
     private fun mockSuccessfulCharacterResponse() {
@@ -72,21 +72,43 @@ class DetailViewModelTest {
             withId(1)
             withName("Rick Sanchez")
             withStatus("Alive")
-            withOrigin(summaryLocation { withId(1); withName("Earth (C-137)") })
-            withLocation(summaryLocation { withId(3); withName("Citadel of Ricks") })
+            withOrigin(
+                summaryLocation {
+                    withId(1)
+                    withName("Earth (C-137)")
+                }
+            )
+            withLocation(
+                summaryLocation {
+                    withId(3)
+                    withName("Citadel of Ricks")
+                }
+            )
             withEpisodeIds(listOf(1, 2))
         }
         every { getCharacterByIdUseCase(1) } returns flowOf(character)
         coEvery { getLocationByIdUseCase(1, 1, isOrigin = true) } returns Result.Success(
-            locationDetail { withId(1); withName("Earth (C-137)") }
+            locationDetail {
+                withId(1)
+                withName("Earth (C-137)")
+            }
         )
         coEvery { getLocationByIdUseCase(1, 3, isOrigin = false) } returns Result.Success(
-            locationDetail { withId(3); withName("Citadel of Ricks") }
+            locationDetail {
+                withId(3)
+                withName("Citadel of Ricks")
+            }
         )
         coEvery { getEpisodesByIdsUseCase(1, listOf(1, 2)) } returns Result.Success(
             listOf(
-                episodeDetail { withId(1); withName("Pilot") },
-                episodeDetail { withId(2); withName("Lawnmower Dog") },
+                episodeDetail {
+                    withId(1)
+                    withName("Pilot")
+                },
+                episodeDetail {
+                    withId(2)
+                    withName("Lawnmower Dog")
+                }
             )
         )
         every { isCharacterFavouriteUseCase(1) } returns flowOf(false)
@@ -112,27 +134,26 @@ class DetailViewModelTest {
         }
 
     @Test
-    fun `given character loads when observing uiState then emits character`() =
-        runTest(mainDispatcherRule.scheduler) {
-            // Given
-            mockSuccessfulCharacterResponse()
+    fun `given character loads when observing uiState then emits character`() = runTest(mainDispatcherRule.scheduler) {
+        // Given
+        mockSuccessfulCharacterResponse()
 
-            // When
-            val viewModel = createViewModel()
+        // When
+        val viewModel = createViewModel()
 
-            // Then
-            viewModel.uiState.test {
-                val state = awaitItem()
-                assertNotNull(state.character)
-                assertEquals(1, state.character!!.id)
-                assertEquals("Rick Sanchez", state.character.name)
-                assertEquals(CharacterStatusDisplayModel.ALIVE, state.character.status)
-                assertEquals("Human", state.character.species)
-                assertEquals(false, state.isLoading)
-                assertNull(state.error)
-                cancelAndIgnoreRemainingEvents()
-            }
+        // Then
+        viewModel.uiState.test {
+            val state = awaitItem()
+            assertNotNull(state.character)
+            assertEquals(1, state.character!!.id)
+            assertEquals("Rick Sanchez", state.character.name)
+            assertEquals(CharacterStatusDisplayModel.ALIVE, state.character.status)
+            assertEquals("Human", state.character.species)
+            assertEquals(false, state.isLoading)
+            assertNull(state.error)
+            cancelAndIgnoreRemainingEvents()
         }
+    }
 
     @Test
     fun `given character with details when loading then combines origin location and episodes`() =
@@ -181,26 +202,25 @@ class DetailViewModelTest {
         }
 
     @Test
-    fun `given character detail fails when loading then emits app error`() =
-        runTest(mainDispatcherRule.scheduler) {
-            // Given
-            every { getCharacterByIdUseCase(1) } returns flow {
-                throw AppErrorException(AppError.Connectivity)
-            }
-            every { isCharacterFavouriteUseCase(1) } returns flowOf(false)
-
-            // When
-            val viewModel = createViewModel()
-
-            // Then
-            viewModel.uiState.test {
-                val errorState = awaitItem()
-                assertNull(errorState.character)
-                assertEquals(AppError.Connectivity, errorState.error)
-                assertEquals(false, errorState.isLoading)
-                cancelAndIgnoreRemainingEvents()
-            }
+    fun `given character detail fails when loading then emits app error`() = runTest(mainDispatcherRule.scheduler) {
+        // Given
+        every { getCharacterByIdUseCase(1) } returns flow {
+            throw AppErrorException(AppError.Connectivity)
         }
+        every { isCharacterFavouriteUseCase(1) } returns flowOf(false)
+
+        // When
+        val viewModel = createViewModel()
+
+        // Then
+        viewModel.uiState.test {
+            val errorState = awaitItem()
+            assertNull(errorState.character)
+            assertEquals(AppError.Connectivity, errorState.error)
+            assertEquals(false, errorState.isLoading)
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
 
     @Test
     fun `given character detail fails with unknown error when loading then maps to app error`() =
@@ -281,18 +301,17 @@ class DetailViewModelTest {
         }
 
     @Test
-    fun `given toggle favourite called then invokes toggleFavouriteUseCase`() =
-        runTest(mainDispatcherRule.scheduler) {
-            // Given
-            mockSuccessfulCharacterResponse()
-            coEvery { toggleFavouriteUseCase(1) } just Runs
+    fun `given toggle favourite called then invokes toggleFavouriteUseCase`() = runTest(mainDispatcherRule.scheduler) {
+        // Given
+        mockSuccessfulCharacterResponse()
+        coEvery { toggleFavouriteUseCase(1) } just Runs
 
-            val viewModel = createViewModel()
+        val viewModel = createViewModel()
 
-            // When
-            viewModel.onToggleFavourite()
+        // When
+        viewModel.onToggleFavourite()
 
-            // Then
-            coVerify { toggleFavouriteUseCase(1) }
-        }
+        // Then
+        coVerify { toggleFavouriteUseCase(1) }
+    }
 }

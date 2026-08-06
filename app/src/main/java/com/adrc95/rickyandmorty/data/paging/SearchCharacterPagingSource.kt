@@ -16,7 +16,7 @@ class SearchCharacterPagingSource(
     private val name: String?,
     private val species: String?,
     private val gender: String?,
-    private val status: String?,
+    private val status: String?
 ) : PagingSource<Int, Character>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
@@ -27,9 +27,10 @@ class SearchCharacterPagingSource(
                 LoadResult.Page(
                     data = result.data.data,
                     prevKey = if (page == DEFAULT_PAGE) null else page - 1,
-                    nextKey = result.data.nextPage,
+                    nextKey = result.data.nextPage
                 )
             }
+
             is Result.Error -> {
                 if (result.error is AppError.Server && result.error.code == ERROR_404) {
                     LoadResult.Page(data = emptyList(), prevKey = null, nextKey = null)
@@ -40,10 +41,8 @@ class SearchCharacterPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Character>): Int? {
-        return state.anchorPosition?.let { anchor ->
-            state.closestPageToPosition(anchor)?.prevKey?.plus(1)
-                ?: state.closestPageToPosition(anchor)?.nextKey?.minus(1)
-        }
+    override fun getRefreshKey(state: PagingState<Int, Character>): Int? = state.anchorPosition?.let { anchor ->
+        state.closestPageToPosition(anchor)?.prevKey?.plus(1)
+            ?: state.closestPageToPosition(anchor)?.nextKey?.minus(1)
     }
 }

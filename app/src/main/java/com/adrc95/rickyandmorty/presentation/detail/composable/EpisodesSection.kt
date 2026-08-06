@@ -27,10 +27,7 @@ import com.adrc95.rickyandmorty.domain.model.EpisodeDetail
 import com.adrc95.rickyandmorty.presentation.ui.theme.Shapes
 
 @Composable
-fun EpisodesSection(
-    modifier: Modifier = Modifier,
-    episodes: List<EpisodeDetail>
-) {
+fun EpisodesSection(modifier: Modifier = Modifier, episodes: List<EpisodeDetail>) {
     AnimatedVisibility(
         visible = episodes.isNotEmpty()
     ) {
@@ -58,11 +55,8 @@ fun EpisodesSection(
     }
 }
 
-
 @Composable
-private fun EpisodeCard(
-    episode: EpisodeDetail
-) {
+private fun EpisodeCard(episode: EpisodeDetail) {
     Card(
         modifier = Modifier.width(240.dp),
         colors = CardDefaults.cardColors(
@@ -70,7 +64,7 @@ private fun EpisodeCard(
         ),
         border = BorderStroke(
             width = 1.dp,
-            color = MaterialTheme.colorScheme.outlineVariant,
+            color = MaterialTheme.colorScheme.outlineVariant
         ),
         shape = Shapes.large
     ) {

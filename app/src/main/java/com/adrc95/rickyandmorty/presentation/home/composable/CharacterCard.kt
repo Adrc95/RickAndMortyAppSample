@@ -1,7 +1,6 @@
 package com.adrc95.rickyandmorty.presentation.home.composable
 
 import android.content.res.Configuration
-import com.adrc95.rickyandmorty.domain.model.SummaryLocation
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +32,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adrc95.rickyandmorty.R
+import com.adrc95.rickyandmorty.domain.model.SummaryLocation
 import com.adrc95.rickyandmorty.presentation.core.TestTags.FAVOURITE_BUTTON
 import com.adrc95.rickyandmorty.presentation.core.composable.AsyncCharacterImage
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterDisplayModel
@@ -45,7 +45,7 @@ fun CharacterCard(
     modifier: Modifier = Modifier,
     character: CharacterDisplayModel,
     showFavourite: Boolean = true,
-    onFavouriteClick: () -> Unit,
+    onFavouriteClick: () -> Unit
 ) {
     Card(
         modifier = modifier,
@@ -54,7 +54,7 @@ fun CharacterCard(
         ),
         border = BorderStroke(
             width = 1.dp,
-            color = MaterialTheme.colorScheme.outlineVariant,
+            color = MaterialTheme.colorScheme.outlineVariant
         ),
         shape = Shapes.medium,
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
@@ -71,7 +71,7 @@ fun CharacterCard(
                     contentDescription = character.name,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .aspectRatio(1f),
+                        .aspectRatio(1f)
                 )
                 if (showFavourite) {
                     IconButton(
@@ -88,8 +88,7 @@ fun CharacterCard(
                             painter = painterResource(
                                 if (character.isFavourite) {
                                     R.drawable.icon_favourite_fill
-                                }
-                                else {
+                                } else {
                                     R.drawable.icon_favourite
                                 }
                             ),
@@ -100,7 +99,11 @@ fun CharacterCard(
                                     R.string.add_favourite
                                 }
                             ),
-                            tint = if (character.isFavourite) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
+                            tint = if (character.isFavourite) {
+                                MaterialTheme.colorScheme.error
+                            } else {
+                                MaterialTheme.colorScheme.onSurfaceVariant
+                            }
                         )
                     }
                 }
@@ -174,9 +177,9 @@ private fun CharacterCardPreview() {
                 location = SummaryLocation(id = 2, name = "Mars"),
                 locationDetail = null,
                 episodeIds = emptyList(),
-                isFavourite = false,
+                isFavourite = false
             ),
-            onFavouriteClick = {},
+            onFavouriteClick = {}
         )
     }
 }

@@ -22,5 +22,5 @@ data class CharacterEntity(
     val image: String,
     val episodeIds: List<Int>,
     val created: String,
-    val isFavourite: Boolean = false,
+    val isFavourite: Boolean = false
 )

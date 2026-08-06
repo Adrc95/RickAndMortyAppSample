@@ -20,13 +20,12 @@ class FakeCharacterRepository : CharacterRepository {
         name: String?,
         species: String?,
         gender: String?,
-        status: String?,
+        status: String?
     ): Flow<PagingData<Character>> = emptyFlow()
 
-    override fun getCharacterDetail(id: Int): Flow<Character> =
-        characters.asStateFlow().map { list ->
-            detailResult ?: list.first { it.id == id }
-        }
+    override fun getCharacterDetail(id: Int): Flow<Character> = characters.asStateFlow().map { list ->
+        detailResult ?: list.first { it.id == id }
+    }
 
     override fun isFavourite(characterId: Int): Flow<Boolean> =
         favourites.asStateFlow().map { it.contains(characterId) }

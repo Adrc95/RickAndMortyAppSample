@@ -13,7 +13,7 @@ import androidx.navigation3.ui.NavDisplay
 fun NavItemDisplay(
     modifier: Modifier = Modifier,
     backStack: NavBackStack<NavKey>,
-    entryProvider: (NavKey) -> NavEntry<NavKey>,
+    entryProvider: (NavKey) -> NavEntry<NavKey>
 ) {
     NavDisplay(
         modifier = modifier,

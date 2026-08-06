@@ -27,5 +27,5 @@ data class LocationDetailEntity(
     val type: String,
     val dimension: String,
     val residents: Int,
-    val isOrigin: Boolean,
+    val isOrigin: Boolean
 )

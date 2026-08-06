@@ -13,13 +13,15 @@ import com.adrc95.rickyandmorty.domain.usecase.ToggleFavouriteUseCase
 import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.MIN_SEARCH_LENGTH
 import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.SEARCH_DEBOUNCE_MILLIS
 import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.WHILE_SUBSCRIBED_TIMEOUT_MILLIS
-import com.adrc95.rickyandmorty.presentation.filter.mapper.toDisplayModel
-import com.adrc95.rickyandmorty.presentation.filter.mapper.toDomain
-import com.adrc95.rickyandmorty.presentation.filter.model.FilterGroupDisplayModel
 import com.adrc95.rickyandmorty.presentation.core.mapper.toDisplayModel
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterDisplayModel
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterFiltersDisplayModel
+import com.adrc95.rickyandmorty.presentation.filter.mapper.toDisplayModel
+import com.adrc95.rickyandmorty.presentation.filter.mapper.toDomain
+import com.adrc95.rickyandmorty.presentation.filter.model.FilterGroupDisplayModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -33,8 +35,6 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import kotlin.time.Duration.Companion.milliseconds
 
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
 @HiltViewModel
@@ -42,7 +42,7 @@ class HomeViewModel @Inject constructor(
     getCharactersUseCase: GetCharactersUseCase,
     private val searchCharactersUseCase: SearchCharactersUseCase,
     private val toggleFavouriteUseCase: ToggleFavouriteUseCase,
-    getFilterGroupsUseCase: GetFilterGroupsUseCase,
+    getFilterGroupsUseCase: GetFilterGroupsUseCase
 ) : ViewModel() {
 
     private val searchQuery = MutableStateFlow("")
@@ -50,22 +50,22 @@ class HomeViewModel @Inject constructor(
     private val filters = MutableStateFlow(CharacterFiltersDisplayModel())
 
     private val filterGroups: List<FilterGroupDisplayModel> = getFilterGroupsUseCase()
-            .map { group -> group.toDisplayModel() }
+        .map { group -> group.toDisplayModel() }
 
     val uiState: StateFlow<UiState> =
         combine(
             searchQuery,
-            filters,
+            filters
         ) { query, activeFilters ->
             UiState(
                 searchQuery = query,
                 filters = activeFilters,
-                filterGroups = filterGroups,
+                filterGroups = filterGroups
             )
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(WHILE_SUBSCRIBED_TIMEOUT_MILLIS),
-            initialValue = UiState(),
+            initialValue = UiState()
         )
 
     val characters: Flow<PagingData<CharacterDisplayModel>> =
@@ -75,11 +75,10 @@ class HomeViewModel @Inject constructor(
             .flatMapLatest { state ->
                 val hasFilters =
                     state.filters.species != null ||
-                            state.filters.gender != null ||
-                            state.filters.status != null
+                        state.filters.gender != null ||
+                        state.filters.status != null
                 if (state.searchQuery.length < MIN_SEARCH_LENGTH && !hasFilters) {
                     getCharactersUseCase()
-
                 } else {
                     searchCharactersUseCase(
                         name = state.searchQuery.takeIf {
@@ -87,7 +86,7 @@ class HomeViewModel @Inject constructor(
                         },
                         species = state.filters.species?.toDomain(),
                         gender = state.filters.gender?.toDomain(),
-                        status = state.filters.status?.toDomain(),
+                        status = state.filters.status?.toDomain()
                     )
                 }
             }
@@ -100,10 +99,7 @@ class HomeViewModel @Inject constructor(
         searchQuery.value = query
     }
 
-
-    fun onFiltersChange(
-        newFilters: CharacterFiltersDisplayModel
-    ) {
+    fun onFiltersChange(newFilters: CharacterFiltersDisplayModel) {
         filters.value = newFilters
     }
 
@@ -117,6 +113,6 @@ class HomeViewModel @Inject constructor(
         val searchQuery: String = "",
         val filters: CharacterFiltersDisplayModel = CharacterFiltersDisplayModel(),
         val filterGroups: List<FilterGroupDisplayModel> = emptyList(),
-        val error: AppError? = null,
+        val error: AppError? = null
     )
 }

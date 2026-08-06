@@ -6,6 +6,12 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.ktlint)
+}
+
+ktlint {
+    version.set(libs.versions.ktlint.get())
+    android.set(true)
 }
 
 android {

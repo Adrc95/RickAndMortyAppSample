@@ -24,6 +24,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.verify
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.advanceTimeBy
@@ -34,7 +35,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import kotlin.time.Duration.Companion.milliseconds
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModelTest {
@@ -59,7 +59,7 @@ class HomeViewModelTest {
         MockKAnnotations.init(this)
         every { getFilterGroupsUseCase() } returns listOf(
             filterGroup { withId(SPECIES_GROUP_ID) },
-            filterGroup { withId(GENDER_GROUP_ID) },
+            filterGroup { withId(GENDER_GROUP_ID) }
         )
     }
 
@@ -67,7 +67,7 @@ class HomeViewModelTest {
         getCharactersUseCase = getCharactersUseCase,
         searchCharactersUseCase = searchCharactersUseCase,
         toggleFavouriteUseCase = toggleFavouriteUseCase,
-        getFilterGroupsUseCase = getFilterGroupsUseCase,
+        getFilterGroupsUseCase = getFilterGroupsUseCase
     )
 
     private fun mockCharacters() {
@@ -134,7 +134,7 @@ class HomeViewModelTest {
                 awaitItem()
 
                 // Then
-                verify(exactly = 1) { getCharactersUseCase()}
+                verify(exactly = 1) { getCharactersUseCase() }
                 verify(exactly = 0) {
                     searchCharactersUseCase(any(), any(), any(), any())
                 }
@@ -161,7 +161,7 @@ class HomeViewModelTest {
                         name = "abc",
                         species = null,
                         gender = null,
-                        status = null,
+                        status = null
                     )
                 }
                 cancelAndIgnoreRemainingEvents()
@@ -187,10 +187,10 @@ class HomeViewModelTest {
                         name = "rick",
                         species = null,
                         gender = null,
-                        status = null,
+                        status = null
                     )
                 }
-                verify(exactly = 0) { getCharactersUseCase()}
+                verify(exactly = 0) { getCharactersUseCase() }
                 cancelAndIgnoreRemainingEvents()
             }
         }
@@ -220,7 +220,7 @@ class HomeViewModelTest {
                         name = null,
                         species = "Human",
                         gender = "Male",
-                        status = "Alive",
+                        status = "Alive"
                     )
                 }
                 cancelAndIgnoreRemainingEvents()
@@ -271,7 +271,7 @@ class HomeViewModelTest {
                         name = "rick",
                         species = "Human",
                         gender = null,
-                        status = null,
+                        status = null
                     )
                 }
                 cancelAndIgnoreRemainingEvents()
@@ -302,7 +302,7 @@ class HomeViewModelTest {
                         name = null,
                         species = null,
                         gender = null,
-                        status = "Alive",
+                        status = "Alive"
                     )
                 }
                 cancelAndIgnoreRemainingEvents()
@@ -331,7 +331,7 @@ class HomeViewModelTest {
                         name = "rick",
                         species = null,
                         gender = null,
-                        status = null,
+                        status = null
                     )
                 }
                 cancelAndIgnoreRemainingEvents()
@@ -359,7 +359,7 @@ class HomeViewModelTest {
                         name = "rick",
                         species = null,
                         gender = null,
-                        status = null,
+                        status = null
                     )
                 }
                 cancelAndIgnoreRemainingEvents()
@@ -396,7 +396,7 @@ class HomeViewModelTest {
                         name = null,
                         species = "Human",
                         gender = null,
-                        status = null,
+                        status = null
                     )
                 }
                 cancelAndIgnoreRemainingEvents()
@@ -445,7 +445,7 @@ class HomeViewModelTest {
             val viewModel = createViewModel()
             val differ = createPagingDataDiffer<CharacterDisplayModel>(
                 areItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
-                areContentsTheSame = { oldItem, newItem -> oldItem == newItem },
+                areContentsTheSame = { oldItem, newItem -> oldItem == newItem }
             )
 
             // When
@@ -481,19 +481,17 @@ class HomeViewModelTest {
         }
 
     @Test
-    fun `given toggle favourite called then invokes toggleFavouriteUseCase`() =
-        runTest(mainDispatcherRule.scheduler) {
-            // Given
-            mockCharacters()
-            coEvery { toggleFavouriteUseCase(1) } just Runs
-            val viewModel = createViewModel()
+    fun `given toggle favourite called then invokes toggleFavouriteUseCase`() = runTest(mainDispatcherRule.scheduler) {
+        // Given
+        mockCharacters()
+        coEvery { toggleFavouriteUseCase(1) } just Runs
+        val viewModel = createViewModel()
 
-            // When
-            viewModel.onToggleFavourite(1)
-            advanceUntilIdle()
+        // When
+        viewModel.onToggleFavourite(1)
+        advanceUntilIdle()
 
-            // Then
-            coVerify { toggleFavouriteUseCase(1) }
-        }
-
+        // Then
+        coVerify { toggleFavouriteUseCase(1) }
+    }
 }

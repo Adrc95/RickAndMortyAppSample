@@ -18,7 +18,7 @@ import javax.inject.Inject
 class RemoteRetrofitDataSource @Inject constructor(
     private val characterService: CharacterService,
     private val locationService: LocationService,
-    private val episodeService: EpisodeService,
+    private val episodeService: EpisodeService
 ) : RemoteDataSource {
 
     override suspend fun getCharacterById(id: Int): Result<Character> = tryCall {
@@ -41,7 +41,7 @@ class RemoteRetrofitDataSource @Inject constructor(
         name: String?,
         species: String?,
         gender: String?,
-        status: String?,
+        status: String?
     ): Result<Page<Character>> = tryCall {
         val result = characterService.getCharacters(page, name, species, gender, status)
         Page(

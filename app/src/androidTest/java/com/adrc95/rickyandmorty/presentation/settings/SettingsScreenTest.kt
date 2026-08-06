@@ -50,7 +50,7 @@ class SettingsScreenTest {
                         selectedMode = it
                         currentMode = it
                     },
-                    onBack = {},
+                    onBack = {}
                 )
             }
         }
@@ -69,7 +69,7 @@ class SettingsScreenTest {
                 SettingsScreen(
                     themeMode = ThemeModeDisplayModel.SYSTEM,
                     onThemeModeSelected = { selectedModes += it },
-                    onBack = {},
+                    onBack = {}
                 )
             }
         }
@@ -79,7 +79,7 @@ class SettingsScreenTest {
 
         assertEquals(
             listOf(ThemeModeDisplayModel.LIGHT, ThemeModeDisplayModel.SYSTEM),
-            selectedModes,
+            selectedModes
         )
     }
 
@@ -95,19 +95,15 @@ class SettingsScreenTest {
         assertTrue(backClicked)
     }
 
-    private fun setContent(
-        themeMode: ThemeModeDisplayModel = ThemeModeDisplayModel.SYSTEM,
-        onBack: () -> Unit = {},
-    ) {
+    private fun setContent(themeMode: ThemeModeDisplayModel = ThemeModeDisplayModel.SYSTEM, onBack: () -> Unit = {}) {
         composeTestRule.setContent {
             RickyAndMortyTheme {
                 SettingsScreen(
                     themeMode = themeMode,
                     onThemeModeSelected = {},
-                    onBack = onBack,
+                    onBack = onBack
                 )
             }
         }
     }
-
 }

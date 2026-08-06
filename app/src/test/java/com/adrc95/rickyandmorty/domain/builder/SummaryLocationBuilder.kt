@@ -11,7 +11,7 @@ class SummaryLocationBuilder {
 
     fun build() = SummaryLocation(
         id = id,
-        name = name,
+        name = name
     )
 }
 

@@ -18,5 +18,5 @@ data class CharacterDisplayModel(
     val image: String,
     val episodeIds: List<Int>,
     val episodeDetails: List<EpisodeDetail> = emptyList(),
-    val isFavourite: Boolean = false,
+    val isFavourite: Boolean = false
 )

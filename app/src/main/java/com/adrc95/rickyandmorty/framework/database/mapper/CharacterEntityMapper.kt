@@ -22,5 +22,5 @@ fun CharacterEntity.toDomain(): Character = Character(
     image = image,
     episodeIds = episodeIds,
     created = created,
-    isFavourite = isFavourite,
+    isFavourite = isFavourite
 )

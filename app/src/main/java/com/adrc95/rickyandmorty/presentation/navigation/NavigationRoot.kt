@@ -13,27 +13,22 @@ import com.adrc95.rickyandmorty.presentation.detail.DetailViewModel
 import com.adrc95.rickyandmorty.presentation.home.HomeRoute
 import com.adrc95.rickyandmorty.presentation.settings.SettingsRoute
 
-
 @Composable
-fun NavigationRoot(
-    modifier: Modifier = Modifier,
-) {
+fun NavigationRoot(modifier: Modifier = Modifier) {
     val backStack = rememberNavBackStack(Route.Home)
     NavItemDisplay(
         modifier = modifier,
         backStack = backStack,
-        entryProvider = entryProvider { AppEntryProvider(backStack = backStack) },
+        entryProvider = entryProvider { AppEntryProvider(backStack = backStack) }
     )
 }
 
 @Composable
-private fun EntryProviderScope<NavKey>.AppEntryProvider(
-    backStack: NavBackStack<NavKey>
-) {
+private fun EntryProviderScope<NavKey>.AppEntryProvider(backStack: NavBackStack<NavKey>) {
     entry<Route.Home> {
         HomeRoute(
             onCharacterClick = { item -> backStack.add(Route.Detail(item.id)) },
-            onSettingsClick = { backStack.add(Route.Settings) },
+            onSettingsClick = { backStack.add(Route.Settings) }
         )
     }
     entry<Route.Detail> { route ->

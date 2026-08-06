@@ -14,7 +14,7 @@ import org.junit.runner.Description
 class MainDispatcherRule(
     val scheduler: TestCoroutineScheduler = TestCoroutineScheduler(),
     private val testDispatcher: TestDispatcher = UnconfinedTestDispatcher(scheduler)
-): TestWatcher() {
+) : TestWatcher() {
     override fun starting(description: Description?) {
         Dispatchers.setMain(testDispatcher)
     }

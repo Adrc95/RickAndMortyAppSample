@@ -17,9 +17,8 @@ class FavoriteDtoBuilder {
         color = color,
         food = food,
         random = random,
-        song = song,
+        song = song
     )
 }
 
-fun favoriteDto(block: FavoriteDtoBuilder.() -> Unit = {}): FavoriteDto =
-    FavoriteDtoBuilder().apply(block).build()
+fun favoriteDto(block: FavoriteDtoBuilder.() -> Unit = {}): FavoriteDto = FavoriteDtoBuilder().apply(block).build()

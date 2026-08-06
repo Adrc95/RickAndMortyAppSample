@@ -13,17 +13,16 @@ import javax.inject.Singleton
 @Module
 @TestInstallIn(
     components = [SingletonComponent::class],
-    replaces = [DataStoreModule::class],
+    replaces = [DataStoreModule::class]
 )
 object DataStoreTestModule {
 
     @Provides
     @Singleton
-    fun provideDataStore(): DataStore<Preferences> =
-        PreferenceDataStoreFactory.create {
-            File.createTempFile(
-                "test_settings",
-                ".preferences_pb"
-            )
-        }
+    fun provideDataStore(): DataStore<Preferences> = PreferenceDataStoreFactory.create {
+        File.createTempFile(
+            "test_settings",
+            ".preferences_pb"
+        )
+    }
 }

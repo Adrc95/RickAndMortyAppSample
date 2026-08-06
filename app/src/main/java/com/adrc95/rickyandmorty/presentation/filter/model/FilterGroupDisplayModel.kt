@@ -5,5 +5,5 @@ import androidx.annotation.StringRes
 data class FilterGroupDisplayModel(
     val id: String,
     @StringRes val title: Int,
-    val options: List<FilterOptionDisplayModel>,
+    val options: List<FilterOptionDisplayModel>
 )

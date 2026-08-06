@@ -17,11 +17,13 @@ class FilterGroupMapperTest {
         // Given
         val domain = filterGroup {
             withId(SPECIES_GROUP_ID)
-            withOptions(listOf(
-                FilterOption(id = "human"),
-                FilterOption(id = "alien"),
-                FilterOption(id = "robot"),
-            ))
+            withOptions(
+                listOf(
+                    FilterOption(id = "human"),
+                    FilterOption(id = "alien"),
+                    FilterOption(id = "robot")
+                )
+            )
         }
 
         // When
@@ -30,11 +32,14 @@ class FilterGroupMapperTest {
         // Then
         assertEquals(SPECIES_GROUP_ID, result.id)
         assertEquals(R.string.species, result.title)
-        assertEquals(listOf(
-            FilterOptionDisplayModel.Species.Human,
-            FilterOptionDisplayModel.Species.Alien,
-            FilterOptionDisplayModel.Species.Robot,
-        ), result.options)
+        assertEquals(
+            listOf(
+                FilterOptionDisplayModel.Species.Human,
+                FilterOptionDisplayModel.Species.Alien,
+                FilterOptionDisplayModel.Species.Robot
+            ),
+            result.options
+        )
     }
 
     @Test
@@ -42,12 +47,14 @@ class FilterGroupMapperTest {
         // Given
         val domain = filterGroup {
             withId(GENDER_GROUP_ID)
-            withOptions(listOf(
-                FilterOption(id = "female"),
-                FilterOption(id = "male"),
-                FilterOption(id = "genderless"),
-                FilterOption(id = "unknown"),
-            ))
+            withOptions(
+                listOf(
+                    FilterOption(id = "female"),
+                    FilterOption(id = "male"),
+                    FilterOption(id = "genderless"),
+                    FilterOption(id = "unknown")
+                )
+            )
         }
 
         // When
@@ -56,12 +63,15 @@ class FilterGroupMapperTest {
         // Then
         assertEquals(GENDER_GROUP_ID, result.id)
         assertEquals(R.string.genders, result.title)
-        assertEquals(listOf(
-            FilterOptionDisplayModel.Gender.Female,
-            FilterOptionDisplayModel.Gender.Male,
-            FilterOptionDisplayModel.Gender.Genderless,
-            FilterOptionDisplayModel.Gender.Unknown,
-        ), result.options)
+        assertEquals(
+            listOf(
+                FilterOptionDisplayModel.Gender.Female,
+                FilterOptionDisplayModel.Gender.Male,
+                FilterOptionDisplayModel.Gender.Genderless,
+                FilterOptionDisplayModel.Gender.Unknown
+            ),
+            result.options
+        )
     }
 
     @Test
@@ -69,11 +79,13 @@ class FilterGroupMapperTest {
         // Given
         val domain = filterGroup {
             withId(STATUS_GROUP_ID)
-            withOptions(listOf(
-                FilterOption(id = "alive"),
-                FilterOption(id = "dead"),
-                FilterOption(id = "unknown"),
-            ))
+            withOptions(
+                listOf(
+                    FilterOption(id = "alive"),
+                    FilterOption(id = "dead"),
+                    FilterOption(id = "unknown")
+                )
+            )
         }
 
         // When
@@ -82,11 +94,14 @@ class FilterGroupMapperTest {
         // Then
         assertEquals(STATUS_GROUP_ID, result.id)
         assertEquals(R.string.status, result.title)
-        assertEquals(listOf(
-            FilterOptionDisplayModel.Status.Alive,
-            FilterOptionDisplayModel.Status.Dead,
-            FilterOptionDisplayModel.Status.Unknown,
-        ), result.options)
+        assertEquals(
+            listOf(
+                FilterOptionDisplayModel.Status.Alive,
+                FilterOptionDisplayModel.Status.Dead,
+                FilterOptionDisplayModel.Status.Unknown
+            ),
+            result.options
+        )
     }
 
     @Test

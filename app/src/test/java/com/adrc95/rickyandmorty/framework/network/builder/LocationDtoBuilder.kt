@@ -26,9 +26,8 @@ class LocationDtoBuilder {
         type = type,
         dimension = dimension,
         residents = residents,
-        url = url,
+        url = url
     )
 }
 
-fun locationDto(block: LocationDtoBuilder.() -> Unit = {}): LocationDto =
-    LocationDtoBuilder().apply(block).build()
+fun locationDto(block: LocationDtoBuilder.() -> Unit = {}): LocationDto = LocationDtoBuilder().apply(block).build()

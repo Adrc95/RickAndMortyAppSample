@@ -1,10 +1,10 @@
 package com.adrc95.rickyandmorty.presentation.settings.composable
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -18,25 +18,20 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ThemeOption(
-    label: String,
-    @DrawableRes icon: Int,
-    selected: Boolean,
-    onClick: () -> Unit,
-) {
+fun ThemeOption(label: String, @DrawableRes icon: Int, selected: Boolean, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .selectable(
                 selected = selected,
                 role = Role.RadioButton,
-                onClick = onClick,
+                onClick = onClick
             )
             .padding(
                 horizontal = 16.dp,
-                vertical = 12.dp,
+                vertical = 12.dp
             ),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             painter = painterResource(icon),
@@ -55,7 +50,7 @@ fun ThemeOption(
             onClick = null,
             colors = RadioButtonDefaults.colors(
                 selectedColor = MaterialTheme.colorScheme.primary,
-                unselectedColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                unselectedColor = MaterialTheme.colorScheme.onSurfaceVariant
             )
         )
     }

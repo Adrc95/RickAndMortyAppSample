@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class EpisodeRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource,
+    private val localDataSource: LocalDataSource
 ) : EpisodeRepository {
 
     override suspend fun getEpisodes(characterId: Int, episodeIds: List<Int>): Result<List<EpisodeDetail>> {
@@ -21,6 +21,7 @@ class EpisodeRepositoryImpl @Inject constructor(
                 localDataSource.saveEpisodeDetails(result.data, characterId)
                 Result.Success(result.data)
             }
+
             is Result.Error -> result
         }
     }

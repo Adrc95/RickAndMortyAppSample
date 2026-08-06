@@ -38,7 +38,7 @@ class GetFilterGroupsUseCaseTest {
                 FilterOption(id = "cronenberg"),
                 FilterOption(id = "poopybutthole"),
                 FilterOption(id = "mythological"),
-                FilterOption(id = "unknown"),
+                FilterOption(id = "unknown")
             ),
             species.options
         )
@@ -57,7 +57,7 @@ class GetFilterGroupsUseCaseTest {
                 FilterOption(id = "female"),
                 FilterOption(id = "male"),
                 FilterOption(id = "genderless"),
-                FilterOption(id = "unknown"),
+                FilterOption(id = "unknown")
             ),
             gender.options
         )
@@ -75,7 +75,7 @@ class GetFilterGroupsUseCaseTest {
             listOf(
                 FilterOption(id = "alive"),
                 FilterOption(id = "dead"),
-                FilterOption(id = "unknown"),
+                FilterOption(id = "unknown")
             ),
             status.options
         )

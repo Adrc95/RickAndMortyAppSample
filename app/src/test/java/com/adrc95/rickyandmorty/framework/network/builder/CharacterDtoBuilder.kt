@@ -45,9 +45,8 @@ class CharacterDtoBuilder {
         image = image,
         episode = episode,
         url = url,
-        created = created,
+        created = created
     )
 }
 
-fun characterDto(block: CharacterDtoBuilder.() -> Unit = {}): CharacterDto =
-    CharacterDtoBuilder().apply(block).build()
+fun characterDto(block: CharacterDtoBuilder.() -> Unit = {}): CharacterDto = CharacterDtoBuilder().apply(block).build()

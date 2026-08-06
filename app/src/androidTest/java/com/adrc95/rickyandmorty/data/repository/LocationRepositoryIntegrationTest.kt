@@ -8,11 +8,12 @@ import com.adrc95.rickyandmorty.domain.repository.LocationRepository
 import com.adrc95.rickyandmorty.framework.database.AppDatabase
 import com.adrc95.rickyandmorty.framework.database.builder.characterEntity
 import com.adrc95.rickyandmorty.framework.database.builder.locationDetailEntity
-import com.adrc95.rickyandmorty.testing.extension.readJsonAsset
 import com.adrc95.rickyandmorty.mockwebserver.MockWebServerRule
 import com.adrc95.rickyandmorty.mockwebserver.MockWebServerUrlHolder
+import com.adrc95.rickyandmorty.testing.extension.readJsonAsset
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import org.junit.After
@@ -23,7 +24,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import javax.inject.Inject
 
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
@@ -70,10 +70,10 @@ class LocationRepositoryIntegrationTest {
                     name = "Citadel of Ricks",
                     type = "Space station",
                     dimension = "unknown",
-                    residentsCount = 2,
+                    residentsCount = 2
                 )
             ),
-            result,
+            result
         )
         assertEquals("/location/3", mockWebServerRule.server.takeRequest().path)
         assertEquals(
@@ -86,14 +86,18 @@ class LocationRepositoryIntegrationTest {
                 withResidents(2)
                 withIsOrigin(false)
             },
-            database.locationDetailDao().getByCharacterId(1, isOrigin = false),
+            database.locationDetailDao().getByCharacterId(1, isOrigin = false)
         )
     }
 
     @Test
     fun givenLocationCached_whenGetLocation_thenReturnsCacheWithoutCallingRemote() = runTest {
         database.characterDao().insertAll(listOf(characterEntity()))
-        val cached = locationDetailEntity { withId(3); withCharacterId(1); withIsOrigin(false) }
+        val cached = locationDetailEntity {
+            withId(3)
+            withCharacterId(1)
+            withIsOrigin(false)
+        }
         database.locationDetailDao().insert(cached)
 
         val result = repository.getLocation(characterId = 1, locationId = 999, isOrigin = false)
@@ -105,10 +109,10 @@ class LocationRepositoryIntegrationTest {
                     name = "Earth (C-137)",
                     type = "Planet",
                     dimension = "Dimension C-137",
-                    residentsCount = 27,
+                    residentsCount = 27
                 )
             ),
-            result,
+            result
         )
         assertEquals(0, mockWebServerRule.server.requestCount)
     }
@@ -129,7 +133,11 @@ class LocationRepositoryIntegrationTest {
     fun givenOriginLocationCached_whenRequestingCurrentLocation_thenFetchesCurrentLocation() = runTest {
         database.characterDao().insertAll(listOf(characterEntity()))
         database.locationDetailDao().insert(
-            locationDetailEntity { withId(1); withCharacterId(1); withIsOrigin(true) }
+            locationDetailEntity {
+                withId(1)
+                withCharacterId(1)
+                withIsOrigin(true)
+            }
         )
         mockWebServerRule.server.enqueue(
             MockResponse()
@@ -150,11 +158,18 @@ class LocationRepositoryIntegrationTest {
         database.characterDao().insertAll(
             listOf(
                 characterEntity { withId(1) },
-                characterEntity { withId(2); withName("Morty Smith") },
+                characterEntity {
+                    withId(2)
+                    withName("Morty Smith")
+                }
             )
         )
         database.locationDetailDao().insert(
-            locationDetailEntity { withId(3); withCharacterId(2); withIsOrigin(false) }
+            locationDetailEntity {
+                withId(3)
+                withCharacterId(2)
+                withIsOrigin(false)
+            }
         )
         mockWebServerRule.server.enqueue(
             MockResponse()
@@ -167,5 +182,4 @@ class LocationRepositoryIntegrationTest {
         assertEquals("/location/3", mockWebServerRule.server.takeRequest().path)
         assertEquals(3, database.locationDetailDao().getByCharacterId(1, isOrigin = false)!!.id)
     }
-
 }

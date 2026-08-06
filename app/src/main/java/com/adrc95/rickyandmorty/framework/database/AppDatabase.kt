@@ -17,7 +17,7 @@ import com.adrc95.rickyandmorty.framework.database.entity.RemoteKeyEntity
         CharacterEntity::class,
         RemoteKeyEntity::class,
         LocationDetailEntity::class,
-        EpisodeDetailEntity::class,
+        EpisodeDetailEntity::class
     ],
     version = 1,
     exportSchema = false

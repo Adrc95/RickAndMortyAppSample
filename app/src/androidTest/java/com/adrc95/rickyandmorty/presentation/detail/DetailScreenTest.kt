@@ -1,23 +1,23 @@
 package com.adrc95.rickyandmorty.presentation.detail
 
 import androidx.activity.ComponentActivity
-import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasProgressBarRangeInfo
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onRoot
-import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
-import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import com.adrc95.rickyandmorty.R
 import com.adrc95.rickyandmorty.domain.exception.AppError
+import com.adrc95.rickyandmorty.domain.model.EpisodeDetail
 import com.adrc95.rickyandmorty.domain.model.LocationDetail
 import com.adrc95.rickyandmorty.domain.model.SummaryLocation
-import com.adrc95.rickyandmorty.domain.model.EpisodeDetail
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterDisplayModel
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterStatusDisplayModel
 import com.adrc95.rickyandmorty.presentation.ui.theme.RickyAndMortyTheme
@@ -58,7 +58,7 @@ class DetailScreenTest {
         setContent(
             DetailViewModel.UiState(
                 character = character(),
-                error = AppError.Connectivity,
+                error = AppError.Connectivity
             )
         )
         composeTestRule.onNodeWithText("Rick Sanchez").assertIsDisplayed()
@@ -75,7 +75,7 @@ class DetailScreenTest {
                             id = index,
                             name = "Episode $index",
                             episode = "S01E${index.toString().padStart(2, '0')}",
-                            airDate = "January 1, 2020",
+                            airDate = "January 1, 2020"
                         )
                     }
                 )
@@ -98,6 +98,7 @@ class DetailScreenTest {
         composeTestRule.onNodeWithText(CharacterStatusDisplayModel.DEAD.text.string().uppercase())
             .assertIsDisplayed()
     }
+
     @Test
     fun givenUnknownCharacterStatus_whenScreenIsDisplayed_thenShowsUnknownStatus() {
         setContent(
@@ -128,15 +129,15 @@ class DetailScreenTest {
                         name = "Earth (C-137)",
                         type = "Planet",
                         dimension = "Dimension C-137",
-                        residentsCount = 10,
+                        residentsCount = 10
                     ),
                     locationDetail = LocationDetail(
                         id = 3,
                         name = "Citadel of Ricks",
                         type = "Space station",
                         dimension = "unknown",
-                        residentsCount = 20,
-                    ),
+                        residentsCount = 20
+                    )
                 )
             )
         )
@@ -159,7 +160,7 @@ class DetailScreenTest {
                             id = 1,
                             name = "Pilot",
                             episode = "S01E01",
-                            airDate = "December 2, 2013",
+                            airDate = "December 2, 2013"
                         )
                     )
                 )
@@ -179,7 +180,7 @@ class DetailScreenTest {
             state = DetailViewModel.UiState(character = character()),
             onBack = { backClicked = true },
             onSettingsClick = { settingsClicked = true },
-            onFavouriteClick = { favouriteClicked = true },
+            onFavouriteClick = { favouriteClicked = true }
         )
         composeTestRule.onNodeWithContentDescription(R.string.back.string()).performClick()
         composeTestRule.onNodeWithContentDescription(R.string.settings.string()).performClick()
@@ -203,7 +204,7 @@ class DetailScreenTest {
         state: DetailViewModel.UiState,
         onBack: () -> Unit = {},
         onSettingsClick: () -> Unit = {},
-        onFavouriteClick: () -> Unit = {},
+        onFavouriteClick: () -> Unit = {}
     ) {
         composeTestRule.setContent {
             RickyAndMortyTheme {
@@ -211,7 +212,7 @@ class DetailScreenTest {
                     state = state,
                     onBack = onBack,
                     onSettingsClick = onSettingsClick,
-                    onFavouriteClick = onFavouriteClick,
+                    onFavouriteClick = onFavouriteClick
                 )
             }
         }
@@ -221,7 +222,7 @@ class DetailScreenTest {
         status: CharacterStatusDisplayModel = CharacterStatusDisplayModel.ALIVE,
         originDetail: LocationDetail? = null,
         locationDetail: LocationDetail? = null,
-        episodeDetails: List<EpisodeDetail> = emptyList(),
+        episodeDetails: List<EpisodeDetail> = emptyList()
     ) = CharacterDisplayModel(
         id = 1,
         name = "Rick Sanchez",
@@ -235,6 +236,6 @@ class DetailScreenTest {
         locationDetail = locationDetail,
         image = "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
         episodeIds = emptyList(),
-        episodeDetails = episodeDetails,
+        episodeDetails = episodeDetails
     )
 }

@@ -16,9 +16,7 @@ interface CharacterDao {
     fun getCharacters(): PagingSource<Int, CharacterEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(
-        characters: List<CharacterEntity>
-    )
+    suspend fun insertAll(characters: List<CharacterEntity>)
 
     @Query("DELETE FROM $CHARACTER_TABLE")
     suspend fun clear()

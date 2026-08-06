@@ -27,14 +27,11 @@ import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.FALLBACK
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterDisplayModel
 import com.adrc95.rickyandmorty.presentation.ui.theme.Shapes
 
-
 @Composable
-fun InfoGrid(
-    character: CharacterDisplayModel
-) {
+fun InfoGrid(character: CharacterDisplayModel) {
     Column(
         modifier = Modifier.padding(
-            horizontal = 16.dp,
+            horizontal = 16.dp
         ),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -42,7 +39,7 @@ fun InfoGrid(
             modifier = Modifier.fillMaxWidth(),
             icon = R.drawable.icon_gender,
             label = stringResource(R.string.specie_gender),
-            value = "${character.species} / ${character.gender}",
+            value = "${character.species} / ${character.gender}"
         )
         InfoCard(
             modifier = Modifier.fillMaxWidth(),
@@ -52,7 +49,7 @@ fun InfoGrid(
             value = character.origin.name,
             type = character.originDetail?.type,
             dimension = character.originDetail?.dimension,
-            residentsCount = character.originDetail?.residentsCount,
+            residentsCount = character.originDetail?.residentsCount
         )
 
         InfoCard(
@@ -63,11 +60,10 @@ fun InfoGrid(
             value = character.location.name,
             type = character.locationDetail?.type,
             dimension = character.locationDetail?.dimension,
-            residentsCount = character.locationDetail?.residentsCount,
+            residentsCount = character.locationDetail?.residentsCount
         )
     }
 }
-
 
 @Composable
 private fun InfoCard(
@@ -78,7 +74,7 @@ private fun InfoCard(
     moreInfo: Boolean = false,
     type: String? = null,
     dimension: String? = null,
-    residentsCount: Int? = null,
+    residentsCount: Int? = null
 ) {
     Card(
         modifier = modifier,
@@ -87,7 +83,7 @@ private fun InfoCard(
         ),
         border = BorderStroke(
             width = 1.dp,
-            color = MaterialTheme.colorScheme.outlineVariant,
+            color = MaterialTheme.colorScheme.outlineVariant
         ),
         shape = Shapes.large
     ) {
@@ -97,7 +93,7 @@ private fun InfoCard(
         ) {
             Icon(
                 painter = painterResource(icon),
-                contentDescription = null,
+                contentDescription = null
             )
             Text(
                 text = label.uppercase(),
@@ -119,58 +115,48 @@ private fun InfoCard(
                 MoreInfo(
                     type = type,
                     dimension = dimension,
-                    residentsCount = residentsCount,
+                    residentsCount = residentsCount
                 )
             }
         }
     }
 }
 
-
 @Composable
-private fun MoreInfo(
-    type: String? = null,
-    dimension: String? = null,
-    residentsCount: Int? = null,
-) {
+private fun MoreInfo(type: String? = null, dimension: String? = null, residentsCount: Int? = null) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
-        modifier =  Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth()
     ) {
         MoreInfoItem(
             option = stringResource(R.string.type),
             text = type ?: FALLBACK_TEXT,
-            badge = false,
+            badge = false
         )
         MoreInfoItem(
             option = stringResource(R.string.dimensions),
             text = dimension ?: FALLBACK_TEXT,
-            badge = false,
+            badge = false
         )
         MoreInfoItem(
             option = stringResource(R.string.residents),
             text = residentsCount?.toString() ?: FALLBACK_TEXT,
-            badge = true,
+            badge = true
         )
     }
 }
 
 @Composable
-private fun MoreInfoItem(
-    modifier: Modifier = Modifier,
-    option: String,
-    text: String,
-    badge: Boolean,
-) {
+private fun MoreInfoItem(modifier: Modifier = Modifier, option: String, text: String, badge: Boolean) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth()
     ) {
         Text(
             text = option.uppercase(),
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         if (badge) {
             Surface(
@@ -188,12 +174,11 @@ private fun MoreInfoItem(
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
                 )
             }
-        }
-        else {
+        } else {
             Text(
                 text = text,
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.primary
             )
         }
     }

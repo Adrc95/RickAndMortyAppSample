@@ -13,7 +13,7 @@ class CharactersResponseBuilder {
 
     fun build() = CharactersResponse(
         info = info,
-        results = results,
+        results = results
     )
 }
 

@@ -16,5 +16,5 @@ data class LocationDto(
     @SerialName("residents")
     val residents: List<String>,
     @SerialName("url")
-    val url: String,
+    val url: String
 )

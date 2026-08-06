@@ -4,6 +4,8 @@ import androidx.paging.PagingSource
 import androidx.room.withTransaction
 import com.adrc95.rickyandmorty.data.DataConstants.CHARACTERS_RESOURCE
 import com.adrc95.rickyandmorty.data.mapper.toEntity
+import com.adrc95.rickyandmorty.data.mapper.toEntity as episodeToEntity
+import com.adrc95.rickyandmorty.data.mapper.toEntity as locationToEntity
 import com.adrc95.rickyandmorty.domain.model.Character
 import com.adrc95.rickyandmorty.domain.model.EpisodeDetail
 import com.adrc95.rickyandmorty.domain.model.LocationDetail
@@ -15,35 +17,26 @@ import com.adrc95.rickyandmorty.framework.database.dao.RemoteKeyDao
 import com.adrc95.rickyandmorty.framework.database.entity.CharacterEntity
 import com.adrc95.rickyandmorty.framework.database.entity.RemoteKeyEntity
 import com.adrc95.rickyandmorty.framework.database.mapper.toDomain
-import com.adrc95.rickyandmorty.data.mapper.toEntity as locationToEntity
-import com.adrc95.rickyandmorty.data.mapper.toEntity as episodeToEntity
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 class RoomDataSource @Inject constructor(
     private val database: AppDatabase,
     private val characterDao: CharacterDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val locationDetailDao: LocationDetailDao,
-    private val episodeDetailDao: EpisodeDetailDao,
+    private val episodeDetailDao: EpisodeDetailDao
 ) : LocalDataSource {
 
-    override suspend fun getCharacterById(id: Int): CharacterEntity? =
-        characterDao.getById(id)
+    override suspend fun getCharacterById(id: Int): CharacterEntity? = characterDao.getById(id)
 
-    override fun getCharacters(): PagingSource<Int, CharacterEntity> =
-        characterDao.getCharacters()
+    override fun getCharacters(): PagingSource<Int, CharacterEntity> = characterDao.getCharacters()
 
-    override suspend fun getRemoteKey(resource: String): RemoteKeyEntity? =
-        remoteKeyDao.get(resource)
+    override suspend fun getRemoteKey(resource: String): RemoteKeyEntity? = remoteKeyDao.get(resource)
 
     override suspend fun hasCachedCharacters(): Boolean = characterDao.count() > 0
 
-    override suspend fun insertCharacters(
-        characters: List<Character>,
-        nextPage: Int?,
-        deleteOld: Boolean
-    ) {
+    override suspend fun insertCharacters(characters: List<Character>, nextPage: Int?, deleteOld: Boolean) {
         database.withTransaction {
             if (deleteOld) {
                 remoteKeyDao.clear()
@@ -54,7 +47,7 @@ class RoomDataSource @Inject constructor(
                 RemoteKeyEntity(
                     resource = CHARACTERS_RESOURCE,
                     nextPage = nextPage,
-                    lastUpdatedAt = System.currentTimeMillis(),
+                    lastUpdatedAt = System.currentTimeMillis()
                 )
             )
         }
@@ -85,8 +78,7 @@ class RoomDataSource @Inject constructor(
         }
     }
 
-    override fun isFavourite(characterId: Int): Flow<Boolean> =
-        characterDao.isFavourite(characterId)
+    override fun isFavourite(characterId: Int): Flow<Boolean> = characterDao.isFavourite(characterId)
 
     override suspend fun toggleFavourite(characterId: Int) {
         characterDao.toggleFavourite(characterId)

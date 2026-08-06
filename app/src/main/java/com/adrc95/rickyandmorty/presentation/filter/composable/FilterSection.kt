@@ -28,7 +28,7 @@ fun <T : FilterOptionDisplayModel> FilterSection(
     @StringRes title: Int,
     options: List<T>,
     selected: T?,
-    onSelect: (T) -> Unit,
+    onSelect: (T) -> Unit
 ) {
     Column {
         Text(
@@ -37,14 +37,14 @@ fun <T : FilterOptionDisplayModel> FilterSection(
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             letterSpacing = MaterialTheme.typography.labelSmall.letterSpacing,
-            modifier = Modifier.semantics { heading() },
+            modifier = Modifier.semantics { heading() }
         )
 
         Spacer(modifier = Modifier.height(12.dp))
 
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             options.forEach { option ->
                 val isSelected = option == selected
@@ -56,14 +56,14 @@ fun <T : FilterOptionDisplayModel> FilterSection(
                     shape = RoundedCornerShape(8.dp),
                     colors = FilterChipDefaults.filterChipColors(
                         selectedContainerColor = MaterialTheme.colorScheme.onSurface,
-                        selectedLabelColor = MaterialTheme.colorScheme.surface,
+                        selectedLabelColor = MaterialTheme.colorScheme.surface
                     ),
                     border = FilterChipDefaults.filterChipBorder(
                         borderColor = MaterialTheme.colorScheme.outlineVariant,
                         selectedBorderColor = MaterialTheme.colorScheme.onSurface,
                         enabled = true,
-                        selected = isSelected,
-                    ),
+                        selected = isSelected
+                    )
                 )
             }
         }

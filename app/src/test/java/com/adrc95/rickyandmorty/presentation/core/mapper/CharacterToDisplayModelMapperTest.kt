@@ -21,8 +21,18 @@ class CharacterToDisplayModelMapperTest {
             withSpecies("Human")
             withType("")
             withGender("Male")
-            withOrigin(summaryLocation { withId(1); withName("Earth (C-137)") })
-            withLocation(summaryLocation { withId(3); withName("Citadel of Ricks") })
+            withOrigin(
+                summaryLocation {
+                    withId(1)
+                    withName("Earth (C-137)")
+                }
+            )
+            withLocation(
+                summaryLocation {
+                    withId(3)
+                    withName("Citadel of Ricks")
+                }
+            )
             withImage("https://rickandmortyapi.com/api/character/avatar/1.jpeg")
             withEpisodeIds(listOf(1, 2))
             withCreated("2017-11-04T18:48:46.250Z")
@@ -50,18 +60,30 @@ class CharacterToDisplayModelMapperTest {
     fun `given character with details when mapped to display model then preserves details`() {
         // Given
         val domain = character { withId(1) }
-        val originDetail = locationDetail { withId(1); withName("Earth (C-137)") }
-        val locDetail = locationDetail { withId(3); withName("Citadel of Ricks") }
+        val originDetail = locationDetail {
+            withId(1)
+            withName("Earth (C-137)")
+        }
+        val locDetail = locationDetail {
+            withId(3)
+            withName("Citadel of Ricks")
+        }
         val episodes = listOf(
-            episodeDetail { withId(1); withName("Pilot") },
-            episodeDetail { withId(2); withName("Lawnmower Dog") },
+            episodeDetail {
+                withId(1)
+                withName("Pilot")
+            },
+            episodeDetail {
+                withId(2)
+                withName("Lawnmower Dog")
+            }
         )
 
         // When
         val result = domain.toDisplayModel(
             originDetail = originDetail,
             locationDetail = locDetail,
-            episodeDetails = episodes,
+            episodeDetails = episodes
         )
 
         // Then

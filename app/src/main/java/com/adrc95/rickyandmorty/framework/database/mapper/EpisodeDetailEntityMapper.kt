@@ -7,5 +7,5 @@ fun EpisodeDetailEntity.toDomain(): EpisodeDetail = EpisodeDetail(
     id = id,
     name = name,
     episode = episode,
-    airDate = airDate,
+    airDate = airDate
 )

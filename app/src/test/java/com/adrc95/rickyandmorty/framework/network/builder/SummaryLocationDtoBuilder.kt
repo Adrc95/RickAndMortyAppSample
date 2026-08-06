@@ -11,7 +11,7 @@ class SummaryLocationDtoBuilder {
 
     fun build() = SummaryLocationDto(
         name = name,
-        url = url,
+        url = url
     )
 }
 

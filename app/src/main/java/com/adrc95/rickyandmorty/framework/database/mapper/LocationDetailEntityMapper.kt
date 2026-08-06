@@ -8,5 +8,5 @@ fun LocationDetailEntity.toDomain(): LocationDetail = LocationDetail(
     name = name,
     type = type,
     dimension = dimension,
-    residentsCount = residents,
+    residentsCount = residents
 )

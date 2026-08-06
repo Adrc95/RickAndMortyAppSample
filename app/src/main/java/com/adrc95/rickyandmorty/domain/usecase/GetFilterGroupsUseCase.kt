@@ -35,8 +35,8 @@ class GetFilterGroupsUseCase @Inject constructor() {
                 FilterOption(id = SPECIES_CRONENBERG),
                 FilterOption(id = SPECIES_POOPYBUTTHOLE),
                 FilterOption(id = SPECIES_MYTHOLOGICAL),
-                FilterOption(id = UNKNOWN),
-            ),
+                FilterOption(id = UNKNOWN)
+            )
         ),
         FilterGroup(
             id = GENDER_GROUP_ID,
@@ -44,16 +44,16 @@ class GetFilterGroupsUseCase @Inject constructor() {
                 FilterOption(id = GENDER_FEMALE),
                 FilterOption(id = GENDER_MALE),
                 FilterOption(id = GENDER_GENDERLESS),
-                FilterOption(id = UNKNOWN),
-            ),
+                FilterOption(id = UNKNOWN)
+            )
         ),
         FilterGroup(
             id = STATUS_GROUP_ID,
             options = listOf(
                 FilterOption(id = STATUS_ALIVE),
                 FilterOption(id = STATUS_DEAD),
-                FilterOption(id = UNKNOWN),
-            ),
-        ),
+                FilterOption(id = UNKNOWN)
+            )
+        )
     )
 }

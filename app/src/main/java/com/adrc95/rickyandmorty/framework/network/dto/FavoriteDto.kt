@@ -9,5 +9,5 @@ data class FavoriteDto(
     val food: String,
     @SerialName("random_string")
     val random: String,
-    val song: String,
+    val song: String
 )

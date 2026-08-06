@@ -18,15 +18,11 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindRemoteDataSource(
-        remoteRetrofitDataSource: RemoteRetrofitDataSource
-    ): RemoteDataSource
+    abstract fun bindRemoteDataSource(remoteRetrofitDataSource: RemoteRetrofitDataSource): RemoteDataSource
 
     @Binds
     @Singleton
-    abstract fun bindLocalDataSource(
-        roomDataSource: RoomDataSource
-    ): LocalDataSource
+    abstract fun bindLocalDataSource(roomDataSource: RoomDataSource): LocalDataSource
 
     @Binds
     @Singleton

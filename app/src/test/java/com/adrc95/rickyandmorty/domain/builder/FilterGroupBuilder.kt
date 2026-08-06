@@ -7,7 +7,7 @@ class FilterGroupBuilder {
     var id: String = "species"
     var options: List<FilterOption> = listOf(
         FilterOption(id = "human"),
-        FilterOption(id = "alien"),
+        FilterOption(id = "alien")
     )
 
     fun withId(id: String) = apply { this.id = id }
@@ -15,9 +15,8 @@ class FilterGroupBuilder {
 
     fun build() = FilterGroup(
         id = id,
-        options = options,
+        options = options
     )
 }
 
-fun filterGroup(block: FilterGroupBuilder.() -> Unit = {}): FilterGroup =
-    FilterGroupBuilder().apply(block).build()
+fun filterGroup(block: FilterGroupBuilder.() -> Unit = {}): FilterGroup = FilterGroupBuilder().apply(block).build()

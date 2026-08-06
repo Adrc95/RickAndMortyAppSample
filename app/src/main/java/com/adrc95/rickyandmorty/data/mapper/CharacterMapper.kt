@@ -16,5 +16,5 @@ fun Character.toEntity(): CharacterEntity = CharacterEntity(
     locationId = location.id,
     image = image,
     episodeIds = episodeIds,
-    created = created,
+    created = created
 )

@@ -5,9 +5,7 @@ import com.adrc95.rickyandmorty.R
 
 sealed class FilterOptionDisplayModel(@StringRes open val label: Int) {
 
-    sealed class Species(
-        @StringRes override val label: Int
-    ) : FilterOptionDisplayModel(R.string.species) {
+    sealed class Species(@StringRes override val label: Int) : FilterOptionDisplayModel(R.string.species) {
 
         data object Human : Species(R.string.filter_species_human)
 
@@ -28,9 +26,7 @@ sealed class FilterOptionDisplayModel(@StringRes open val label: Int) {
         data object Unknown : Species(R.string.filter_species_unknown)
     }
 
-    sealed class Gender(
-        @StringRes override val label: Int
-    ) : FilterOptionDisplayModel(R.string.genders) {
+    sealed class Gender(@StringRes override val label: Int) : FilterOptionDisplayModel(R.string.genders) {
 
         data object Female : Gender(R.string.filter_gender_female)
 
@@ -41,9 +37,7 @@ sealed class FilterOptionDisplayModel(@StringRes open val label: Int) {
         data object Unknown : Gender(R.string.filter_gender_unknown)
     }
 
-    sealed class Status(
-        @StringRes override val label: Int
-    ) : FilterOptionDisplayModel(R.string.status) {
+    sealed class Status(@StringRes override val label: Int) : FilterOptionDisplayModel(R.string.status) {
 
         data object Alive : Status(R.string.filter_status_alive)
 

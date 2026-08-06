@@ -99,33 +99,17 @@ The application does not require API keys or other secrets. Local Android config
 
 ### Light Mode
 
-### Home
-
-<img src="docs/screenshots/home.png" height="500" alt="Home screen" />
-
-### Character Detail
-
-<img src="docs/screenshots/detail.png" height="500" alt="Character detail screen" />
-
-### Settings
-
-<img src="docs/screenshots/settings.png" height="500" alt="Settings screen" />
+| Home | Character Detail | Settings |
+| :---: | :---: | :---: |
+| <img src="docs/screenshots/home.png" height="500" alt="Home screen" /> | <img src="docs/screenshots/detail.png" height="500" alt="Character detail screen" /> | <img src="docs/screenshots/settings.png" height="500" alt="Settings screen" /> |
 
 ### Dark Mode
 
 The application supports light, dark and system themes from the settings screen. Dark mode applies the same Material 3 palette across all screens.
 
-#### Home
-
-<img src="docs/screenshots/home_dark.png" height="500" alt="Home screen in dark mode" />
-
-#### Character Detail
-
-<img src="docs/screenshots/detail_dark.png" height="500" alt="Character detail screen in dark mode" />
-
-#### Settings
-
-<img src="docs/screenshots/settings_dark.png" height="500" alt="Settings screen in dark mode" />
+| Home | Character Detail | Settings |
+| :---: | :---: | :---: |
+| <img src="docs/screenshots/home_dark.png" height="500" alt="Home screen in dark mode" /> | <img src="docs/screenshots/detail_dark.png" height="500" alt="Character detail screen in dark mode" /> | <img src="docs/screenshots/settings_dark.png" height="500" alt="Settings screen in dark mode" /> |
 
 > Add the screenshots to `docs/screenshots/` using the following names: `home.png`, `detail.png`, `settings.png`, `home_dark.png`, `detail_dark.png` and `settings_dark.png`.
 
@@ -196,6 +180,24 @@ Run Android instrumentation tests with a connected device or emulator:
 ```
 
 On Windows, replace `./gradlew` with `.\gradlew.bat`.
+
+## Code Style
+
+The project uses [ktlint](https://github.com/ktlint/ktlint) through the `org.jlleitschuh.gradle.ktlint` Gradle plugin. Style rules are defined in the `.editorconfig` file, which follows the `android_studio` code style with a maximum line length of 120 characters and ignores the `function-naming` rule for `@Composable` functions.
+
+Check code style with:
+
+```bash
+./gradlew ktlintCheck
+```
+
+Auto-format the codebase with:
+
+```bash
+./gradlew ktlintFormat
+```
+
+`ktlintCheck` runs as part of the `check` task. On Windows, replace `./gradlew` with `.\gradlew.bat`.
 
 ## Project Structure
 

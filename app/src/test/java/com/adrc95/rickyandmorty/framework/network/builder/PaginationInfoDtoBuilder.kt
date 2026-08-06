@@ -17,7 +17,7 @@ class PaginationInfoDtoBuilder {
         count = count,
         pages = pages,
         next = next,
-        prev = prev,
+        prev = prev
     )
 }
 

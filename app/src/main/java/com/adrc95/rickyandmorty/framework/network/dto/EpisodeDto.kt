@@ -16,5 +16,5 @@ data class EpisodeDto(
     @SerialName("characters")
     val characters: List<String>,
     @SerialName("url")
-    val url: String,
+    val url: String
 )

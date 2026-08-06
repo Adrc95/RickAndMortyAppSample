@@ -10,30 +10,25 @@ import com.adrc95.rickyandmorty.data.DataConstants.DEFAULT_LAST_UPDATED
 import com.adrc95.rickyandmorty.data.DataConstants.DEFAULT_PAGE
 import com.adrc95.rickyandmorty.data.datasource.LocalDataSource
 import com.adrc95.rickyandmorty.data.datasource.RemoteDataSource
+import com.adrc95.rickyandmorty.domain.exception.Result
 import com.adrc95.rickyandmorty.framework.database.entity.CharacterEntity
 import javax.inject.Inject
-import com.adrc95.rickyandmorty.domain.exception.Result
 import timber.log.Timber
 
 @OptIn(ExperimentalPagingApi::class)
 class CharacterRemoteMediator @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource,
+    private val localDataSource: LocalDataSource
 ) : RemoteMediator<Int, CharacterEntity>() {
 
-    override suspend fun load(
-        loadType: LoadType,
-        state: PagingState<Int, CharacterEntity>,
-    ): MediatorResult {
-
+    override suspend fun load(loadType: LoadType, state: PagingState<Int, CharacterEntity>): MediatorResult {
         val page = when (loadType) {
-
             LoadType.REFRESH -> {
                 val remoteKey = localDataSource.getRemoteKey(CHARACTERS_RESOURCE)
                 val lastUpdatedAt = remoteKey?.lastUpdatedAt ?: DEFAULT_LAST_UPDATED
                 val isFresh = localDataSource.hasCachedCharacters() &&
                     lastUpdatedAt > DEFAULT_LAST_UPDATED &&
-                        System.currentTimeMillis() - lastUpdatedAt < CACHE_TTL_MILLIS
+                    System.currentTimeMillis() - lastUpdatedAt < CACHE_TTL_MILLIS
                 if (isFresh) {
                     Timber.d("REFRESH: using CACHE (lastUpdated=%d)", lastUpdatedAt)
                     return MediatorResult.Success(endOfPaginationReached = false)
@@ -53,16 +48,16 @@ class CharacterRemoteMediator @Inject constructor(
         }
 
         return when (val result = remoteDataSource.getCharacters(page)) {
-
             is Result.Success -> {
-                Timber.d("API success: page=%d, nextPage=%s",
+                Timber.d(
+                    "API success: page=%d, nextPage=%s",
                     page,
-                    result.data.nextPage,
+                    result.data.nextPage
                 )
                 localDataSource.insertCharacters(
                     characters = result.data.data,
                     nextPage = result.data.nextPage,
-                    deleteOld  = loadType == LoadType.REFRESH
+                    deleteOld = loadType == LoadType.REFRESH
                 )
                 MediatorResult.Success(
                     endOfPaginationReached =

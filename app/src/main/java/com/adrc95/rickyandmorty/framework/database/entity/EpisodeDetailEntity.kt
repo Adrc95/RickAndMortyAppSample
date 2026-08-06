@@ -25,5 +25,5 @@ data class EpisodeDetailEntity(
     val characterId: Int,
     val name: String,
     val episode: String,
-    val airDate: String,
+    val airDate: String
 )

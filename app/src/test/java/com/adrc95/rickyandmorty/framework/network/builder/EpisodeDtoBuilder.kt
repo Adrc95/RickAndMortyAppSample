@@ -26,9 +26,8 @@ class EpisodeDtoBuilder {
         episode = episode,
         airDate = airDate,
         characters = characters,
-        url = url,
+        url = url
     )
 }
 
-fun episodeDto(block: EpisodeDtoBuilder.() -> Unit = {}): EpisodeDto =
-    EpisodeDtoBuilder().apply(block).build()
+fun episodeDto(block: EpisodeDtoBuilder.() -> Unit = {}): EpisodeDto = EpisodeDtoBuilder().apply(block).build()

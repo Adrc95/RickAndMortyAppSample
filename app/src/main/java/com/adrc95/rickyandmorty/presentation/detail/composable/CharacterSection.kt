@@ -41,7 +41,7 @@ fun CharacterSession(
     image: String,
     status: CharacterStatusDisplayModel,
     isFavourite: Boolean = false,
-    onFavouriteClick: () -> Unit = {},
+    onFavouriteClick: () -> Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -52,7 +52,7 @@ fun CharacterSession(
         AsyncCharacterImage(
             model = image,
             contentDescription = name,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize()
         )
 
         Box(
@@ -73,7 +73,7 @@ fun CharacterSession(
                 .align(Alignment.TopStart)
                 .padding(
                     vertical = 24.dp,
-                    horizontal = 16.dp,
+                    horizontal = 16.dp
                 ),
             status = status
         )
@@ -83,7 +83,7 @@ fun CharacterSession(
                 .align(Alignment.TopEnd)
                 .padding(
                     vertical = 24.dp,
-                    horizontal = 16.dp,
+                    horizontal = 16.dp
                 )
                 .size(48.dp)
                 .clip(CircleShape)
@@ -93,8 +93,7 @@ fun CharacterSession(
                 painter = painterResource(
                     if (isFavourite) {
                         R.drawable.icon_favourite_fill
-                    }
-                    else {
+                    } else {
                         R.drawable.icon_favourite
                     }
                 ),
@@ -118,17 +117,14 @@ fun CharacterSession(
                 .align(Alignment.BottomStart)
                 .padding(
                     vertical = 24.dp,
-                    horizontal = 16.dp,
+                    horizontal = 16.dp
                 )
         )
     }
 }
 
 @Composable
-private fun StatusBadge(
-    modifier: Modifier = Modifier,
-    status: CharacterStatusDisplayModel,
-) {
+private fun StatusBadge(modifier: Modifier = Modifier, status: CharacterStatusDisplayModel) {
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(20.dp))

@@ -9,7 +9,7 @@ import com.adrc95.rickyandmorty.presentation.core.model.CharacterStatusDisplayMo
 fun Character.toDisplayModel(
     originDetail: LocationDetail? = null,
     locationDetail: LocationDetail? = null,
-    episodeDetails: List<EpisodeDetail> = emptyList(),
+    episodeDetails: List<EpisodeDetail> = emptyList()
 ): CharacterDisplayModel = CharacterDisplayModel(
     id = id,
     name = name,
@@ -24,5 +24,5 @@ fun Character.toDisplayModel(
     image = image,
     episodeIds = episodeIds,
     episodeDetails = episodeDetails,
-    isFavourite = isFavourite,
+    isFavourite = isFavourite
 )

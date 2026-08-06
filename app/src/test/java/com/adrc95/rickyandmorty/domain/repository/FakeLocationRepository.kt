@@ -9,11 +9,7 @@ class FakeLocationRepository : LocationRepository {
     private val locations = mutableMapOf<Pair<Int, Boolean>, LocationDetail>()
     private var error: AppError? = null
 
-    override suspend fun getLocation(
-        characterId: Int,
-        locationId: Int,
-        isOrigin: Boolean,
-    ): Result<LocationDetail?> {
+    override suspend fun getLocation(characterId: Int, locationId: Int, isOrigin: Boolean): Result<LocationDetail?> {
         error?.let { return Result.Error(it) }
         return Result.Success(locations[characterId to isOrigin])
     }

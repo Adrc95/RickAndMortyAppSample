@@ -5,5 +5,5 @@ import com.adrc95.rickyandmorty.presentation.filter.model.FilterOptionDisplayMod
 data class CharacterFiltersDisplayModel(
     val species: FilterOptionDisplayModel.Species? = null,
     val gender: FilterOptionDisplayModel.Gender? = null,
-    val status: FilterOptionDisplayModel.Status? = null,
+    val status: FilterOptionDisplayModel.Status? = null
 )

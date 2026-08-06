@@ -18,35 +18,31 @@ import com.adrc95.rickyandmorty.R
 import com.adrc95.rickyandmorty.presentation.ui.theme.Shapes
 
 @Composable
-fun ErrorBanner(
-    message: String,
-    onRetry: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
+fun ErrorBanner(message: String, onRetry: () -> Unit, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp),
         shape = Shapes.medium,
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.errorContainer,
-        ),
+            containerColor = MaterialTheme.colorScheme.errorContainer
+        )
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text(
                 text = message,
                 color = MaterialTheme.colorScheme.onErrorContainer
             )
-                TextButton(onClick = onRetry) {
-                    Text(
-                        text = stringResource(R.string.retry),
-                        color = MaterialTheme.colorScheme.onErrorContainer
+            TextButton(onClick = onRetry) {
+                Text(
+                    text = stringResource(R.string.retry),
+                    color = MaterialTheme.colorScheme.onErrorContainer
                 )
             }
         }

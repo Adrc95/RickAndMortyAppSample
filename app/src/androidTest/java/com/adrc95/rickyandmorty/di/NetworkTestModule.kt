@@ -10,19 +10,19 @@ import com.adrc95.rickyandmorty.mockwebserver.MockWebServerUrlHolder
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.components.SingletonComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
+import javax.inject.Singleton
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import javax.inject.Singleton
 
 @Module
 @TestInstallIn(
     components = [SingletonComponent::class],
-    replaces = [NetworkModule::class],
+    replaces = [NetworkModule::class]
 )
 object NetworkTestModule {
 
@@ -44,16 +44,11 @@ object NetworkTestModule {
 
     @Provides
     @Singleton
-    fun provideImageLoader(@ApplicationContext context: Context): ImageLoader =
-        ImageLoader.Builder(context).build()
+    fun provideImageLoader(@ApplicationContext context: Context): ImageLoader = ImageLoader.Builder(context).build()
 
     @Provides
     @Singleton
-    fun provideRetrofit(
-        @BaseUrl baseUrl: String,
-        client: OkHttpClient,
-        json: Json,
-    ): Retrofit = Retrofit.Builder()
+    fun provideRetrofit(@BaseUrl baseUrl: String, client: OkHttpClient, json: Json): Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
@@ -61,16 +56,13 @@ object NetworkTestModule {
 
     @Provides
     @Singleton
-    fun provideCharacterService(retrofit: Retrofit): CharacterService =
-        retrofit.create(CharacterService::class.java)
+    fun provideCharacterService(retrofit: Retrofit): CharacterService = retrofit.create(CharacterService::class.java)
 
     @Provides
     @Singleton
-    fun provideEpisodeService(retrofit: Retrofit): EpisodeService =
-        retrofit.create(EpisodeService::class.java)
+    fun provideEpisodeService(retrofit: Retrofit): EpisodeService = retrofit.create(EpisodeService::class.java)
 
     @Provides
     @Singleton
-    fun provideLocationService(retrofit: Retrofit): LocationService =
-        retrofit.create(LocationService::class.java)
+    fun provideLocationService(retrofit: Retrofit): LocationService = retrofit.create(LocationService::class.java)
 }

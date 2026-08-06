@@ -9,10 +9,7 @@ import com.adrc95.rickyandmorty.presentation.ui.theme.BlueGray600
 import com.adrc95.rickyandmorty.presentation.ui.theme.Green500
 import com.adrc95.rickyandmorty.presentation.ui.theme.Red200
 
-enum class CharacterStatusDisplayModel(
-    @StringRes val text: Int,
-    val color: Color
-) {
+enum class CharacterStatusDisplayModel(@StringRes val text: Int, val color: Color) {
     ALIVE(
         R.string.alive,
         Green500
@@ -27,11 +24,10 @@ enum class CharacterStatusDisplayModel(
     );
 
     companion object {
-        fun from(value: String): CharacterStatusDisplayModel =
-            when (value.lowercase()) {
-                STATUS_ALIVE -> ALIVE
-                STATUS_DEAD -> DEAD
-                else -> UNKNOWN
-            }
+        fun from(value: String): CharacterStatusDisplayModel = when (value.lowercase()) {
+            STATUS_ALIVE -> ALIVE
+            STATUS_DEAD -> DEAD
+            else -> UNKNOWN
+        }
     }
 }

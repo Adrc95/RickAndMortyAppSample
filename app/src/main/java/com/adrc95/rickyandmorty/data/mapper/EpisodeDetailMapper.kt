@@ -8,5 +8,5 @@ fun EpisodeDetail.toEntity(characterId: Int): EpisodeDetailEntity = EpisodeDetai
     characterId = characterId,
     name = name,
     episode = episode,
-    airDate = airDate,
+    airDate = airDate
 )

@@ -31,7 +31,7 @@ fun AppToolbar(
     showDivider: Boolean = true,
     containerColor: Color = MaterialTheme.colorScheme.surface,
     titleColor: Color = Color.Unspecified,
-    iconColor: Color = MaterialTheme.colorScheme.primary,
+    iconColor: Color = MaterialTheme.colorScheme.primary
 ) {
     Column(modifier = modifier) {
         CenterAlignedTopAppBar(
@@ -41,19 +41,19 @@ fun AppToolbar(
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
+                    overflow = TextOverflow.Ellipsis
                 )
             },
             navigationIcon = {
                 if (onNavigationClick != null) {
                     IconButton(
                         modifier = Modifier.testTag(BACK_BUTTON),
-                        onClick = onNavigationClick,
+                        onClick = onNavigationClick
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.icon_back),
                             contentDescription = stringResource(R.string.back),
-                            tint = iconColor,
+                            tint = iconColor
                         )
                     }
                 }
@@ -62,12 +62,12 @@ fun AppToolbar(
                 if (onActionClick != null) {
                     IconButton(
                         modifier = Modifier.testTag(SETTINGS_BUTTON),
-                        onClick = onActionClick,
+                        onClick = onActionClick
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.icon_settings),
                             contentDescription = stringResource(R.string.settings),
-                            tint = iconColor,
+                            tint = iconColor
                         )
                     }
                 }
@@ -76,8 +76,8 @@ fun AppToolbar(
                 containerColor = containerColor,
                 titleContentColor = titleColor,
                 navigationIconContentColor = Color.Unspecified,
-                actionIconContentColor = Color.Unspecified,
-            ),
+                actionIconContentColor = Color.Unspecified
+            )
         )
         if (showDivider) {
             HorizontalDivider(

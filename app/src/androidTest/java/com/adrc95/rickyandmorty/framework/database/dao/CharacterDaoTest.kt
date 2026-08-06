@@ -25,7 +25,7 @@ class CharacterDaoTest {
     fun setUp() {
         database = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
-            AppDatabase::class.java,
+            AppDatabase::class.java
         ).build()
         dao = database.characterDao()
     }
@@ -44,7 +44,10 @@ class CharacterDaoTest {
     fun givenCharacters_whenInsertAll_thenCanReadByIdAndCount() = runTest {
         val characters = listOf(
             characterEntity(),
-            characterEntity { withId(2); withName("Morty Smith") },
+            characterEntity {
+                withId(2)
+                withName("Morty Smith")
+            }
         )
 
         dao.insertAll(characters)
@@ -91,8 +94,11 @@ class CharacterDaoTest {
     @Test
     fun givenCharacters_whenLoadPagingSource_thenReturnsCharactersOrderedById() = runTest {
         val characters = listOf(
-            characterEntity { withId(2); withName("Morty Smith") },
-            characterEntity { withId(1) },
+            characterEntity {
+                withId(2)
+                withName("Morty Smith")
+            },
+            characterEntity { withId(1) }
         )
         dao.insertAll(characters)
 
@@ -100,7 +106,7 @@ class CharacterDaoTest {
             PagingSource.LoadParams.Refresh(
                 key = null,
                 loadSize = 10,
-                placeholdersEnabled = false,
+                placeholdersEnabled = false
             )
         ) as PagingSource.LoadResult.Page
 

@@ -33,8 +33,8 @@ import com.adrc95.rickyandmorty.domain.FilterConstants.STATUS_GROUP_ID
 import com.adrc95.rickyandmorty.domain.FilterConstants.UNKNOWN
 import com.adrc95.rickyandmorty.domain.model.FilterGroup
 import com.adrc95.rickyandmorty.domain.model.FilterOption
-import com.adrc95.rickyandmorty.presentation.filter.model.FilterOptionDisplayModel
 import com.adrc95.rickyandmorty.presentation.filter.model.FilterGroupDisplayModel
+import com.adrc95.rickyandmorty.presentation.filter.model.FilterOptionDisplayModel
 
 fun FilterGroup.toDisplayModel(): FilterGroupDisplayModel = FilterGroupDisplayModel(
     id = id,
@@ -44,34 +44,35 @@ fun FilterGroup.toDisplayModel(): FilterGroupDisplayModel = FilterGroupDisplayMo
         STATUS_GROUP_ID -> R.string.status
         else -> R.string.species
     },
-    options = options.map { it.toDisplayModel(groupId = id) },
+    options = options.map { it.toDisplayModel(groupId = id) }
 )
 
-private fun FilterOption.toDisplayModel(groupId: String): FilterOptionDisplayModel =
-    when (groupId) {
-        GENDER_GROUP_ID -> when (id) {
-            GENDER_FEMALE -> FilterOptionDisplayModel.Gender.Female
-            GENDER_MALE -> FilterOptionDisplayModel.Gender.Male
-            GENDER_GENDERLESS -> FilterOptionDisplayModel.Gender.Genderless
-            else -> FilterOptionDisplayModel.Gender.Unknown
-        }
-        STATUS_GROUP_ID -> when (id) {
-            STATUS_ALIVE -> FilterOptionDisplayModel.Status.Alive
-            STATUS_DEAD -> FilterOptionDisplayModel.Status.Dead
-            else -> FilterOptionDisplayModel.Status.Unknown
-        }
-        else -> when (id) {
-            SPECIES_HUMAN -> FilterOptionDisplayModel.Species.Human
-            SPECIES_ALIEN -> FilterOptionDisplayModel.Species.Alien
-            SPECIES_ROBOT -> FilterOptionDisplayModel.Species.Robot
-            SPECIES_ANIMAL -> FilterOptionDisplayModel.Species.Animal
-            SPECIES_DISEASE -> FilterOptionDisplayModel.Species.Disease
-            SPECIES_CRONENBERG -> FilterOptionDisplayModel.Species.Cronenberg
-            SPECIES_POOPYBUTTHOLE -> FilterOptionDisplayModel.Species.Poopybutthole
-            SPECIES_MYTHOLOGICAL -> FilterOptionDisplayModel.Species.MythologicalCreature
-            else -> FilterOptionDisplayModel.Species.Unknown
-        }
+private fun FilterOption.toDisplayModel(groupId: String): FilterOptionDisplayModel = when (groupId) {
+    GENDER_GROUP_ID -> when (id) {
+        GENDER_FEMALE -> FilterOptionDisplayModel.Gender.Female
+        GENDER_MALE -> FilterOptionDisplayModel.Gender.Male
+        GENDER_GENDERLESS -> FilterOptionDisplayModel.Gender.Genderless
+        else -> FilterOptionDisplayModel.Gender.Unknown
     }
+
+    STATUS_GROUP_ID -> when (id) {
+        STATUS_ALIVE -> FilterOptionDisplayModel.Status.Alive
+        STATUS_DEAD -> FilterOptionDisplayModel.Status.Dead
+        else -> FilterOptionDisplayModel.Status.Unknown
+    }
+
+    else -> when (id) {
+        SPECIES_HUMAN -> FilterOptionDisplayModel.Species.Human
+        SPECIES_ALIEN -> FilterOptionDisplayModel.Species.Alien
+        SPECIES_ROBOT -> FilterOptionDisplayModel.Species.Robot
+        SPECIES_ANIMAL -> FilterOptionDisplayModel.Species.Animal
+        SPECIES_DISEASE -> FilterOptionDisplayModel.Species.Disease
+        SPECIES_CRONENBERG -> FilterOptionDisplayModel.Species.Cronenberg
+        SPECIES_POOPYBUTTHOLE -> FilterOptionDisplayModel.Species.Poopybutthole
+        SPECIES_MYTHOLOGICAL -> FilterOptionDisplayModel.Species.MythologicalCreature
+        else -> FilterOptionDisplayModel.Species.Unknown
+    }
+}
 
 fun FilterOptionDisplayModel.toDomain(): String = when (this) {
     FilterOptionDisplayModel.Species.Human -> SPECIES_HUMAN_QUERY

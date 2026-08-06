@@ -17,11 +17,7 @@ interface LocalDataSource {
 
     suspend fun hasCachedCharacters(): Boolean
 
-    suspend fun insertCharacters(
-        characters: List<Character>,
-        nextPage: Int?,
-        deleteOld: Boolean
-    )
+    suspend fun insertCharacters(characters: List<Character>, nextPage: Int?, deleteOld: Boolean)
 
     suspend fun saveCharacters(characters: List<Character>)
 

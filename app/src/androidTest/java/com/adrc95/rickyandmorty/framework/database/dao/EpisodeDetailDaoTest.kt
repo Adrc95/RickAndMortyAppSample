@@ -23,7 +23,7 @@ class EpisodeDetailDaoTest {
     fun setUp() {
         database = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
-            AppDatabase::class.java,
+            AppDatabase::class.java
         ).build()
         dao = database.episodeDetailDao()
     }
@@ -43,11 +43,20 @@ class EpisodeDetailDaoTest {
         database.characterDao().insertAll(
             listOf(
                 characterEntity { withId(1) },
-                characterEntity { withId(2); withName("Morty Smith") },
+                characterEntity {
+                    withId(2)
+                    withName("Morty Smith")
+                }
             )
         )
-        val rickEpisode = episodeDetailEntity { withId(1); withCharacterId(1) }
-        val mortyEpisode = episodeDetailEntity { withId(2); withCharacterId(2) }
+        val rickEpisode = episodeDetailEntity {
+            withId(1)
+            withCharacterId(1)
+        }
+        val mortyEpisode = episodeDetailEntity {
+            withId(2)
+            withCharacterId(2)
+        }
         dao.insertAll(listOf(rickEpisode, mortyEpisode))
 
         assertEquals(listOf(rickEpisode), dao.getByCharacterId(1))
@@ -69,11 +78,20 @@ class EpisodeDetailDaoTest {
         database.characterDao().insertAll(
             listOf(
                 characterEntity { withId(1) },
-                characterEntity { withId(2); withName("Morty Smith") },
+                characterEntity {
+                    withId(2)
+                    withName("Morty Smith")
+                }
             )
         )
-        val rickEpisode = episodeDetailEntity { withId(1); withCharacterId(1) }
-        val mortyEpisode = episodeDetailEntity { withId(2); withCharacterId(2) }
+        val rickEpisode = episodeDetailEntity {
+            withId(1)
+            withCharacterId(1)
+        }
+        val mortyEpisode = episodeDetailEntity {
+            withId(2)
+            withCharacterId(2)
+        }
         dao.insertAll(listOf(rickEpisode, mortyEpisode))
 
         dao.deleteByCharacterId(1)

@@ -7,5 +7,5 @@ fun FavoriteDto.toDomain(): Favorite = Favorite(
     color = color,
     food = food,
     random = random,
-    song = song,
+    song = song
 )

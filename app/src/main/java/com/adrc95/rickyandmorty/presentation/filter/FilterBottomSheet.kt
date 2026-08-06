@@ -27,10 +27,10 @@ import com.adrc95.rickyandmorty.R
 import com.adrc95.rickyandmorty.domain.FilterConstants.GENDER_GROUP_ID
 import com.adrc95.rickyandmorty.domain.FilterConstants.SPECIES_GROUP_ID
 import com.adrc95.rickyandmorty.domain.FilterConstants.STATUS_GROUP_ID
+import com.adrc95.rickyandmorty.presentation.core.model.CharacterFiltersDisplayModel
 import com.adrc95.rickyandmorty.presentation.filter.composable.FilterSection
 import com.adrc95.rickyandmorty.presentation.filter.model.FilterGroupDisplayModel
 import com.adrc95.rickyandmorty.presentation.filter.model.FilterOptionDisplayModel
-import com.adrc95.rickyandmorty.presentation.core.model.CharacterFiltersDisplayModel
 import com.adrc95.rickyandmorty.presentation.ui.theme.Shapes
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,7 +39,7 @@ fun FilterBottomSheet(
     filterGroupDisplayModels: List<FilterGroupDisplayModel>,
     currentFilters: CharacterFiltersDisplayModel,
     onApply: (CharacterFiltersDisplayModel) -> Unit,
-    onDismiss: () -> Unit,
+    onDismiss: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState()
 
@@ -62,21 +62,21 @@ fun FilterBottomSheet(
         sheetState = sheetState,
         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
         containerColor = MaterialTheme.colorScheme.surface,
-        dragHandle = null,
+        dragHandle = null
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp)
                 .padding(bottom = 32.dp)
-                .verticalScroll(rememberScrollState()),
+                .verticalScroll(rememberScrollState())
         ) {
             Text(
                 text = stringResource(R.string.filter_character),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.padding(top = 24.dp, bottom = 24.dp),
+                modifier = Modifier.padding(top = 24.dp, bottom = 24.dp)
             )
 
             filterGroupDisplayModels.forEach { group ->
@@ -87,7 +87,7 @@ fun FilterBottomSheet(
                     onSelect = { option ->
                         selectedMap[group.id] =
                             if (option == selectedMap[group.id]) null else option
-                    },
+                    }
                 )
                 Spacer(modifier = Modifier.height(24.dp))
             }
@@ -99,11 +99,11 @@ fun FilterBottomSheet(
                 onApply(
                     CharacterFiltersDisplayModel(
                         species = selectedMap[SPECIES_GROUP_ID]
-                                as? FilterOptionDisplayModel.Species,
+                            as? FilterOptionDisplayModel.Species,
                         gender = selectedMap[GENDER_GROUP_ID]
-                                as? FilterOptionDisplayModel.Gender,
+                            as? FilterOptionDisplayModel.Gender,
                         status = selectedMap[STATUS_GROUP_ID]
-                                as? FilterOptionDisplayModel.Status,
+                            as? FilterOptionDisplayModel.Status
                     )
                 )
                 onDismiss()
@@ -111,19 +111,19 @@ fun FilterBottomSheet(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    horizontal = 16.dp,
+                    horizontal = 16.dp
                 )
                 .height(48.dp),
             shape = Shapes.medium,
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.onSurface,
-                contentColor = MaterialTheme.colorScheme.surface,
-            ),
+                contentColor = MaterialTheme.colorScheme.surface
+            )
         ) {
             Text(
                 text = stringResource(R.string.apply_filters),
                 style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = FontWeight.SemiBold
             )
         }
 
@@ -136,12 +136,12 @@ fun FilterBottomSheet(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    horizontal = 16.dp,
-                ),
+                    horizontal = 16.dp
+                )
         ) {
             Text(
                 text = stringResource(R.string.clear_filters),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }

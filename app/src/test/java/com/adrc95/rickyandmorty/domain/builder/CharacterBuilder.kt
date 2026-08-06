@@ -42,9 +42,8 @@ class CharacterBuilder {
         image = image,
         episodeIds = episodeIds,
         created = created,
-        isFavourite = isFavourite,
+        isFavourite = isFavourite
     )
 }
 
-fun character(block: CharacterBuilder.() -> Unit = {}): Character =
-    CharacterBuilder().apply(block).build()
+fun character(block: CharacterBuilder.() -> Unit = {}): Character = CharacterBuilder().apply(block).build()

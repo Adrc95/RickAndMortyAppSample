@@ -54,7 +54,7 @@ class CharacterDisplayModelBuilder {
         image = image,
         episodeIds = episodeIds,
         episodeDetails = episodeDetails,
-        isFavourite = isFavourite,
+        isFavourite = isFavourite
     )
 }
 

@@ -67,7 +67,6 @@ class SettingsViewModelTest {
             }
         }
 
-
     @Test
     fun `given no theme mode available when observing themeMode then emits system mode`() =
         runTest(mainDispatcherRule.scheduler) {
@@ -104,7 +103,6 @@ class SettingsViewModelTest {
             val settingsViewModel = createViewModel()
 
             settingsViewModel.themeMode.test {
-
                 // Then
                 assertEquals(
                     ThemeModeDisplayModel.LIGHT,
@@ -117,7 +115,7 @@ class SettingsViewModelTest {
 
     @Test
     fun `given dark selected when selecting theme then calls setThemeModeUseCase with dark mode`() =
-        runTest(mainDispatcherRule.scheduler)  {
+        runTest(mainDispatcherRule.scheduler) {
             // Given
             every {
                 getThemeModeUseCase.invoke()
@@ -143,31 +141,30 @@ class SettingsViewModelTest {
         }
 
     @Test
-    fun `given light selected when selecting theme then calls setThemeModeUseCase with light mode`() =
-        runTest {
-            // Given
-            every {
-                getThemeModeUseCase.invoke()
-            } returns emptyFlow()
+    fun `given light selected when selecting theme then calls setThemeModeUseCase with light mode`() = runTest {
+        // Given
+        every {
+            getThemeModeUseCase.invoke()
+        } returns emptyFlow()
 
-            coEvery {
-                setThemeModeUseCase.invoke(any())
-            } just Runs
+        coEvery {
+            setThemeModeUseCase.invoke(any())
+        } just Runs
 
-            // When
-            val settingsViewModel = createViewModel()
+        // When
+        val settingsViewModel = createViewModel()
 
-            settingsViewModel.onThemeModeSelected(
-                ThemeModeDisplayModel.LIGHT
+        settingsViewModel.onThemeModeSelected(
+            ThemeModeDisplayModel.LIGHT
+        )
+
+        advanceUntilIdle()
+
+        // Then
+        coVerify {
+            setThemeModeUseCase(
+                ThemeMode.LIGHT
             )
-
-            advanceUntilIdle()
-
-            // Then
-            coVerify {
-                setThemeModeUseCase(
-                    ThemeMode.LIGHT
-                )
-            }
         }
+    }
 }

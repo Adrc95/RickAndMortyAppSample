@@ -17,7 +17,7 @@ class EpisodeDetailBuilder {
         id = id,
         name = name,
         episode = episode,
-        airDate = airDate,
+        airDate = airDate
     )
 }
 

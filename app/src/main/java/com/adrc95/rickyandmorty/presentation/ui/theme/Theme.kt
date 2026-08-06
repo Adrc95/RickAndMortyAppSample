@@ -93,10 +93,7 @@ val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun RickyAndMortyTheme(
-    themeMode: ThemeMode = ThemeMode.SYSTEM,
-    content: @Composable () -> Unit
-) {
+fun RickyAndMortyTheme(themeMode: ThemeMode = ThemeMode.SYSTEM, content: @Composable () -> Unit) {
     val isDarkTheme = when (themeMode) {
         ThemeMode.LIGHT -> false
         ThemeMode.DARK -> true

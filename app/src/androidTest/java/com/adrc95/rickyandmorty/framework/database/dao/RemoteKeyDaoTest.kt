@@ -23,7 +23,7 @@ class RemoteKeyDaoTest {
     fun setUp() {
         database = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
-            AppDatabase::class.java,
+            AppDatabase::class.java
         ).build()
         dao = database.remoteKeyDao()
     }

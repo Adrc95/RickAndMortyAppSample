@@ -12,11 +12,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun StatusDot(
-    color: Color,
-    modifier: Modifier = Modifier,
-    size: Dp = 8.dp,
-) {
+fun StatusDot(color: Color, modifier: Modifier = Modifier, size: Dp = 8.dp) {
     Box(
         modifier = modifier
             .size(size)

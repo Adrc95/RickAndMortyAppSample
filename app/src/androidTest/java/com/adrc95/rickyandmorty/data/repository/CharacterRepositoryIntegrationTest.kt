@@ -9,18 +9,19 @@ import com.adrc95.rickyandmorty.domain.model.Character
 import com.adrc95.rickyandmorty.domain.repository.CharacterRepository
 import com.adrc95.rickyandmorty.framework.database.AppDatabase
 import com.adrc95.rickyandmorty.framework.database.builder.characterEntity
-import com.adrc95.rickyandmorty.testing.extension.readJsonAsset
 import com.adrc95.rickyandmorty.framework.database.builder.remoteKeyEntity
 import com.adrc95.rickyandmorty.mockwebserver.MockWebServerRule
 import com.adrc95.rickyandmorty.mockwebserver.MockWebServerUrlHolder
 import com.adrc95.rickyandmorty.testing.createPagingDataDiffer
+import com.adrc95.rickyandmorty.testing.extension.readJsonAsset
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.SocketPolicy
 import org.junit.After
@@ -30,7 +31,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import javax.inject.Inject
 
 @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 @HiltAndroidTest
@@ -133,7 +133,7 @@ class CharacterRepositoryIntegrationTest {
         )
         val differ = createPagingDataDiffer<Character>(
             areItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
-            areContentsTheSame = { oldItem, newItem -> oldItem == newItem },
+            areContentsTheSame = { oldItem, newItem -> oldItem == newItem }
         )
 
         val collectJob = launch {
@@ -162,7 +162,7 @@ class CharacterRepositoryIntegrationTest {
         )
         val differ = createPagingDataDiffer<Character>(
             areItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
-            areContentsTheSame = { oldItem, newItem -> oldItem == newItem },
+            areContentsTheSame = { oldItem, newItem -> oldItem == newItem }
         )
 
         repository.searchCharacters("rick", "Human", "Male", "Alive").test {
@@ -174,7 +174,7 @@ class CharacterRepositoryIntegrationTest {
 
         assertEquals(
             "/character?page=1&name=rick&species=Human&gender=Male&status=Alive",
-            mockWebServerRule.server.takeRequest().path,
+            mockWebServerRule.server.takeRequest().path
         )
         assertEquals(1, database.characterDao().count())
         assertEquals("Rick Sanchez", differ.snapshot()[0]!!.name)
@@ -185,7 +185,7 @@ class CharacterRepositoryIntegrationTest {
         mockWebServerRule.server.enqueue(MockResponse().setResponseCode(404).setBody("{}"))
         val differ = createPagingDataDiffer<Character>(
             areItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
-            areContentsTheSame = { oldItem, newItem -> oldItem == newItem },
+            areContentsTheSame = { oldItem, newItem -> oldItem == newItem }
         )
 
         repository.searchCharacters("unknown", null, null, null).test {
@@ -204,7 +204,7 @@ class CharacterRepositoryIntegrationTest {
         mockWebServerRule.server.enqueue(MockResponse().setResponseCode(500).setBody("{}"))
         val differ = createPagingDataDiffer<Character>(
             areItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
-            areContentsTheSame = { oldItem, newItem -> oldItem == newItem },
+            areContentsTheSame = { oldItem, newItem -> oldItem == newItem }
         )
 
         repository.searchCharacters("rick", null, null, null).test {
@@ -229,7 +229,7 @@ class CharacterRepositoryIntegrationTest {
         )
         val differ = createPagingDataDiffer<Character>(
             areItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
-            areContentsTheSame = { oldItem, newItem -> oldItem == newItem },
+            areContentsTheSame = { oldItem, newItem -> oldItem == newItem }
         )
 
         repository.getCharacters().test {
@@ -248,7 +248,7 @@ class CharacterRepositoryIntegrationTest {
         mockWebServerRule.server.enqueue(MockResponse().setResponseCode(500).setBody("{}"))
         val differ = createPagingDataDiffer<Character>(
             areItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
-            areContentsTheSame = { oldItem, newItem -> oldItem == newItem },
+            areContentsTheSame = { oldItem, newItem -> oldItem == newItem }
         )
 
         repository.getCharacters().test {
@@ -269,7 +269,7 @@ class CharacterRepositoryIntegrationTest {
         )
         val differ = createPagingDataDiffer<Character>(
             areItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
-            areContentsTheSame = { oldItem, newItem -> oldItem == newItem },
+            areContentsTheSame = { oldItem, newItem -> oldItem == newItem }
         )
 
         val collectJob = launch {
@@ -294,7 +294,7 @@ class CharacterRepositoryIntegrationTest {
         mockWebServerRule.server.enqueue(MockResponse().setResponseCode(404).setBody("{}"))
         val differ = createPagingDataDiffer<Character>(
             areItemsTheSame = { oldItem, newItem -> oldItem.id == newItem.id },
-            areContentsTheSame = { oldItem, newItem -> oldItem == newItem },
+            areContentsTheSame = { oldItem, newItem -> oldItem == newItem }
         )
 
         repository.searchCharacters("rick & morty", null, null, null).test {
@@ -306,7 +306,7 @@ class CharacterRepositoryIntegrationTest {
 
         assertEquals(
             "/character?page=1&name=rick%20%26%20morty",
-            mockWebServerRule.server.takeRequest().path,
+            mockWebServerRule.server.takeRequest().path
         )
     }
 
@@ -337,5 +337,4 @@ class CharacterRepositoryIntegrationTest {
             cancelAndIgnoreRemainingEvents()
         }
     }
-
 }

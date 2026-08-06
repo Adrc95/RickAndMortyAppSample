@@ -9,10 +9,7 @@ class FakeEpisodeRepository : EpisodeRepository {
     private val episodesByCharacter = mutableMapOf<Int, List<EpisodeDetail>>()
     private var error: AppError? = null
 
-    override suspend fun getEpisodes(
-        characterId: Int,
-        episodeIds: List<Int>,
-    ): Result<List<EpisodeDetail>> {
+    override suspend fun getEpisodes(characterId: Int, episodeIds: List<Int>): Result<List<EpisodeDetail>> {
         error?.let { return Result.Error(it) }
         val cached = episodesByCharacter[characterId]
         return if (cached != null) {

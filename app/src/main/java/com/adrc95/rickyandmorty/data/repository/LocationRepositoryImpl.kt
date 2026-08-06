@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class LocationRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource,
+    private val localDataSource: LocalDataSource
 ) : LocationRepository {
 
     override suspend fun getLocation(characterId: Int, locationId: Int, isOrigin: Boolean): Result<LocationDetail?> {
@@ -21,6 +21,7 @@ class LocationRepositoryImpl @Inject constructor(
                 localDataSource.saveLocationDetail(result.data, characterId, isOrigin)
                 Result.Success(result.data)
             }
+
             is Result.Error -> result
         }
     }

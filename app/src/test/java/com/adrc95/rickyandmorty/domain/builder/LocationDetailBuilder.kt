@@ -20,7 +20,7 @@ class LocationDetailBuilder {
         name = name,
         type = type,
         dimension = dimension,
-        residentsCount = residentsCount,
+        residentsCount = residentsCount
     )
 }
 

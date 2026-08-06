@@ -17,12 +17,7 @@ import com.adrc95.rickyandmorty.R
 import com.adrc95.rickyandmorty.presentation.ui.theme.Shapes
 
 @Composable
-fun SearchBar(
-    modifier: Modifier = Modifier,
-    query: String,
-    onQueryChange: (String) -> Unit,
-    placeholder: String = "",
-) {
+fun SearchBar(modifier: Modifier = Modifier, query: String, onQueryChange: (String) -> Unit, placeholder: String = "") {
     OutlinedTextField(
         value = query,
         onValueChange = onQueryChange,
@@ -34,7 +29,7 @@ fun SearchBar(
             Text(
                 text = placeholder,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.outline,
+                color = MaterialTheme.colorScheme.outline
             )
         },
         leadingIcon = {
@@ -42,7 +37,7 @@ fun SearchBar(
                 painter = painterResource(R.drawable.icon_search),
                 contentDescription = null,
                 modifier = Modifier.size(20.dp),
-                tint = MaterialTheme.colorScheme.outline,
+                tint = MaterialTheme.colorScheme.outline
             )
         },
         trailingIcon = {
@@ -52,7 +47,7 @@ fun SearchBar(
                         painter = painterResource(R.drawable.icon_close),
                         contentDescription = stringResource(R.string.clear_search),
                         modifier = Modifier.size(20.dp),
-                        tint = MaterialTheme.colorScheme.outline,
+                        tint = MaterialTheme.colorScheme.outline
                     )
                 }
             }
@@ -64,7 +59,7 @@ fun SearchBar(
             focusedBorderColor = MaterialTheme.colorScheme.primary,
             unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
             focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
-            cursorColor = MaterialTheme.colorScheme.primary,
-        ),
+            cursorColor = MaterialTheme.colorScheme.primary
+        )
     )
 }

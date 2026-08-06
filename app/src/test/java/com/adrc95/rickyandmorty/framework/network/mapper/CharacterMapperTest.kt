@@ -19,19 +19,25 @@ class CharacterMapperTest {
             withSpecies("Human")
             withType("")
             withGender("Male")
-            withOrigin(summaryLocationDto {
-                withName("Earth (C-137)")
-                withUrl("https://rickandmortyapi.com/api/location/1")
-            })
-            withLocation(summaryLocationDto {
-                withName("Citadel of Ricks")
-                withUrl("https://rickandmortyapi.com/api/location/3")
-            })
+            withOrigin(
+                summaryLocationDto {
+                    withName("Earth (C-137)")
+                    withUrl("https://rickandmortyapi.com/api/location/1")
+                }
+            )
+            withLocation(
+                summaryLocationDto {
+                    withName("Citadel of Ricks")
+                    withUrl("https://rickandmortyapi.com/api/location/3")
+                }
+            )
             withImage("https://rickandmortyapi.com/api/character/avatar/1.jpeg")
-            withEpisode(listOf(
-                "https://rickandmortyapi.com/api/episode/1",
-                "https://rickandmortyapi.com/api/episode/2"
-            ))
+            withEpisode(
+                listOf(
+                    "https://rickandmortyapi.com/api/episode/1",
+                    "https://rickandmortyapi.com/api/episode/2"
+                )
+            )
             withCreated("2017-11-04T18:48:46.250Z")
         }
         val expected = character {
@@ -41,8 +47,18 @@ class CharacterMapperTest {
             withSpecies("Human")
             withType("")
             withGender("Male")
-            withOrigin(summaryLocation { withId(1); withName("Earth (C-137)") })
-            withLocation(summaryLocation { withId(3); withName("Citadel of Ricks") })
+            withOrigin(
+                summaryLocation {
+                    withId(1)
+                    withName("Earth (C-137)")
+                }
+            )
+            withLocation(
+                summaryLocation {
+                    withId(3)
+                    withName("Citadel of Ricks")
+                }
+            )
             withImage("https://rickandmortyapi.com/api/character/avatar/1.jpeg")
             withEpisodeIds(listOf(1, 2))
             withCreated("2017-11-04T18:48:46.250Z")

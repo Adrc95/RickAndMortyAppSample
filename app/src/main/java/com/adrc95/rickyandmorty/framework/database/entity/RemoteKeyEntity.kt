@@ -11,5 +11,5 @@ data class RemoteKeyEntity(
     @PrimaryKey
     val resource: String,
     val nextPage: Int?,
-    val lastUpdatedAt: Long = 0L,
+    val lastUpdatedAt: Long = 0L
 )

@@ -27,7 +27,7 @@ fun CharacterGrid(
     showFavourite: Boolean = true,
     searchQuery: String = "",
     filters: CharacterFiltersDisplayModel = CharacterFiltersDisplayModel(),
-    contentPadding: PaddingValues = PaddingValues(16.dp),
+    contentPadding: PaddingValues = PaddingValues(16.dp)
 ) {
     val gridState = rememberLazyGridState()
 
@@ -57,10 +57,10 @@ fun CharacterGrid(
         ) { index ->
             characters[index]?.let { character ->
                 CharacterCard(
-                     modifier = Modifier.clickable(
-                         role = Role.Button,
-                         onClick = { onCharacterClick(character) },
-                     ),
+                    modifier = Modifier.clickable(
+                        role = Role.Button,
+                        onClick = { onCharacterClick(character) }
+                    ),
                     character = character,
                     showFavourite = showFavourite,
                     onFavouriteClick = { onFavouriteClick(character.id) }

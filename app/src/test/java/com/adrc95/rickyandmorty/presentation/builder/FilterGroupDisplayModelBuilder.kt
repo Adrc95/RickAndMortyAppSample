@@ -9,7 +9,7 @@ class FilterGroupDisplayModelBuilder {
     var title: Int = R.string.species
     var options: List<FilterOptionDisplayModel> = listOf(
         FilterOptionDisplayModel.Species.Human,
-        FilterOptionDisplayModel.Species.Alien,
+        FilterOptionDisplayModel.Species.Alien
     )
 
     fun withId(id: String) = apply { this.id = id }
@@ -19,7 +19,7 @@ class FilterGroupDisplayModelBuilder {
     fun build() = FilterGroupDisplayModel(
         id = id,
         title = title,
-        options = options,
+        options = options
     )
 }
 

@@ -18,8 +18,18 @@ class CharacterToEntityMapperTest {
             withSpecies("Human")
             withType("")
             withGender("Male")
-            withOrigin(summaryLocation { withId(1); withName("Earth (C-137)") })
-            withLocation(summaryLocation { withId(3); withName("Citadel of Ricks") })
+            withOrigin(
+                summaryLocation {
+                    withId(1)
+                    withName("Earth (C-137)")
+                }
+            )
+            withLocation(
+                summaryLocation {
+                    withId(3)
+                    withName("Citadel of Ricks")
+                }
+            )
             withImage("https://rickandmortyapi.com/api/character/avatar/1.jpeg")
             withEpisodeIds(listOf(1, 2))
             withCreated("2017-11-04T18:48:46.250Z")

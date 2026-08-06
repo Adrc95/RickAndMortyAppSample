@@ -24,7 +24,7 @@ class LocationDetailDaoTest {
     fun setUp() {
         database = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
-            AppDatabase::class.java,
+            AppDatabase::class.java
         ).build()
         dao = database.locationDetailDao()
     }
@@ -42,8 +42,14 @@ class LocationDetailDaoTest {
     @Test
     fun givenLocations_whenGetByCharacterId_thenReturnsMatchingOriginAndLocation() = runTest {
         database.characterDao().insertAll(listOf(characterEntity()))
-        val origin = locationDetailEntity { withId(1); withIsOrigin(true) }
-        val location = locationDetailEntity { withId(2); withIsOrigin(false) }
+        val origin = locationDetailEntity {
+            withId(1)
+            withIsOrigin(true)
+        }
+        val location = locationDetailEntity {
+            withId(2)
+            withIsOrigin(false)
+        }
         dao.insert(origin)
         dao.insert(location)
 
@@ -66,8 +72,18 @@ class LocationDetailDaoTest {
     @Test
     fun givenCharacterLocations_whenDeleteByCharacterId_thenRemovesBothLocations() = runTest {
         database.characterDao().insertAll(listOf(characterEntity()))
-        dao.insert(locationDetailEntity { withId(1); withIsOrigin(true) })
-        dao.insert(locationDetailEntity { withId(2); withIsOrigin(false) })
+        dao.insert(
+            locationDetailEntity {
+                withId(1)
+                withIsOrigin(true)
+            }
+        )
+        dao.insert(
+            locationDetailEntity {
+                withId(2)
+                withIsOrigin(false)
+            }
+        )
 
         dao.deleteByCharacterId(1)
 

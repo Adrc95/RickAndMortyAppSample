@@ -20,25 +20,17 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindCharacterRepository(
-        characterRepositoryImpl: CharacterRepositoryImpl
-    ): CharacterRepository
+    abstract fun bindCharacterRepository(characterRepositoryImpl: CharacterRepositoryImpl): CharacterRepository
 
     @Binds
     @Singleton
-    abstract fun bindLocationRepository(
-        locationRepositoryImpl: LocationRepositoryImpl
-    ): LocationRepository
+    abstract fun bindLocationRepository(locationRepositoryImpl: LocationRepositoryImpl): LocationRepository
 
     @Binds
     @Singleton
-    abstract fun bindEpisodeRepository(
-        episodeRepositoryImpl: EpisodeRepositoryImpl
-    ): EpisodeRepository
+    abstract fun bindEpisodeRepository(episodeRepositoryImpl: EpisodeRepositoryImpl): EpisodeRepository
 
     @Binds
     @Singleton
-    abstract fun bindSettingsRepository(
-        settingsRepositoryImpl: SettingsRepositoryImpl
-    ): SettingsRepository
+    abstract fun bindSettingsRepository(settingsRepositoryImpl: SettingsRepositoryImpl): SettingsRepository
 }

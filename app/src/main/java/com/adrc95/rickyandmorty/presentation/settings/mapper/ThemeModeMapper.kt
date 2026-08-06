@@ -8,7 +8,7 @@ import com.adrc95.rickyandmorty.presentation.settings.model.ThemeModeDisplayMode
 
 fun ThemeMode.toDisplayModel(): ThemeModeDisplayModel = ThemeModeDisplayModel.from(this)
 
-fun ThemeModeDisplayModel.toDomain(): ThemeMode = when(this) {
+fun ThemeModeDisplayModel.toDomain(): ThemeMode = when (this) {
     LIGHT -> ThemeMode.LIGHT
     DARK -> ThemeMode.DARK
     SYSTEM -> ThemeMode.SYSTEM

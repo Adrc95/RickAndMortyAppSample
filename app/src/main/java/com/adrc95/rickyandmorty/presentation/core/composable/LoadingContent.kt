@@ -12,19 +12,17 @@ import androidx.compose.ui.semantics.semantics
 import com.adrc95.rickyandmorty.R
 
 @Composable
-fun LoadingContent(
-    modifier: Modifier = Modifier,
-) {
+fun LoadingContent(modifier: Modifier = Modifier) {
     val loadingDescription = stringResource(R.string.loading)
 
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.Center
     ) {
-            CircularProgressIndicator(
-                modifier = Modifier.semantics {
-                    contentDescription = loadingDescription
-                },
-            )
+        CircularProgressIndicator(
+            modifier = Modifier.semantics {
+                contentDescription = loadingDescription
+            }
+        )
     }
 }

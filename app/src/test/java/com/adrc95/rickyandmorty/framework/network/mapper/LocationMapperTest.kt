@@ -15,11 +15,13 @@ class LocationMapperTest {
             withName("Earth (C-137)")
             withType("Planet")
             withDimension("Dimension C-137")
-            withResidents(listOf(
-                "https://rickandmortyapi.com/api/character/1",
-                "https://rickandmortyapi.com/api/character/2",
-                "https://rickandmortyapi.com/api/character/3"
-            ))
+            withResidents(
+                listOf(
+                    "https://rickandmortyapi.com/api/character/1",
+                    "https://rickandmortyapi.com/api/character/2",
+                    "https://rickandmortyapi.com/api/character/3"
+                )
+            )
         }
         val expected = locationDetail {
             withId(1)

@@ -10,11 +10,11 @@ import com.adrc95.rickyandmorty.domain.usecase.GetEpisodesByIdsUseCase
 import com.adrc95.rickyandmorty.domain.usecase.GetLocationByIdUseCase
 import com.adrc95.rickyandmorty.domain.usecase.IsCharacterFavouriteUseCase
 import com.adrc95.rickyandmorty.domain.usecase.ToggleFavouriteUseCase
+import com.adrc95.rickyandmorty.framework.toError
+import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.WHILE_SUBSCRIBED_TIMEOUT_MILLIS
 import com.adrc95.rickyandmorty.presentation.core.mapper.toDisplayModel
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterDisplayModel
 import com.adrc95.rickyandmorty.presentation.navigation.Route
-import com.adrc95.rickyandmorty.framework.toError
-import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.WHILE_SUBSCRIBED_TIMEOUT_MILLIS
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -37,7 +37,7 @@ class DetailViewModel @AssistedInject constructor(
     private val getLocationByIdUseCase: GetLocationByIdUseCase,
     private val getEpisodesByIdsUseCase: GetEpisodesByIdsUseCase,
     isCharacterFavouriteUseCase: IsCharacterFavouriteUseCase,
-    private val toggleFavouriteUseCase: ToggleFavouriteUseCase,
+    private val toggleFavouriteUseCase: ToggleFavouriteUseCase
 ) : ViewModel() {
 
     @AssistedFactory
@@ -49,12 +49,20 @@ class DetailViewModel @AssistedInject constructor(
         getCharacterByIdUseCase(navKey.id)
             .map { character ->
                 coroutineScope {
-                    val originDeferred = async { getLocationByIdUseCase(character.id, character.origin.id, isOrigin = true) }
-                    val locationDeferred = async { getLocationByIdUseCase(character.id, character.location.id, isOrigin = false) }
+                    val originDeferred =
+                        async { getLocationByIdUseCase(character.id, character.origin.id, isOrigin = true) }
+                    val locationDeferred =
+                        async { getLocationByIdUseCase(character.id, character.location.id, isOrigin = false) }
                     val episodesDeferred = async { getEpisodesByIdsUseCase(character.id, character.episodeIds) }
-                    val originDetail = when (val r = originDeferred.await()) { is Result.Success -> r.data else -> null }
-                    val locationDetail = when (val r = locationDeferred.await()) { is Result.Success -> r.data else -> null }
-                    val episodeDetails = when (val r = episodesDeferred.await()) { is Result.Success -> r.data else -> emptyList() }
+                    val originDetail = when (val r = originDeferred.await()) {
+                        is Result.Success -> r.data else -> null
+                    }
+                    val locationDetail = when (val r = locationDeferred.await()) {
+                        is Result.Success -> r.data else -> null
+                    }
+                    val episodeDetails = when (val r = episodesDeferred.await()) {
+                        is Result.Success -> r.data else -> emptyList()
+                    }
                     character.toDisplayModel(originDetail, locationDetail, episodeDetails)
                 }
             }
@@ -89,6 +97,6 @@ class DetailViewModel @AssistedInject constructor(
     data class UiState(
         val isLoading: Boolean = false,
         val character: CharacterDisplayModel? = null,
-        val error: AppError? = null,
+        val error: AppError? = null
     )
 }

@@ -27,15 +27,12 @@ import com.adrc95.rickyandmorty.presentation.settings.composable.ThemeOption
 import com.adrc95.rickyandmorty.presentation.settings.model.ThemeModeDisplayModel
 
 @Composable
-fun SettingsRoute(
-    viewModel: SettingsViewModel = hiltViewModel(),
-    onBack: () -> Unit,
-) {
+fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel(), onBack: () -> Unit) {
     val themeMode by viewModel.themeMode.collectAsState()
     SettingsScreen(
         themeMode = themeMode,
         onThemeModeSelected = viewModel::onThemeModeSelected,
-        onBack = onBack,
+        onBack = onBack
     )
 }
 
@@ -44,14 +41,14 @@ fun SettingsScreen(
     modifier: Modifier = Modifier,
     themeMode: ThemeModeDisplayModel,
     onThemeModeSelected: (ThemeModeDisplayModel) -> Unit,
-    onBack: () -> Unit,
+    onBack: () -> Unit
 ) {
     Scaffold(
         modifier = modifier,
         topBar = {
             AppToolbar(
                 title = stringResource(R.string.settings),
-                onNavigationClick = onBack,
+                onNavigationClick = onBack
             )
         }
     ) { padding ->
@@ -61,7 +58,7 @@ fun SettingsScreen(
                 .padding(padding)
                 .verticalScroll(rememberScrollState()),
             themeMode = themeMode,
-            onThemeModeSelected = onThemeModeSelected,
+            onThemeModeSelected = onThemeModeSelected
         )
     }
 }
@@ -70,10 +67,10 @@ fun SettingsScreen(
 private fun SettingContent(
     modifier: Modifier = Modifier,
     themeMode: ThemeModeDisplayModel,
-    onThemeModeSelected: (ThemeModeDisplayModel) -> Unit,
+    onThemeModeSelected: (ThemeModeDisplayModel) -> Unit
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
     ) {
         Text(
             text = stringResource(R.string.appearance),
@@ -91,7 +88,7 @@ private fun SettingContent(
                 .fillMaxWidth()
                 .padding(
                     horizontal = 16.dp
-                ),
+                )
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp),

@@ -17,9 +17,8 @@ class FavoriteBuilder {
         color = color,
         food = food,
         random = random,
-        song = song,
+        song = song
     )
 }
 
-fun favorite(block: FavoriteBuilder.() -> Unit = {}): Favorite =
-    FavoriteBuilder().apply(block).build()
+fun favorite(block: FavoriteBuilder.() -> Unit = {}): Favorite = FavoriteBuilder().apply(block).build()

@@ -40,16 +40,16 @@ import com.adrc95.rickyandmorty.presentation.core.composable.EmptyContent
 import com.adrc95.rickyandmorty.presentation.core.composable.ErrorBanner
 import com.adrc95.rickyandmorty.presentation.core.composable.LoadingContent
 import com.adrc95.rickyandmorty.presentation.core.composable.SearchBar
-import com.adrc95.rickyandmorty.presentation.home.composable.CharacterGrid
-import com.adrc95.rickyandmorty.presentation.filter.FilterBottomSheet
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterDisplayModel
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterFiltersDisplayModel
+import com.adrc95.rickyandmorty.presentation.filter.FilterBottomSheet
+import com.adrc95.rickyandmorty.presentation.home.composable.CharacterGrid
 
 @Composable
 fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
     onCharacterClick: (CharacterDisplayModel) -> Unit,
-    onSettingsClick: () -> Unit,
+    onSettingsClick: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val characters = viewModel.characters.collectAsLazyPagingItems()
@@ -60,7 +60,7 @@ fun HomeRoute(
         onFavouriteClick = viewModel::onToggleFavourite,
         onSettingsClick = onSettingsClick,
         onSearchQueryChange = viewModel::onSearchQueryChange,
-        onApplyFilters = viewModel::onFiltersChange,
+        onApplyFilters = viewModel::onFiltersChange
     )
 }
 
@@ -74,7 +74,7 @@ fun HomeScreen(
     onFavouriteClick: (Int) -> Unit,
     onSettingsClick: () -> Unit,
     onSearchQueryChange: (String) -> Unit,
-    onApplyFilters: (CharacterFiltersDisplayModel) -> Unit,
+    onApplyFilters: (CharacterFiltersDisplayModel) -> Unit
 ) {
     var showFilterSheet by remember { mutableStateOf(false) }
 
@@ -83,11 +83,12 @@ fun HomeScreen(
             filterGroupDisplayModels = uiState.filterGroups,
             currentFilters = uiState.filters,
             onApply = { onApplyFilters(it) },
-            onDismiss = { showFilterSheet = false },
+            onDismiss = { showFilterSheet = false }
         )
     }
 
-    val hasActiveFilters = uiState.filters.species != null || uiState.filters.gender != null || uiState.filters.status != null
+    val hasActiveFilters =
+        uiState.filters.species != null || uiState.filters.gender != null || uiState.filters.status != null
     val isInSearchMode = uiState.searchQuery.length >= MIN_SEARCH_LENGTH || hasActiveFilters
 
     Scaffold(
@@ -96,19 +97,19 @@ fun HomeScreen(
             Column {
                 AppToolbar(
                     title = stringResource(R.string.app_name),
-                    onActionClick = onSettingsClick,
+                    onActionClick = onSettingsClick
                 )
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     SearchBar(
                         placeholder = stringResource(R.string.search_by_name_placeholder),
                         query = uiState.searchQuery,
                         onQueryChange = onSearchQueryChange,
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(1f)
                     )
 
                     Spacer(modifier = Modifier.width(8.dp))
@@ -121,15 +122,15 @@ fun HomeScreen(
                             Icon(
                                 painter = painterResource(R.drawable.icon_filter),
                                 contentDescription = null,
-                                modifier = Modifier.width(18.dp),
+                                modifier = Modifier.width(18.dp)
                             )
                         },
                         shape = RoundedCornerShape(50),
                         colors = FilterChipDefaults.filterChipColors(
                             containerColor = MaterialTheme.colorScheme.surfaceContainer,
                             labelColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                            iconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                        ),
+                            iconColor = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                     )
                 }
             }
@@ -143,7 +144,7 @@ fun HomeScreen(
             showFavourite = !isInSearchMode,
             isInSearchMode = isInSearchMode,
             onCharacterClick = onCharacterClick,
-            onFavouriteClick = onFavouriteClick,
+            onFavouriteClick = onFavouriteClick
         )
     }
 }
@@ -157,7 +158,7 @@ private fun HomeContent(
     showFavourite: Boolean = true,
     isInSearchMode: Boolean = false,
     onCharacterClick: (CharacterDisplayModel) -> Unit,
-    onFavouriteClick: (Int) -> Unit,
+    onFavouriteClick: (Int) -> Unit
 ) {
     val refresh = characters.loadState.refresh
     var isRefreshing by remember { mutableStateOf(false) }
@@ -174,7 +175,7 @@ private fun HomeContent(
             isRefreshing = true
             characters.refresh()
         },
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize()
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             CharacterGrid(
@@ -184,7 +185,7 @@ private fun HomeContent(
                 onFavouriteClick = onFavouriteClick,
                 showFavourite = showFavourite,
                 searchQuery = searchQuery,
-                filters = filters,
+                filters = filters
             )
 
             if (refresh is LoadState.Loading && characters.itemCount == 0) {
@@ -195,7 +196,7 @@ private fun HomeContent(
                 ErrorBanner(
                     message = stringResource(R.string.error_connectivity),
                     onRetry = { characters.retry() },
-                    modifier = Modifier.align(Alignment.BottomCenter),
+                    modifier = Modifier.align(Alignment.BottomCenter)
                 )
             }
 
@@ -203,9 +204,12 @@ private fun HomeContent(
             if (isNotLoading && characters.itemCount == 0) {
                 EmptyContent(
                     message = stringResource(
-                        if (isInSearchMode) R.string.empty_search_results
-                        else R.string.empty_characters
-                    ),
+                        if (isInSearchMode) {
+                            R.string.empty_search_results
+                        } else {
+                            R.string.empty_characters
+                        }
+                    )
                 )
             }
 
@@ -214,7 +218,7 @@ private fun HomeContent(
                 ErrorBanner(
                     message = stringResource(R.string.error_load_characters),
                     onRetry = { characters.retry() },
-                    modifier = Modifier.align(Alignment.BottomCenter),
+                    modifier = Modifier.align(Alignment.BottomCenter)
                 )
             }
         }

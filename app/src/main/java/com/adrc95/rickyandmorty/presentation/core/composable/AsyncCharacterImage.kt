@@ -23,7 +23,7 @@ fun AsyncCharacterImage(
     model: String,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    contentScale: ContentScale = ContentScale.Crop,
+    contentScale: ContentScale = ContentScale.Crop
 ) {
     SubcomposeAsyncImage(
         model = model,
@@ -56,6 +56,6 @@ fun AsyncCharacterImage(
                 painter = painterResource(R.drawable.placeholder_error),
                 contentDescription = stringResource(R.string.image_load_error)
             )
-        },
+        }
     )
 }

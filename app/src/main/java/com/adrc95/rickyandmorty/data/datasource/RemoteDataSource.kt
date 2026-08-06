@@ -14,7 +14,7 @@ interface RemoteDataSource {
         name: String?,
         species: String?,
         gender: String?,
-        status: String?,
+        status: String?
     ): Result<Page<Character>>
     suspend fun getLocationById(id: Int): Result<LocationDetail>
     suspend fun getEpisodesByIds(ids: List<Int>): Result<List<EpisodeDetail>>

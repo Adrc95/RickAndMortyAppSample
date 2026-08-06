@@ -15,9 +15,11 @@ class CharacterFiltersDisplayModelBuilder {
     fun build() = CharacterFiltersDisplayModel(
         species = species,
         gender = gender,
-        status = status,
+        status = status
     )
 }
 
-fun characterFiltersDisplayModel(block: CharacterFiltersDisplayModelBuilder.() -> Unit = {}): CharacterFiltersDisplayModel =
-    CharacterFiltersDisplayModelBuilder().apply(block).build()
+fun characterFiltersDisplayModel(
+    block: CharacterFiltersDisplayModelBuilder.() -> Unit = {
+    }
+): CharacterFiltersDisplayModel = CharacterFiltersDisplayModelBuilder().apply(block).build()

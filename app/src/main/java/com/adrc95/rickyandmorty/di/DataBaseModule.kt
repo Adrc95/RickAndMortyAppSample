@@ -20,12 +20,11 @@ import javax.inject.Singleton
 object DataBaseModule {
     @Provides
     @Singleton
-    fun providesDatabase(@ApplicationContext context: Context): AppDatabase =
-        Room.databaseBuilder(
-            context = context,
-            klass = AppDatabase::class.java,
-            name = DATABASE_NAME
-        ).build()
+    fun providesDatabase(@ApplicationContext context: Context): AppDatabase = Room.databaseBuilder(
+        context = context,
+        klass = AppDatabase::class.java,
+        name = DATABASE_NAME
+    ).build()
 
     @Provides
     @Singleton

@@ -42,24 +42,20 @@ import androidx.compose.ui.unit.dp
 import com.adrc95.rickyandmorty.R
 import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.ANIMATION_DURATION_MILLIS
 import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.IMAGE_ASPECT_RATIO
+import com.adrc95.rickyandmorty.presentation.core.mapper.toGenericMessage
+import com.adrc95.rickyandmorty.presentation.core.model.CharacterDisplayModel
 import com.adrc95.rickyandmorty.presentation.detail.composable.CharacterSession
 import com.adrc95.rickyandmorty.presentation.detail.composable.EpisodesSection
 import com.adrc95.rickyandmorty.presentation.detail.composable.InfoGrid
-import com.adrc95.rickyandmorty.presentation.core.model.CharacterDisplayModel
-import com.adrc95.rickyandmorty.presentation.core.mapper.toGenericMessage
 
 @Composable
-fun DetailRoute(
-    viewModel: DetailViewModel,
-    onSettingsClick: () -> Unit,
-    onBack: () -> Unit,
-) {
+fun DetailRoute(viewModel: DetailViewModel, onSettingsClick: () -> Unit, onBack: () -> Unit) {
     val uiState by viewModel.uiState.collectAsState()
     DetailScreen(
         state = uiState,
         onBack = onBack,
         onSettingsClick = onSettingsClick,
-        onFavouriteClick = viewModel::onToggleFavourite,
+        onFavouriteClick = viewModel::onToggleFavourite
     )
 }
 
@@ -70,7 +66,7 @@ fun DetailScreen(
     state: DetailViewModel.UiState,
     onBack: () -> Unit,
     onSettingsClick: () -> Unit,
-    onFavouriteClick: () -> Unit,
+    onFavouriteClick: () -> Unit
 ) {
     val scroll: ScrollState = rememberScrollState(0)
 
@@ -186,7 +182,7 @@ fun DetailScreen(
                             .padding(padding)
                             .verticalScroll(scroll),
                         character = it,
-                        onFavouriteClick = onFavouriteClick,
+                        onFavouriteClick = onFavouriteClick
                     )
                 }
             }
@@ -200,11 +196,11 @@ private fun DetailContent(
     scroll: ScrollState,
     headerHeight: Float,
     character: CharacterDisplayModel,
-    onFavouriteClick: () -> Unit,
+    onFavouriteClick: () -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(24.dp),
-        modifier = modifier,
+        modifier = modifier
     ) {
         CharacterSession(
             headerHeight = headerHeight,
@@ -213,13 +209,13 @@ private fun DetailContent(
             image = character.image,
             status = character.status,
             isFavourite = character.isFavourite,
-            onFavouriteClick = onFavouriteClick,
+            onFavouriteClick = onFavouriteClick
         )
         InfoGrid(
-            character = character,
+            character = character
         )
         EpisodesSection(
-            episodes = character.episodeDetails,
+            episodes = character.episodeDetails
         )
     }
 }

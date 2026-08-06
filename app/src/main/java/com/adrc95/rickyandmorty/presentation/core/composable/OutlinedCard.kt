@@ -16,7 +16,7 @@ import com.adrc95.rickyandmorty.presentation.ui.theme.Shapes
 fun OutlinedCard(
     modifier: Modifier = Modifier,
     shape: Shape = Shapes.large,
-    content: @Composable ColumnScope.() -> Unit,
+    content: @Composable ColumnScope.() -> Unit
 ) {
     Card(
         modifier = modifier,
@@ -25,10 +25,10 @@ fun OutlinedCard(
         ),
         border = BorderStroke(
             width = 1.dp,
-            color = MaterialTheme.colorScheme.outlineVariant,
+            color = MaterialTheme.colorScheme.outlineVariant
         ),
         shape = shape,
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
-        content = content,
+        content = content
     )
 }

@@ -9,17 +9,17 @@ import com.adrc95.rickyandmorty.presentation.settings.mapper.toDisplayModel
 import com.adrc95.rickyandmorty.presentation.settings.mapper.toDomain
 import com.adrc95.rickyandmorty.presentation.settings.model.ThemeModeDisplayModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     getThemeModeUseCase: GetThemeModeUseCase,
-    private val setThemeModeUseCase: SetThemeModeUseCase,
+    private val setThemeModeUseCase: SetThemeModeUseCase
 ) : ViewModel() {
 
     val themeMode: StateFlow<ThemeModeDisplayModel> =
@@ -28,7 +28,7 @@ class SettingsViewModel @Inject constructor(
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(WHILE_SUBSCRIBED_TIMEOUT_MILLIS),
-                initialValue = ThemeModeDisplayModel.SYSTEM,
+                initialValue = ThemeModeDisplayModel.SYSTEM
             )
 
     fun onThemeModeSelected(mode: ThemeModeDisplayModel) {
