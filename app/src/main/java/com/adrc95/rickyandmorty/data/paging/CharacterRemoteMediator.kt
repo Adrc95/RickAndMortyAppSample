@@ -4,9 +4,10 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import com.adrc95.rickyandmorty.data.CACHE_TTL_MILLIS
-import com.adrc95.rickyandmorty.data.CHARACTERS_RESOURCE
-import com.adrc95.rickyandmorty.data.DEFAULT_LAST_UPDATED
+import com.adrc95.rickyandmorty.data.DataConstants.CACHE_TTL_MILLIS
+import com.adrc95.rickyandmorty.data.DataConstants.CHARACTERS_RESOURCE
+import com.adrc95.rickyandmorty.data.DataConstants.DEFAULT_LAST_UPDATED
+import com.adrc95.rickyandmorty.data.DataConstants.DEFAULT_PAGE
 import com.adrc95.rickyandmorty.data.datasource.LocalDataSource
 import com.adrc95.rickyandmorty.data.datasource.RemoteDataSource
 import com.adrc95.rickyandmorty.framework.database.entity.CharacterEntity
@@ -38,7 +39,7 @@ class CharacterRemoteMediator @Inject constructor(
                     return MediatorResult.Success(endOfPaginationReached = false)
                 }
                 Timber.d("REFRESH: fetching from API")
-                1
+                DEFAULT_PAGE
             }
 
             LoadType.PREPEND -> {

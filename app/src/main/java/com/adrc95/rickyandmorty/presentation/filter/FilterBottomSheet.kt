@@ -24,7 +24,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.adrc95.rickyandmorty.R
-import com.adrc95.rickyandmorty.domain.usecase.GetFilterGroupsUseCase
+import com.adrc95.rickyandmorty.domain.FilterConstants.GENDER_GROUP_ID
+import com.adrc95.rickyandmorty.domain.FilterConstants.SPECIES_GROUP_ID
+import com.adrc95.rickyandmorty.domain.FilterConstants.STATUS_GROUP_ID
 import com.adrc95.rickyandmorty.presentation.filter.composable.FilterSection
 import com.adrc95.rickyandmorty.presentation.filter.model.FilterGroupDisplayModel
 import com.adrc95.rickyandmorty.presentation.filter.model.FilterOptionDisplayModel
@@ -45,9 +47,9 @@ fun FilterBottomSheet(
         mutableStateMapOf<String, FilterOptionDisplayModel?>().apply {
             filterGroupDisplayModels.forEach { group ->
                 val option = when (group.id) {
-                    GetFilterGroupsUseCase.SPECIES_GROUP_ID -> currentFilters.species
-                    GetFilterGroupsUseCase.GENDER_GROUP_ID -> currentFilters.gender
-                    GetFilterGroupsUseCase.STATUS_GROUP_ID -> currentFilters.status
+                    SPECIES_GROUP_ID -> currentFilters.species
+                    GENDER_GROUP_ID -> currentFilters.gender
+                    STATUS_GROUP_ID -> currentFilters.status
                     else -> null
                 }
                 put(group.id, option)
@@ -96,11 +98,11 @@ fun FilterBottomSheet(
             onClick = {
                 onApply(
                     CharacterFiltersDisplayModel(
-                        species = selectedMap[GetFilterGroupsUseCase.SPECIES_GROUP_ID]
+                        species = selectedMap[SPECIES_GROUP_ID]
                                 as? FilterOptionDisplayModel.Species,
-                        gender = selectedMap[GetFilterGroupsUseCase.GENDER_GROUP_ID]
+                        gender = selectedMap[GENDER_GROUP_ID]
                                 as? FilterOptionDisplayModel.Gender,
-                        status = selectedMap[GetFilterGroupsUseCase.STATUS_GROUP_ID]
+                        status = selectedMap[STATUS_GROUP_ID]
                                 as? FilterOptionDisplayModel.Status,
                     )
                 )

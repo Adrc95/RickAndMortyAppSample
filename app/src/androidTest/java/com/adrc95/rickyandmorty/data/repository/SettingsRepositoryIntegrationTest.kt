@@ -5,7 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.adrc95.rickyandmorty.data.THEME_MODE_KEY
+import com.adrc95.rickyandmorty.data.DataConstants.THEME_MODE_KEY
 import com.adrc95.rickyandmorty.domain.model.ThemeMode
 import com.adrc95.rickyandmorty.domain.repository.SettingsRepository
 import dagger.hilt.android.testing.HiltAndroidRule

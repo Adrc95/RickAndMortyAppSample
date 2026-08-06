@@ -13,6 +13,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.adrc95.rickyandmorty.R
+import com.adrc95.rickyandmorty.presentation.core.TestTags.BACK_BUTTON
 import com.adrc95.rickyandmorty.presentation.settings.model.ThemeModeDisplayModel
 import com.adrc95.rickyandmorty.presentation.ui.theme.RickyAndMortyTheme
 import com.adrc95.rickyandmorty.testing.extension.string
@@ -89,7 +90,7 @@ class SettingsScreenTest {
             onBack = { backClicked = true }
         )
         composeTestRule
-            .onNodeWithTag("back_button")
+            .onNodeWithTag(BACK_BUTTON)
             .performClick()
         assertTrue(backClicked)
     }

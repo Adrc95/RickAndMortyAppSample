@@ -19,7 +19,7 @@ import com.adrc95.rickyandmorty.framework.database.entity.RemoteKeyEntity
         LocationDetailEntity::class,
         EpisodeDetailEntity::class,
     ],
-    version = 2,
+    version = 1,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

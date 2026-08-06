@@ -14,6 +14,7 @@ import com.adrc95.rickyandmorty.presentation.core.mapper.toDisplayModel
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterDisplayModel
 import com.adrc95.rickyandmorty.presentation.navigation.Route
 import com.adrc95.rickyandmorty.framework.toError
+import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.WHILE_SUBSCRIBED_TIMEOUT_MILLIS
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -75,7 +76,7 @@ class DetailViewModel @AssistedInject constructor(
             }
             .stateIn(
                 scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
+                started = SharingStarted.WhileSubscribed(WHILE_SUBSCRIBED_TIMEOUT_MILLIS),
                 initialValue = UiState(isLoading = true)
             )
 

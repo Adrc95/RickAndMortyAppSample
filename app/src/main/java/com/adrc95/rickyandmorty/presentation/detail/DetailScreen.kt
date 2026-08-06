@@ -40,6 +40,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.adrc95.rickyandmorty.R
+import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.ANIMATION_DURATION_MILLIS
+import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.IMAGE_ASPECT_RATIO
 import com.adrc95.rickyandmorty.presentation.detail.composable.CharacterSession
 import com.adrc95.rickyandmorty.presentation.detail.composable.EpisodesSection
 import com.adrc95.rickyandmorty.presentation.detail.composable.InfoGrid
@@ -79,7 +81,7 @@ fun DetailScreen(
 
     val screenWidth = configuration.screenWidthDp.dp
 
-    val imageHeight = screenWidth / 0.88f
+    val imageHeight = screenWidth / IMAGE_ASPECT_RATIO
 
     val headerHeightPx = with(density) { imageHeight.toPx() }
 
@@ -100,8 +102,8 @@ fun DetailScreen(
                 title = {
                     AnimatedVisibility(
                         visible = showToolbar,
-                        enter = fadeIn(animationSpec = tween(300)),
-                        exit = fadeOut(animationSpec = tween(300))
+                        enter = fadeIn(animationSpec = tween(ANIMATION_DURATION_MILLIS)),
+                        exit = fadeOut(animationSpec = tween(ANIMATION_DURATION_MILLIS))
                     ) {
                         Text(
                             text = state.character?.name.orEmpty(),

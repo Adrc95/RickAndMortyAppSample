@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
+import com.adrc95.rickyandmorty.data.DataConstants.DATA_STORE_FILE
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,6 +21,6 @@ object DataStoreModule {
     @Singleton
     fun provideDataStore(@ApplicationContext context: Context): DataStore<Preferences> =
         PreferenceDataStoreFactory.create {
-            context.preferencesDataStoreFile("ricky_and_morty_settings")
+            context.preferencesDataStoreFile(DATA_STORE_FILE)
         }
 }

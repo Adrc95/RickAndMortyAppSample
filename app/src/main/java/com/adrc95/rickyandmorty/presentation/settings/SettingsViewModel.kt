@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adrc95.rickyandmorty.domain.usecase.GetThemeModeUseCase
 import com.adrc95.rickyandmorty.domain.usecase.SetThemeModeUseCase
+import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.WHILE_SUBSCRIBED_TIMEOUT_MILLIS
 import com.adrc95.rickyandmorty.presentation.settings.mapper.toDisplayModel
 import com.adrc95.rickyandmorty.presentation.settings.mapper.toDomain
 import com.adrc95.rickyandmorty.presentation.settings.model.ThemeModeDisplayModel
@@ -26,7 +27,7 @@ class SettingsViewModel @Inject constructor(
             .map { it.toDisplayModel() }
             .stateIn(
                 scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
+                started = SharingStarted.WhileSubscribed(WHILE_SUBSCRIBED_TIMEOUT_MILLIS),
                 initialValue = ThemeModeDisplayModel.SYSTEM,
             )
 

@@ -26,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -34,6 +33,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adrc95.rickyandmorty.R
+import com.adrc95.rickyandmorty.presentation.core.TestTags.FAVOURITE_BUTTON
 import com.adrc95.rickyandmorty.presentation.core.composable.AsyncCharacterImage
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterDisplayModel
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterStatusDisplayModel
@@ -81,7 +81,7 @@ fun CharacterCard(
                             .align(Alignment.TopEnd)
                             .size(48.dp)
                             .clip(CircleShape)
-                            .testTag("favourite_button")
+                            .testTag(FAVOURITE_BUTTON)
                             .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.8f))
                     ) {
                         Icon(

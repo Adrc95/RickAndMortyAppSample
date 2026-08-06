@@ -2,6 +2,8 @@ package com.adrc95.rickyandmorty.presentation.home
 
 import androidx.paging.PagingData
 import app.cash.turbine.test
+import com.adrc95.rickyandmorty.domain.FilterConstants.GENDER_GROUP_ID
+import com.adrc95.rickyandmorty.domain.FilterConstants.SPECIES_GROUP_ID
 import com.adrc95.rickyandmorty.domain.builder.character
 import com.adrc95.rickyandmorty.domain.builder.filterGroup
 import com.adrc95.rickyandmorty.domain.usecase.GetCharactersUseCase
@@ -56,8 +58,8 @@ class HomeViewModelTest {
     fun `set up`() {
         MockKAnnotations.init(this)
         every { getFilterGroupsUseCase() } returns listOf(
-            filterGroup { withId(GetFilterGroupsUseCase.SPECIES_GROUP_ID) },
-            filterGroup { withId(GetFilterGroupsUseCase.GENDER_GROUP_ID) },
+            filterGroup { withId(SPECIES_GROUP_ID) },
+            filterGroup { withId(GENDER_GROUP_ID) },
         )
     }
 
@@ -91,7 +93,7 @@ class HomeViewModelTest {
                 val state = viewModel.uiState.value
                 assertEquals("", state.searchQuery)
                 assertEquals(2, state.filterGroups.size)
-                assertEquals(GetFilterGroupsUseCase.SPECIES_GROUP_ID, state.filterGroups[0].id)
+                assertEquals(SPECIES_GROUP_ID, state.filterGroups[0].id)
                 assertTrue(state.filters.species == null)
                 cancelAndIgnoreRemainingEvents()
             }

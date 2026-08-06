@@ -2,8 +2,8 @@ package com.adrc95.rickyandmorty.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.adrc95.rickyandmorty.data.DEFAULT_PAGE
-import com.adrc95.rickyandmorty.data.ERROR_404
+import com.adrc95.rickyandmorty.data.DataConstants.DEFAULT_PAGE
+import com.adrc95.rickyandmorty.data.DataConstants.ERROR_404
 import com.adrc95.rickyandmorty.data.datasource.LocalDataSource
 import com.adrc95.rickyandmorty.data.datasource.RemoteDataSource
 import com.adrc95.rickyandmorty.domain.exception.AppError

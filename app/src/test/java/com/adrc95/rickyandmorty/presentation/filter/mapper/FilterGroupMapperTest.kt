@@ -1,9 +1,11 @@
 package com.adrc95.rickyandmorty.presentation.filter.mapper
 
 import com.adrc95.rickyandmorty.R
+import com.adrc95.rickyandmorty.domain.FilterConstants.GENDER_GROUP_ID
+import com.adrc95.rickyandmorty.domain.FilterConstants.SPECIES_GROUP_ID
+import com.adrc95.rickyandmorty.domain.FilterConstants.STATUS_GROUP_ID
 import com.adrc95.rickyandmorty.domain.builder.filterGroup
 import com.adrc95.rickyandmorty.domain.model.FilterOption
-import com.adrc95.rickyandmorty.domain.usecase.GetFilterGroupsUseCase
 import com.adrc95.rickyandmorty.presentation.filter.model.FilterOptionDisplayModel
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -14,7 +16,7 @@ class FilterGroupMapperTest {
     fun `given species filter group when mapped to display model then returns species options`() {
         // Given
         val domain = filterGroup {
-            withId(GetFilterGroupsUseCase.SPECIES_GROUP_ID)
+            withId(SPECIES_GROUP_ID)
             withOptions(listOf(
                 FilterOption(id = "human"),
                 FilterOption(id = "alien"),
@@ -26,7 +28,7 @@ class FilterGroupMapperTest {
         val result = domain.toDisplayModel()
 
         // Then
-        assertEquals(GetFilterGroupsUseCase.SPECIES_GROUP_ID, result.id)
+        assertEquals(SPECIES_GROUP_ID, result.id)
         assertEquals(R.string.species, result.title)
         assertEquals(listOf(
             FilterOptionDisplayModel.Species.Human,
@@ -39,7 +41,7 @@ class FilterGroupMapperTest {
     fun `given gender filter group when mapped to display model then returns gender options`() {
         // Given
         val domain = filterGroup {
-            withId(GetFilterGroupsUseCase.GENDER_GROUP_ID)
+            withId(GENDER_GROUP_ID)
             withOptions(listOf(
                 FilterOption(id = "female"),
                 FilterOption(id = "male"),
@@ -52,7 +54,7 @@ class FilterGroupMapperTest {
         val result = domain.toDisplayModel()
 
         // Then
-        assertEquals(GetFilterGroupsUseCase.GENDER_GROUP_ID, result.id)
+        assertEquals(GENDER_GROUP_ID, result.id)
         assertEquals(R.string.genders, result.title)
         assertEquals(listOf(
             FilterOptionDisplayModel.Gender.Female,
@@ -66,7 +68,7 @@ class FilterGroupMapperTest {
     fun `given status filter group when mapped to display model then returns status options`() {
         // Given
         val domain = filterGroup {
-            withId(GetFilterGroupsUseCase.STATUS_GROUP_ID)
+            withId(STATUS_GROUP_ID)
             withOptions(listOf(
                 FilterOption(id = "alive"),
                 FilterOption(id = "dead"),
@@ -78,7 +80,7 @@ class FilterGroupMapperTest {
         val result = domain.toDisplayModel()
 
         // Then
-        assertEquals(GetFilterGroupsUseCase.STATUS_GROUP_ID, result.id)
+        assertEquals(STATUS_GROUP_ID, result.id)
         assertEquals(R.string.status, result.title)
         assertEquals(listOf(
             FilterOptionDisplayModel.Status.Alive,

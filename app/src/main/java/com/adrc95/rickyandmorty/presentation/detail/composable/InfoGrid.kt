@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.adrc95.rickyandmorty.R
+import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.FALLBACK_TEXT
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterDisplayModel
 import com.adrc95.rickyandmorty.presentation.ui.theme.Shapes
 
@@ -138,17 +139,17 @@ private fun MoreInfo(
     ) {
         MoreInfoItem(
             option = stringResource(R.string.type),
-            text = type ?: "-",
+            text = type ?: FALLBACK_TEXT,
             badge = false,
         )
         MoreInfoItem(
             option = stringResource(R.string.dimensions),
-            text = dimension ?: "-",
+            text = dimension ?: FALLBACK_TEXT,
             badge = false,
         )
         MoreInfoItem(
             option = stringResource(R.string.residents),
-            text = residentsCount?.toString() ?: "-",
+            text = residentsCount?.toString() ?: FALLBACK_TEXT,
             badge = true,
         )
     }

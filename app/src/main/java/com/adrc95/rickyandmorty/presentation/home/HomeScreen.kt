@@ -34,6 +34,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.adrc95.rickyandmorty.R
+import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.MIN_SEARCH_LENGTH
 import com.adrc95.rickyandmorty.presentation.core.composable.AppToolbar
 import com.adrc95.rickyandmorty.presentation.core.composable.EmptyContent
 import com.adrc95.rickyandmorty.presentation.core.composable.ErrorBanner
@@ -87,7 +88,7 @@ fun HomeScreen(
     }
 
     val hasActiveFilters = uiState.filters.species != null || uiState.filters.gender != null || uiState.filters.status != null
-    val isInSearchMode = uiState.searchQuery.length >= 3 || hasActiveFilters
+    val isInSearchMode = uiState.searchQuery.length >= MIN_SEARCH_LENGTH || hasActiveFilters
 
     Scaffold(
         modifier = modifier,

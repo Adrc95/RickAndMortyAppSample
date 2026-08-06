@@ -2,6 +2,7 @@ package com.adrc95.rickyandmorty.data.datasource
 
 import androidx.paging.PagingSource
 import androidx.room.withTransaction
+import com.adrc95.rickyandmorty.data.DataConstants.CHARACTERS_RESOURCE
 import com.adrc95.rickyandmorty.data.mapper.toEntity
 import com.adrc95.rickyandmorty.domain.model.Character
 import com.adrc95.rickyandmorty.domain.model.EpisodeDetail
@@ -51,7 +52,7 @@ class RoomDataSource @Inject constructor(
             characterDao.insertAll(characters.map { it.toEntity() })
             remoteKeyDao.insert(
                 RemoteKeyEntity(
-                    resource = "characters",
+                    resource = CHARACTERS_RESOURCE,
                     nextPage = nextPage,
                     lastUpdatedAt = System.currentTimeMillis(),
                 )

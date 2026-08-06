@@ -29,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.adrc95.rickyandmorty.R
+import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.IMAGE_ASPECT_RATIO
 import com.adrc95.rickyandmorty.presentation.core.composable.AsyncCharacterImage
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterStatusDisplayModel
 
@@ -46,7 +47,7 @@ fun CharacterSession(
         modifier = Modifier
             .graphicsLayer { alpha = (-1f / headerHeight) * scroll.value + 1 }
             .fillMaxWidth()
-            .aspectRatio(0.88f)
+            .aspectRatio(IMAGE_ASPECT_RATIO)
     ) {
         AsyncCharacterImage(
             model = image,

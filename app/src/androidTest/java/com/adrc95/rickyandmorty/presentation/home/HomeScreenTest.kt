@@ -17,6 +17,8 @@ import androidx.paging.Pager
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.adrc95.rickyandmorty.R
 import com.adrc95.rickyandmorty.domain.model.SummaryLocation
+import com.adrc95.rickyandmorty.presentation.core.TestTags.FAVOURITE_BUTTON
+import com.adrc95.rickyandmorty.presentation.core.TestTags.SETTINGS_BUTTON
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterDisplayModel
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterStatusDisplayModel
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterFiltersDisplayModel
@@ -52,7 +54,7 @@ class HomeScreenTest {
             onFavouriteClick = { favouriteCharacterId = it },
         )
         composeTestRule.onNodeWithText("Rick Sanchez").performClick()
-        composeTestRule.onNodeWithTag("favourite_button").performClick()
+        composeTestRule.onNodeWithTag(FAVOURITE_BUTTON).performClick()
         assertEquals(character(), selectedCharacter)
         assertEquals(1, favouriteCharacterId)
     }
@@ -71,7 +73,7 @@ class HomeScreenTest {
     fun whenSettingsIsClicked_thenEmitsCallback() {
         var settingsClicked = false
         setContent(onSettingsClick = { settingsClicked = true })
-        composeTestRule.onNodeWithTag("settings_button").performClick()
+        composeTestRule.onNodeWithTag(SETTINGS_BUTTON).performClick()
         assertEquals(true, settingsClicked)
     }
 
@@ -79,7 +81,7 @@ class HomeScreenTest {
     fun givenSearchMode_whenScreenIsDisplayed_thenHidesFavouriteAction() {
         setContent(uiState = HomeViewModel.UiState(searchQuery = "rick"))
         composeTestRule.onNodeWithText("Rick Sanchez").assertIsDisplayed()
-        composeTestRule.onNodeWithTag("favourite_button").assertDoesNotExist()
+        composeTestRule.onNodeWithTag(FAVOURITE_BUTTON).assertDoesNotExist()
     }
 
     @Test

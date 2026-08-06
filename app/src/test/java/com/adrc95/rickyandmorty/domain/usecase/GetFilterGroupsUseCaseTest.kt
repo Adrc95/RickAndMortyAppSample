@@ -1,5 +1,8 @@
 package com.adrc95.rickyandmorty.domain.usecase
 
+import com.adrc95.rickyandmorty.domain.FilterConstants.GENDER_GROUP_ID
+import com.adrc95.rickyandmorty.domain.FilterConstants.SPECIES_GROUP_ID
+import com.adrc95.rickyandmorty.domain.FilterConstants.STATUS_GROUP_ID
 import com.adrc95.rickyandmorty.domain.model.FilterOption
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -24,7 +27,7 @@ class GetFilterGroupsUseCaseTest {
 
         // Then
         val species = result[0]
-        assertEquals(GetFilterGroupsUseCase.SPECIES_GROUP_ID, species.id)
+        assertEquals(SPECIES_GROUP_ID, species.id)
         assertEquals(
             listOf(
                 FilterOption(id = "human"),
@@ -48,7 +51,7 @@ class GetFilterGroupsUseCaseTest {
 
         // Then
         val gender = result[1]
-        assertEquals(GetFilterGroupsUseCase.GENDER_GROUP_ID, gender.id)
+        assertEquals(GENDER_GROUP_ID, gender.id)
         assertEquals(
             listOf(
                 FilterOption(id = "female"),
@@ -67,7 +70,7 @@ class GetFilterGroupsUseCaseTest {
 
         // Then
         val status = result[2]
-        assertEquals(GetFilterGroupsUseCase.STATUS_GROUP_ID, status.id)
+        assertEquals(STATUS_GROUP_ID, status.id)
         assertEquals(
             listOf(
                 FilterOption(id = "alive"),

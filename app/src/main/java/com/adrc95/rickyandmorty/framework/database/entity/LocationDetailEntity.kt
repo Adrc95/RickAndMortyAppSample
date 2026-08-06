@@ -4,18 +4,21 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.adrc95.rickyandmorty.framework.database.DatabaseConstants.CHARACTER_ID_COLUMN
+import com.adrc95.rickyandmorty.framework.database.DatabaseConstants.ID_COLUMN
+import com.adrc95.rickyandmorty.framework.database.DatabaseConstants.LOCATION_DETAIL_TABLE
 
 @Entity(
-    tableName = "location_details",
+    tableName = LOCATION_DETAIL_TABLE,
     foreignKeys = [
         ForeignKey(
             entity = CharacterEntity::class,
-            parentColumns = ["id"],
-            childColumns = ["characterId"],
+            parentColumns = [ID_COLUMN],
+            childColumns = [CHARACTER_ID_COLUMN],
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index("characterId")]
+    indices = [Index(CHARACTER_ID_COLUMN)]
 )
 data class LocationDetailEntity(
     @PrimaryKey val id: Int,

@@ -5,13 +5,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.adrc95.rickyandmorty.framework.database.DatabaseConstants.CHARACTER_TABLE
 import com.adrc95.rickyandmorty.framework.database.entity.CharacterEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CharacterDao {
 
-    @Query("SELECT * FROM characters ORDER BY id ASC")
+    @Query("SELECT * FROM $CHARACTER_TABLE ORDER BY id ASC")
     fun getCharacters(): PagingSource<Int, CharacterEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -19,18 +20,18 @@ interface CharacterDao {
         characters: List<CharacterEntity>
     )
 
-    @Query("DELETE FROM characters")
+    @Query("DELETE FROM $CHARACTER_TABLE")
     suspend fun clear()
 
-    @Query("SELECT COUNT(*) FROM characters")
+    @Query("SELECT COUNT(*) FROM $CHARACTER_TABLE")
     suspend fun count(): Int
 
-    @Query("SELECT * FROM characters WHERE id = :id")
+    @Query("SELECT * FROM $CHARACTER_TABLE WHERE id = :id")
     suspend fun getById(id: Int): CharacterEntity?
 
-    @Query("UPDATE characters SET isFavourite = NOT isFavourite WHERE id = :characterId")
+    @Query("UPDATE $CHARACTER_TABLE SET isFavourite = NOT isFavourite WHERE id = :characterId")
     suspend fun toggleFavourite(characterId: Int)
 
-    @Query("SELECT isFavourite FROM characters WHERE id = :characterId")
+    @Query("SELECT isFavourite FROM $CHARACTER_TABLE WHERE id = :characterId")
     fun isFavourite(characterId: Int): Flow<Boolean>
 }

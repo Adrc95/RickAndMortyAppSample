@@ -1,8 +1,8 @@
 package com.adrc95.rickyandmorty.data.datasource
 
-import com.adrc95.rickyandmorty.data.AMPERSAND_DELIMITER
-import com.adrc95.rickyandmorty.data.COMMA_DELIMITER
-import com.adrc95.rickyandmorty.data.PAGE_DELIMITER
+import com.adrc95.rickyandmorty.data.DataConstants.AMPERSAND_DELIMITER
+import com.adrc95.rickyandmorty.data.DataConstants.COMMA_DELIMITER
+import com.adrc95.rickyandmorty.data.DataConstants.PAGE_DELIMITER
 import com.adrc95.rickyandmorty.domain.exception.Result
 import com.adrc95.rickyandmorty.domain.model.Character
 import com.adrc95.rickyandmorty.domain.model.EpisodeDetail

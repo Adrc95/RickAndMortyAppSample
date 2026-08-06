@@ -5,10 +5,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.adrc95.rickyandmorty.data.PAGING_ENABLED_PLACEHOLDER_DEFAULT
-import com.adrc95.rickyandmorty.data.PAGING_INITIAL_DEFAULT
-import com.adrc95.rickyandmorty.data.PAGING_PREFETCH_DEFAULT
-import com.adrc95.rickyandmorty.data.PAGING_SIZE_DEFAULT
+import com.adrc95.rickyandmorty.data.DataConstants.PAGING_ENABLED_PLACEHOLDER_DEFAULT
+import com.adrc95.rickyandmorty.data.DataConstants.PAGING_INITIAL_DEFAULT
+import com.adrc95.rickyandmorty.data.DataConstants.PAGING_PREFETCH_DEFAULT
+import com.adrc95.rickyandmorty.data.DataConstants.PAGING_SIZE_DEFAULT
 import com.adrc95.rickyandmorty.domain.exception.AppErrorException
 import com.adrc95.rickyandmorty.domain.exception.Result
 import com.adrc95.rickyandmorty.data.datasource.LocalDataSource

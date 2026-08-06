@@ -18,6 +18,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import com.adrc95.rickyandmorty.R
+import com.adrc95.rickyandmorty.presentation.core.TestTags.BACK_BUTTON
+import com.adrc95.rickyandmorty.presentation.core.TestTags.SETTINGS_BUTTON
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,7 +47,7 @@ fun AppToolbar(
             navigationIcon = {
                 if (onNavigationClick != null) {
                     IconButton(
-                        modifier = Modifier.testTag("back_button"),
+                        modifier = Modifier.testTag(BACK_BUTTON),
                         onClick = onNavigationClick,
                     ) {
                         Icon(
@@ -59,7 +61,7 @@ fun AppToolbar(
             actions = {
                 if (onActionClick != null) {
                     IconButton(
-                        modifier = Modifier.testTag("settings_button"),
+                        modifier = Modifier.testTag(SETTINGS_BUTTON),
                         onClick = onActionClick,
                     ) {
                         Icon(

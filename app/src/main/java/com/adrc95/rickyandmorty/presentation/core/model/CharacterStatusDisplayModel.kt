@@ -3,6 +3,8 @@ package com.adrc95.rickyandmorty.presentation.core.model
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
 import com.adrc95.rickyandmorty.R
+import com.adrc95.rickyandmorty.domain.FilterConstants.STATUS_ALIVE
+import com.adrc95.rickyandmorty.domain.FilterConstants.STATUS_DEAD
 import com.adrc95.rickyandmorty.presentation.ui.theme.BlueGray600
 import com.adrc95.rickyandmorty.presentation.ui.theme.Green500
 import com.adrc95.rickyandmorty.presentation.ui.theme.Red200
@@ -27,8 +29,8 @@ enum class CharacterStatusDisplayModel(
     companion object {
         fun from(value: String): CharacterStatusDisplayModel =
             when (value.lowercase()) {
-                "alive" -> ALIVE
-                "dead" -> DEAD
+                STATUS_ALIVE -> ALIVE
+                STATUS_DEAD -> DEAD
                 else -> UNKNOWN
             }
     }

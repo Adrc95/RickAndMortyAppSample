@@ -3,6 +3,7 @@
 import android.content.Context
 import androidx.room.Room
 import com.adrc95.rickyandmorty.framework.database.AppDatabase
+import com.adrc95.rickyandmorty.framework.database.DatabaseConstants.DATABASE_NAME
 import com.adrc95.rickyandmorty.framework.database.dao.CharacterDao
 import com.adrc95.rickyandmorty.framework.database.dao.EpisodeDetailDao
 import com.adrc95.rickyandmorty.framework.database.dao.LocationDetailDao
@@ -23,8 +24,8 @@ object DataBaseModule {
         Room.databaseBuilder(
             context = context,
             klass = AppDatabase::class.java,
-            name = "RickyAndMorty"
-        ).fallbackToDestructiveMigration(dropAllTables = true).build()
+            name = DATABASE_NAME
+        ).build()
 
     @Provides
     @Singleton

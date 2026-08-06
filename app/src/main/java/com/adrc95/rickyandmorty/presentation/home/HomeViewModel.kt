@@ -10,6 +10,9 @@ import com.adrc95.rickyandmorty.domain.usecase.GetCharactersUseCase
 import com.adrc95.rickyandmorty.domain.usecase.GetFilterGroupsUseCase
 import com.adrc95.rickyandmorty.domain.usecase.SearchCharactersUseCase
 import com.adrc95.rickyandmorty.domain.usecase.ToggleFavouriteUseCase
+import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.MIN_SEARCH_LENGTH
+import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.SEARCH_DEBOUNCE_MILLIS
+import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.WHILE_SUBSCRIBED_TIMEOUT_MILLIS
 import com.adrc95.rickyandmorty.presentation.filter.mapper.toDisplayModel
 import com.adrc95.rickyandmorty.presentation.filter.mapper.toDomain
 import com.adrc95.rickyandmorty.presentation.filter.model.FilterGroupDisplayModel
@@ -61,13 +64,13 @@ class HomeViewModel @Inject constructor(
             )
         }.stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
+            started = SharingStarted.WhileSubscribed(WHILE_SUBSCRIBED_TIMEOUT_MILLIS),
             initialValue = UiState(),
         )
 
     val characters: Flow<PagingData<CharacterDisplayModel>> =
         uiState
-            .debounce(300.milliseconds)
+            .debounce(SEARCH_DEBOUNCE_MILLIS.milliseconds)
             .distinctUntilChanged()
             .flatMapLatest { state ->
                 val hasFilters =
@@ -116,8 +119,4 @@ class HomeViewModel @Inject constructor(
         val filterGroups: List<FilterGroupDisplayModel> = emptyList(),
         val error: AppError? = null,
     )
-
-    private companion object {
-        const val MIN_SEARCH_LENGTH = 3
-    }
 }
