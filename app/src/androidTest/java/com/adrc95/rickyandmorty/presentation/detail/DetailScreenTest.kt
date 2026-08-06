@@ -11,6 +11,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import com.adrc95.rickyandmorty.R
@@ -84,8 +85,8 @@ class DetailScreenTest {
         composeTestRule.onNodeWithText("Rick Sanchez").assertIsDisplayed()
         composeTestRule.onNodeWithText("ALIVE").assertIsDisplayed()
         composeTestRule.onNodeWithText("Human / Male").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Earth (C-137)").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Citadel of Ricks").assertExists()
+        composeTestRule.onNodeWithText("Earth (C-137)").performScrollTo().assertIsDisplayed()
+        composeTestRule.onNodeWithText("Citadel of Ricks").performScrollTo().assertIsDisplayed()
     }
 
     @Test

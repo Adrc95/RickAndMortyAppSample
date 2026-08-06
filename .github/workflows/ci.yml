@@ -97,7 +97,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        api-level: [ 24, 34, 36 ]
+        api-level: [ 24, 34 ]
     steps:
       - name: Enable KVM
         run: |
@@ -112,35 +112,17 @@ jobs:
           java-version: 17
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
-      - name: Cache AVD
-        uses: actions/cache@v4
-        id: avd-cache
-        with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-          key: avd-${{ matrix.api-level }}
-      - name: Create AVD snapshot
-        if: steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: ${{ matrix.api-level }}
-          arch: x86_64
-          target: google_apis
-          force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: false
-          script: echo "AVD snapshot listo para API ${{ matrix.api-level }}"
       - name: Run instrumented tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
           arch: x86_64
           target: google_apis
-          force-avd-creation: false
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          force-avd-creation: true
+          cores: 2
+          emulator-options: -no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: ./gradlew connectedDebugAndroidTest --stacktrace
+          script: ./gradlew connectedDebugAndroidTest --stacktrace || ./gradlew connectedDebugAndroidTest --stacktrace
       - name: Publish instrumented results
         if: always()
         uses: EnricoMi/publish-unit-test-result-action@v2

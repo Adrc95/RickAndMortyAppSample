@@ -214,7 +214,7 @@ The workflow runs the following jobs in parallel:
 - **Unit tests:** runs `./gradlew :app:testDebugUnitTest` and publishes the JUnit results.
 - **Build:** assembles the debug APK (`:app:assembleDebug`) and uploads it as an artifact.
 - **Static analysis:** runs `./gradlew :app:ktlintCheck` to enforce the project code style.
-- **Instrumented tests:** runs `connectedDebugAndroidTest` on Android emulators (API 24, 34 and 36) with a cached AVD snapshot. This covers Compose UI tests, Room DAO tests and repository integration tests.
+- **Instrumented tests:** runs `connectedDebugAndroidTest` on Android emulators (API 24 and 34) with a cold-booted AVD. This covers Compose UI tests, Room DAO tests and repository integration tests.
 
 A push while a run is in progress cancels the previous run (`concurrency` with `cancel-in-progress`).
 
