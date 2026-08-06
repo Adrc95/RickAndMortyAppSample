@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+# Pre-commit hook: enforce ktlint formatting and checks.
+# Runs before every commit. Code is formatted automatically and the
+# modified files are re-staged. The commit is aborted if ktlint fails.
+
+set -e
+
+echo "[pre-commit] Running ktlintFormat..."
+./gradlew :app:ktlintFormat
+
+echo "[pre-commit] Re-staging formatted files..."
+git add -u
+
+echo "[pre-commit] Running ktlintCheck..."
+./gradlew :app:ktlintCheck
+
+echo "[pre-commit] ktlint passed."

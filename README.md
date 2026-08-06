@@ -199,6 +199,25 @@ Auto-format the codebase with:
 
 `ktlintCheck` runs as part of the `check` task. On Windows, replace `./gradlew` with `.\gradlew.bat`.
 
+The repository includes a Git pre-commit hook (`.githooks/pre-commit`) that runs `ktlintFormat`, re-stages the formatted files and aborts the commit if `ktlintCheck` fails. Enable it with:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+## Continuous Integration (CI)
+
+The repository includes a GitHub Actions workflow (`.github/workflows/ci.yml`) that runs on every push to `master` and on every pull request targeting `master`. It can also be triggered manually from the Actions tab (`workflow_dispatch`).
+
+The workflow runs the following jobs in parallel:
+
+- **Unit tests:** runs `./gradlew :app:testDebugUnitTest` and publishes the JUnit results.
+- **Build:** assembles the debug APK (`:app:assembleDebug`) and uploads it as an artifact.
+- **Static analysis:** runs `./gradlew :app:ktlintCheck` to enforce the project code style.
+- **Instrumented tests:** runs `connectedDebugAndroidTest` on Android emulators (API 24, 34 and 36) with a cached AVD snapshot. This covers Compose UI tests, Room DAO tests and repository integration tests.
+
+A push while a run is in progress cancels the previous run (`concurrency` with `cancel-in-progress`).
+
 ## Project Structure
 
 ```text
