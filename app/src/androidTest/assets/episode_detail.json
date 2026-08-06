@@ -1,0 +1,8 @@
+{
+  "id": 1,
+  "name": "Pilot",
+  "episode": "S01E01",
+  "air_date": "December 2, 2013",
+  "characters": ["https://rickandmortyapi.com/api/character/1"],
+  "url": "https://rickandmortyapi.com/api/episode/1"
+}

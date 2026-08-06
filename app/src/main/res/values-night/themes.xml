@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.RickyAndMorty" parent="android:Theme.Material.Light.NoActionBar">                                                 LSPs are disabled
+        <item name="android:windowBackground">#191C1E</item>
+    </style>
+</resources>

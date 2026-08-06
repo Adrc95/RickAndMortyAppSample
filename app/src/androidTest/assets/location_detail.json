@@ -1,0 +1,11 @@
+{
+  "id": 3,
+  "name": "Citadel of Ricks",
+  "type": "Space station",
+  "dimension": "unknown",
+  "residents": [
+    "https://rickandmortyapi.com/api/character/1",
+    "https://rickandmortyapi.com/api/character/2"
+  ],
+  "url": "https://rickandmortyapi.com/api/location/3"
+}
