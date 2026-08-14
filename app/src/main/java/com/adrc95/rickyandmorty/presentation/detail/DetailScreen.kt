@@ -22,7 +22,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -39,6 +38,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.adrc95.rickyandmorty.R
 import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.ANIMATION_DURATION_MILLIS
 import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.IMAGE_ASPECT_RATIO
@@ -50,7 +50,7 @@ import com.adrc95.rickyandmorty.presentation.detail.composable.InfoGrid
 
 @Composable
 fun DetailRoute(viewModel: DetailViewModel, onSettingsClick: () -> Unit, onBack: () -> Unit) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     DetailScreen(
         state = uiState,
         onBack = onBack,

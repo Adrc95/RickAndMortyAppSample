@@ -7,11 +7,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.adrc95.rickyandmorty.domain.model.ThemeMode
 import com.adrc95.rickyandmorty.domain.usecase.GetThemeModeUseCase
 import com.adrc95.rickyandmorty.presentation.navigation.NavigationRoot
@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val view = LocalView.current
-            val themeMode by getThemeMode().collectAsState(initial = ThemeMode.SYSTEM)
+            val themeMode by getThemeMode().collectAsStateWithLifecycle(initialValue = ThemeMode.SYSTEM)
             val darkTheme = when (themeMode) {
                 ThemeMode.LIGHT -> false
                 ThemeMode.DARK -> true

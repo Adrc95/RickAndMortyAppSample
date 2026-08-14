@@ -12,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -20,6 +19,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.adrc95.rickyandmorty.R
 import com.adrc95.rickyandmorty.presentation.core.composable.AppToolbar
 import com.adrc95.rickyandmorty.presentation.core.composable.OutlinedCard
@@ -28,7 +28,7 @@ import com.adrc95.rickyandmorty.presentation.settings.model.ThemeModeDisplayMode
 
 @Composable
 fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel(), onBack: () -> Unit) {
-    val themeMode by viewModel.themeMode.collectAsState()
+    val themeMode by viewModel.themeMode.collectAsStateWithLifecycle()
     SettingsScreen(
         themeMode = themeMode,
         onThemeModeSelected = viewModel::onThemeModeSelected,
