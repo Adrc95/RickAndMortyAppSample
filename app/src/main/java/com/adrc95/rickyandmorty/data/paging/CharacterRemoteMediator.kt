@@ -11,7 +11,7 @@ import com.adrc95.rickyandmorty.data.DataConstants.DEFAULT_PAGE
 import com.adrc95.rickyandmorty.data.datasource.LocalDataSource
 import com.adrc95.rickyandmorty.data.datasource.RemoteDataSource
 import com.adrc95.rickyandmorty.domain.exception.Result
-import com.adrc95.rickyandmorty.framework.database.entity.CharacterEntity
+import com.adrc95.rickyandmorty.domain.model.Character
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -19,9 +19,9 @@ import timber.log.Timber
 class CharacterRemoteMediator @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
-) : RemoteMediator<Int, CharacterEntity>() {
+) : RemoteMediator<Int, Character>() {
 
-    override suspend fun load(loadType: LoadType, state: PagingState<Int, CharacterEntity>): MediatorResult {
+    override suspend fun load(loadType: LoadType, state: PagingState<Int, Character>): MediatorResult {
         val page = when (loadType) {
             LoadType.REFRESH -> {
                 val remoteKey = localDataSource.getRemoteKey(CHARACTERS_RESOURCE)

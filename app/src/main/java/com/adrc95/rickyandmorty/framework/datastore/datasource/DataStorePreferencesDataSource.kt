@@ -1,4 +1,4 @@
-package com.adrc95.rickyandmorty.data.datasource
+package com.adrc95.rickyandmorty.framework.datastore.datasource
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

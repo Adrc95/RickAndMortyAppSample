@@ -1,22 +1,24 @@
-package com.adrc95.rickyandmorty.data.datasource
+package com.adrc95.rickyandmorty.framework.database.datasource
 
 import androidx.paging.PagingSource
 import androidx.room.withTransaction
 import com.adrc95.rickyandmorty.data.DataConstants.CHARACTERS_RESOURCE
-import com.adrc95.rickyandmorty.data.mapper.toEntity
-import com.adrc95.rickyandmorty.data.mapper.toEntity as episodeToEntity
-import com.adrc95.rickyandmorty.data.mapper.toEntity as locationToEntity
+import com.adrc95.rickyandmorty.data.datasource.LocalDataSource
 import com.adrc95.rickyandmorty.domain.model.Character
 import com.adrc95.rickyandmorty.domain.model.EpisodeDetail
 import com.adrc95.rickyandmorty.domain.model.LocationDetail
+import com.adrc95.rickyandmorty.domain.model.RemoteKey
 import com.adrc95.rickyandmorty.framework.database.AppDatabase
 import com.adrc95.rickyandmorty.framework.database.dao.CharacterDao
 import com.adrc95.rickyandmorty.framework.database.dao.EpisodeDetailDao
 import com.adrc95.rickyandmorty.framework.database.dao.LocationDetailDao
 import com.adrc95.rickyandmorty.framework.database.dao.RemoteKeyDao
-import com.adrc95.rickyandmorty.framework.database.entity.CharacterEntity
 import com.adrc95.rickyandmorty.framework.database.entity.RemoteKeyEntity
 import com.adrc95.rickyandmorty.framework.database.mapper.toDomain
+import com.adrc95.rickyandmorty.framework.database.mapper.toEntity
+import com.adrc95.rickyandmorty.framework.database.mapper.toEntity as episodeToEntity
+import com.adrc95.rickyandmorty.framework.database.mapper.toEntity as locationToEntity
+import com.adrc95.rickyandmorty.framework.database.paging.CharacterPagingSource
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
@@ -28,11 +30,11 @@ class RoomDataSource @Inject constructor(
     private val episodeDetailDao: EpisodeDetailDao
 ) : LocalDataSource {
 
-    override suspend fun getCharacterById(id: Int): CharacterEntity? = characterDao.getById(id)
+    override suspend fun getCharacterById(id: Int): Character? = characterDao.getById(id)?.toDomain()
 
-    override fun getCharacters(): PagingSource<Int, CharacterEntity> = characterDao.getCharacters()
+    override fun getCharacters(): PagingSource<Int, Character> = CharacterPagingSource(characterDao.getCharacters())
 
-    override suspend fun getRemoteKey(resource: String): RemoteKeyEntity? = remoteKeyDao.get(resource)
+    override suspend fun getRemoteKey(resource: String): RemoteKey? = remoteKeyDao.get(resource)?.toDomain()
 
     override suspend fun hasCachedCharacters(): Boolean = characterDao.count() > 0
 
@@ -69,13 +71,6 @@ class RoomDataSource @Inject constructor(
 
     override suspend fun saveEpisodeDetails(episodes: List<EpisodeDetail>, characterId: Int) {
         episodeDetailDao.insertAll(episodes.map { it.episodeToEntity(characterId) })
-    }
-
-    override suspend fun deleteCharacterDetails(characterId: Int) {
-        database.withTransaction {
-            locationDetailDao.deleteByCharacterId(characterId)
-            episodeDetailDao.deleteByCharacterId(characterId)
-        }
     }
 
     override fun isFavourite(characterId: Int): Flow<Boolean> = characterDao.isFavourite(characterId)

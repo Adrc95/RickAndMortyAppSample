@@ -1,4 +1,4 @@
-package com.adrc95.rickyandmorty.data.mapper
+package com.adrc95.rickyandmorty.framework.database.mapper
 
 import com.adrc95.rickyandmorty.domain.builder.episodeDetail
 import com.adrc95.rickyandmorty.framework.database.builder.episodeDetailEntity

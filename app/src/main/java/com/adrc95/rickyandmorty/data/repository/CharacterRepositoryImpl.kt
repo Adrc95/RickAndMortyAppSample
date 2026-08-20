@@ -4,7 +4,6 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.map
 import com.adrc95.rickyandmorty.data.DataConstants.PAGING_ENABLED_PLACEHOLDER_DEFAULT
 import com.adrc95.rickyandmorty.data.DataConstants.PAGING_INITIAL_DEFAULT
 import com.adrc95.rickyandmorty.data.DataConstants.PAGING_PREFETCH_DEFAULT
@@ -17,11 +16,9 @@ import com.adrc95.rickyandmorty.domain.exception.AppErrorException
 import com.adrc95.rickyandmorty.domain.exception.Result
 import com.adrc95.rickyandmorty.domain.model.Character
 import com.adrc95.rickyandmorty.domain.repository.CharacterRepository
-import com.adrc95.rickyandmorty.framework.database.mapper.toDomain
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 
 @OptIn(ExperimentalPagingApi::class)
 class CharacterRepositoryImpl @Inject constructor(
@@ -39,9 +36,7 @@ class CharacterRepositoryImpl @Inject constructor(
         ),
         remoteMediator = remoteMediator,
         pagingSourceFactory = { localDataSource.getCharacters() }
-    )
-        .flow
-        .map { pagingData -> pagingData.map { it.toDomain() } }
+    ).flow
 
     override fun searchCharacters(
         name: String?,
@@ -57,14 +52,12 @@ class CharacterRepositoryImpl @Inject constructor(
         pagingSourceFactory = {
             SearchCharacterPagingSource(remoteDataSource, localDataSource, name, species, gender, status)
         }
-    )
-        .flow
-        .map { pagingData -> pagingData.map { it } }
+    ).flow
 
     override fun getCharacterDetail(id: Int): Flow<Character> = flow {
         val cached = localDataSource.getCharacterById(id)
         if (cached != null) {
-            emit(cached.toDomain())
+            emit(cached)
         }
         when (val result = remoteDataSource.getCharacterById(id)) {
             is Result.Success -> {

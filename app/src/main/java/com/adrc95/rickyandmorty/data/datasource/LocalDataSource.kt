@@ -4,16 +4,15 @@ import androidx.paging.PagingSource
 import com.adrc95.rickyandmorty.domain.model.Character
 import com.adrc95.rickyandmorty.domain.model.EpisodeDetail
 import com.adrc95.rickyandmorty.domain.model.LocationDetail
-import com.adrc95.rickyandmorty.framework.database.entity.CharacterEntity
-import com.adrc95.rickyandmorty.framework.database.entity.RemoteKeyEntity
+import com.adrc95.rickyandmorty.domain.model.RemoteKey
 import kotlinx.coroutines.flow.Flow
 
 interface LocalDataSource {
-    suspend fun getCharacterById(id: Int): CharacterEntity?
+    suspend fun getCharacterById(id: Int): Character?
 
-    fun getCharacters(): PagingSource<Int, CharacterEntity>
+    fun getCharacters(): PagingSource<Int, Character>
 
-    suspend fun getRemoteKey(resource: String): RemoteKeyEntity?
+    suspend fun getRemoteKey(resource: String): RemoteKey?
 
     suspend fun hasCachedCharacters(): Boolean
 
@@ -28,8 +27,6 @@ interface LocalDataSource {
     suspend fun getEpisodesByCharacterId(characterId: Int): List<EpisodeDetail>
 
     suspend fun saveEpisodeDetails(episodes: List<EpisodeDetail>, characterId: Int)
-
-    suspend fun deleteCharacterDetails(characterId: Int)
 
     fun isFavourite(characterId: Int): Flow<Boolean>
 

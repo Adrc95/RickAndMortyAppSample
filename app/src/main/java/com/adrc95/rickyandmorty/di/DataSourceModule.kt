@@ -2,10 +2,10 @@ package com.adrc95.rickyandmorty.di
 
 import com.adrc95.rickyandmorty.data.datasource.LocalDataSource
 import com.adrc95.rickyandmorty.data.datasource.RemoteDataSource
-import com.adrc95.rickyandmorty.data.datasource.RemoteRetrofitDataSource
-import com.adrc95.rickyandmorty.data.datasource.RoomDataSource
 import com.adrc95.rickyandmorty.data.datasource.SettingsPreferenceDataSource
-import com.adrc95.rickyandmorty.data.datasource.SettingsPreferencesDataSource
+import com.adrc95.rickyandmorty.framework.database.datasource.RoomDataSource
+import com.adrc95.rickyandmorty.framework.datastore.datasource.SettingsPreferencesDataSource
+import com.adrc95.rickyandmorty.framework.network.datasource.RemoteRetrofitDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
