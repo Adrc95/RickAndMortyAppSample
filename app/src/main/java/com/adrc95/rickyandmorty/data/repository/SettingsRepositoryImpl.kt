@@ -3,12 +3,12 @@ package com.adrc95.rickyandmorty.data.repository
 import com.adrc95.rickyandmorty.data.datasource.SettingsPreferenceDataSource
 import com.adrc95.rickyandmorty.domain.model.ThemeMode
 import com.adrc95.rickyandmorty.domain.repository.SettingsRepository
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.koin.core.annotation.Single
 
-class SettingsRepositoryImpl @Inject constructor(private val settingsDataSource: SettingsPreferenceDataSource) :
-    SettingsRepository {
+@Single(binds = [SettingsRepository::class])
+class SettingsRepositoryImpl(private val settingsDataSource: SettingsPreferenceDataSource) : SettingsRepository {
 
     override fun getThemeMode(): Flow<ThemeMode> = settingsDataSource.themeMode.map { ThemeMode.from(it) }
 

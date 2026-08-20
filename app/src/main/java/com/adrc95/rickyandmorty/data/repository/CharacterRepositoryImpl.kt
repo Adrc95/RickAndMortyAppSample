@@ -16,12 +16,13 @@ import com.adrc95.rickyandmorty.domain.exception.AppErrorException
 import com.adrc95.rickyandmorty.domain.exception.Result
 import com.adrc95.rickyandmorty.domain.model.Character
 import com.adrc95.rickyandmorty.domain.repository.CharacterRepository
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import org.koin.core.annotation.Single
 
 @OptIn(ExperimentalPagingApi::class)
-class CharacterRepositoryImpl @Inject constructor(
+@Single(binds = [CharacterRepository::class])
+class CharacterRepositoryImpl(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
     private val remoteMediator: CharacterRemoteMediator

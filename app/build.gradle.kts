@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.google.devtools.ksp)
-    alias(libs.plugins.hilt)
+    alias(libs.plugins.koin.compiler)
     alias(libs.plugins.ktlint)
 }
 
@@ -28,7 +28,7 @@ android {
         targetSdk = 37
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "com.adrc95.rickyandmorty.HiltTestRunner"
+        testInstrumentationRunner = "com.adrc95.rickyandmorty.KoinTestRunner"
 
         buildConfigField(
             "String",
@@ -82,9 +82,9 @@ dependencies {
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.io.coil.compose)
     implementation(libs.io.coil.network.okhttp)
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    implementation(libs.hilt.viewmodel)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.annotations)
     implementation(libs.androidx.lifecycle.viewmodel.navigation)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
@@ -107,8 +107,7 @@ dependencies {
     androidTestImplementation(libs.androidx.room.testing)
     androidTestImplementation(libs.turbine)
     androidTestImplementation(libs.mockwebserver)
-    androidTestImplementation(libs.hilt.android.testing)
-    kspAndroidTest(libs.hilt.compiler)
+    androidTestImplementation(libs.koin.test)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 }

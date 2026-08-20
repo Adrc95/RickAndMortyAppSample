@@ -8,9 +8,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.adrc95.rickyandmorty.data.DataConstants.THEME_MODE_KEY
 import com.adrc95.rickyandmorty.domain.model.ThemeMode
 import com.adrc95.rickyandmorty.domain.repository.SettingsRepository
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
-import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
@@ -19,23 +16,18 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.test.KoinTest
+import org.koin.test.inject
 
-@HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
-class SettingsRepositoryIntegrationTest {
+class SettingsRepositoryIntegrationTest : KoinTest {
 
-    @get:Rule
-    val hiltRule = HiltAndroidRule(this)
+    private val repository: SettingsRepository by inject()
 
-    @Inject
-    lateinit var repository: SettingsRepository
-
-    @Inject
-    lateinit var dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences> by inject()
 
     @Before
     fun setUp() {
-        hiltRule.inject()
         runBlocking {
             dataStore.edit { it.clear() }
         }

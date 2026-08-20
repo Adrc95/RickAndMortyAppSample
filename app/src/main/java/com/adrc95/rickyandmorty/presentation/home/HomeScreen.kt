@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
@@ -44,10 +43,11 @@ import com.adrc95.rickyandmorty.presentation.core.model.CharacterDisplayModel
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterFiltersDisplayModel
 import com.adrc95.rickyandmorty.presentation.filter.FilterBottomSheet
 import com.adrc95.rickyandmorty.presentation.home.composable.CharacterGrid
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeRoute(
-    viewModel: HomeViewModel = hiltViewModel(),
+    viewModel: HomeViewModel = koinViewModel(),
     onCharacterClick: (CharacterDisplayModel) -> Unit,
     onSettingsClick: () -> Unit
 ) {

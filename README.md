@@ -4,7 +4,7 @@
 
 Sample master/detail Android application that consumes the [Rick and Morty API](https://rickandmortyapi.com/) to display a paginated list of characters and a detailed character profile.
 
-The application has been built with Clean Architecture principles, the Repository pattern and MVVM, with a clear separation between presentation, domain, data and framework concerns. The UI is implemented entirely with Jetpack Compose and Hilt is used for dependency injection.
+The application has been built with Clean Architecture principles, the Repository pattern and MVVM, with a clear separation between presentation, domain, data and framework concerns. The UI is implemented entirely with Jetpack Compose and Koin Annotations is used for dependency injection.
 
 ## Features
 
@@ -120,7 +120,7 @@ The application supports light, dark and system themes from the settings screen.
 - **AndroidX Navigation 3:** Type-safe navigation between application destinations.
 - **ViewModel and Kotlin Flow:** Lifecycle-aware state management and reactive data streams.
 - **Coroutines:** Asynchronous and non-blocking application work.
-- **Hilt:** Dependency injection for Android components and application layers.
+- **Koin:** Dependency injection for Android components and application layers, configured with Koin Annotations and KSP.
 - **Paging 3:** Efficient pagination, local paging and remote synchronization.
 - **Room:** Local SQLite abstraction used for character, location, episode and remote-key caching.
 - **DataStore Preferences:** Persistence for the selected theme mode.
@@ -230,7 +230,7 @@ app/
 │   │   │   ├── paging/           RemoteMediator and search PagingSource
 │   │   │   └── repository/       Repository implementations
 │   │   │
-│   │   ├── di/                   Hilt dependency-injection modules
+│   │   ├── di/                   Koin dependency-injection modules and annotations
 │   │   │
 │   │   ├── domain/
 │   │   │   ├── exception/        Result and application errors

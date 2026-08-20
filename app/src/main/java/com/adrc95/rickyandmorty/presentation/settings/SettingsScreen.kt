@@ -18,16 +18,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.adrc95.rickyandmorty.R
 import com.adrc95.rickyandmorty.presentation.core.composable.AppToolbar
 import com.adrc95.rickyandmorty.presentation.core.composable.OutlinedCard
 import com.adrc95.rickyandmorty.presentation.settings.composable.ThemeOption
 import com.adrc95.rickyandmorty.presentation.settings.model.ThemeModeDisplayModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel(), onBack: () -> Unit) {
+fun SettingsRoute(viewModel: SettingsViewModel = koinViewModel(), onBack: () -> Unit) {
     val themeMode by viewModel.themeMode.collectAsStateWithLifecycle()
     SettingsScreen(
         themeMode = themeMode,

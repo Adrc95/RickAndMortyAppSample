@@ -8,16 +8,15 @@ import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.WHILE_SU
 import com.adrc95.rickyandmorty.presentation.settings.mapper.toDisplayModel
 import com.adrc95.rickyandmorty.presentation.settings.mapper.toDomain
 import com.adrc95.rickyandmorty.presentation.settings.model.ThemeModeDisplayModel
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.koin.core.annotation.KoinViewModel
 
-@HiltViewModel
-class SettingsViewModel @Inject constructor(
+@KoinViewModel
+class SettingsViewModel(
     getThemeModeUseCase: GetThemeModeUseCase,
     private val setThemeModeUseCase: SetThemeModeUseCase
 ) : ViewModel() {

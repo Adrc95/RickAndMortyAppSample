@@ -1,9 +1,10 @@
 package com.adrc95.rickyandmorty.domain.usecase
 
 import com.adrc95.rickyandmorty.domain.repository.CharacterRepository
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import org.koin.core.annotation.Factory
 
-class IsCharacterFavouriteUseCase @Inject constructor(private val characterRepository: CharacterRepository) {
+@Factory
+class IsCharacterFavouriteUseCase(private val characterRepository: CharacterRepository) {
     operator fun invoke(characterId: Int): Flow<Boolean> = characterRepository.isFavourite(characterId)
 }

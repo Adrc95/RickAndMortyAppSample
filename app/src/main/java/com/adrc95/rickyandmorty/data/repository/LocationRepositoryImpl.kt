@@ -5,9 +5,10 @@ import com.adrc95.rickyandmorty.data.datasource.RemoteDataSource
 import com.adrc95.rickyandmorty.domain.exception.Result
 import com.adrc95.rickyandmorty.domain.model.LocationDetail
 import com.adrc95.rickyandmorty.domain.repository.LocationRepository
-import javax.inject.Inject
+import org.koin.core.annotation.Single
 
-class LocationRepositoryImpl @Inject constructor(
+@Single(binds = [LocationRepository::class])
+class LocationRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : LocationRepository {

@@ -14,9 +14,10 @@ import com.adrc95.rickyandmorty.framework.network.service.CharacterService
 import com.adrc95.rickyandmorty.framework.network.service.EpisodeService
 import com.adrc95.rickyandmorty.framework.network.service.LocationService
 import com.adrc95.rickyandmorty.framework.tryCall
-import javax.inject.Inject
+import org.koin.core.annotation.Single
 
-class RemoteRetrofitDataSource @Inject constructor(
+@Single(binds = [RemoteDataSource::class])
+class RemoteRetrofitDataSource(
     private val characterService: CharacterService,
     private val locationService: LocationService,
     private val episodeService: EpisodeService

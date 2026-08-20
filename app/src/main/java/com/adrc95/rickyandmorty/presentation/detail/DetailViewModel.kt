@@ -15,10 +15,6 @@ import com.adrc95.rickyandmorty.presentation.core.PresentationConstants.WHILE_SU
 import com.adrc95.rickyandmorty.presentation.core.mapper.toDisplayModel
 import com.adrc95.rickyandmorty.presentation.core.model.CharacterDisplayModel
 import com.adrc95.rickyandmorty.presentation.navigation.Route
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.SharingStarted
@@ -29,21 +25,18 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.koin.core.annotation.InjectedParam
+import org.koin.core.annotation.KoinViewModel
 
-@HiltViewModel(assistedFactory = DetailViewModel.Factory::class)
-class DetailViewModel @AssistedInject constructor(
-    @Assisted val navKey: Route.Detail,
+@KoinViewModel
+class DetailViewModel(
+    @InjectedParam val navKey: Route.Detail,
     getCharacterByIdUseCase: GetCharacterByIdUseCase,
     private val getLocationByIdUseCase: GetLocationByIdUseCase,
     private val getEpisodesByIdsUseCase: GetEpisodesByIdsUseCase,
     isCharacterFavouriteUseCase: IsCharacterFavouriteUseCase,
     private val toggleFavouriteUseCase: ToggleFavouriteUseCase
 ) : ViewModel() {
-
-    @AssistedFactory
-    interface Factory {
-        fun create(navKey: Route.Detail): DetailViewModel
-    }
 
     val uiState: StateFlow<UiState> =
         getCharacterByIdUseCase(navKey.id)

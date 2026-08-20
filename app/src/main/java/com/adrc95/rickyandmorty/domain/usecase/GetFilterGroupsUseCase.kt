@@ -19,9 +19,10 @@ import com.adrc95.rickyandmorty.domain.FilterConstants.STATUS_GROUP_ID
 import com.adrc95.rickyandmorty.domain.FilterConstants.UNKNOWN
 import com.adrc95.rickyandmorty.domain.model.FilterGroup
 import com.adrc95.rickyandmorty.domain.model.FilterOption
-import javax.inject.Inject
+import org.koin.core.annotation.Factory
 
-class GetFilterGroupsUseCase @Inject constructor() {
+@Factory
+class GetFilterGroupsUseCase {
 
     operator fun invoke(): List<FilterGroup> = listOf(
         FilterGroup(

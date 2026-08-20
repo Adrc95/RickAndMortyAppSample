@@ -12,11 +12,12 @@ import com.adrc95.rickyandmorty.data.datasource.LocalDataSource
 import com.adrc95.rickyandmorty.data.datasource.RemoteDataSource
 import com.adrc95.rickyandmorty.domain.exception.Result
 import com.adrc95.rickyandmorty.domain.model.Character
-import javax.inject.Inject
+import org.koin.core.annotation.Single
 import timber.log.Timber
 
 @OptIn(ExperimentalPagingApi::class)
-class CharacterRemoteMediator @Inject constructor(
+@Single
+class CharacterRemoteMediator(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : RemoteMediator<Int, Character>() {

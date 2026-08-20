@@ -16,14 +16,11 @@ import com.adrc95.rickyandmorty.domain.model.ThemeMode
 import com.adrc95.rickyandmorty.domain.usecase.GetThemeModeUseCase
 import com.adrc95.rickyandmorty.presentation.navigation.NavigationRoot
 import com.adrc95.rickyandmorty.presentation.ui.theme.RickyAndMortyTheme
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var getThemeMode: GetThemeModeUseCase
+    private val getThemeMode: GetThemeModeUseCase by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

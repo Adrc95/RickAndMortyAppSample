@@ -19,8 +19,6 @@ import com.adrc95.rickyandmorty.presentation.core.model.CharacterFiltersDisplayM
 import com.adrc95.rickyandmorty.presentation.filter.mapper.toDisplayModel
 import com.adrc95.rickyandmorty.presentation.filter.mapper.toDomain
 import com.adrc95.rickyandmorty.presentation.filter.model.FilterGroupDisplayModel
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -35,10 +33,11 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.koin.core.annotation.KoinViewModel
 
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-@HiltViewModel
-class HomeViewModel @Inject constructor(
+@KoinViewModel
+class HomeViewModel(
     getCharactersUseCase: GetCharactersUseCase,
     private val searchCharactersUseCase: SearchCharactersUseCase,
     private val toggleFavouriteUseCase: ToggleFavouriteUseCase,

@@ -5,9 +5,10 @@ import com.adrc95.rickyandmorty.data.datasource.RemoteDataSource
 import com.adrc95.rickyandmorty.domain.exception.Result
 import com.adrc95.rickyandmorty.domain.model.EpisodeDetail
 import com.adrc95.rickyandmorty.domain.repository.EpisodeRepository
-import javax.inject.Inject
+import org.koin.core.annotation.Single
 
-class EpisodeRepositoryImpl @Inject constructor(
+@Single(binds = [EpisodeRepository::class])
+class EpisodeRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : EpisodeRepository {

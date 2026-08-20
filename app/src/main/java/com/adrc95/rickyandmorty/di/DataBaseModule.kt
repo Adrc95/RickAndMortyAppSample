@@ -8,37 +8,27 @@ import com.adrc95.rickyandmorty.framework.database.dao.CharacterDao
 import com.adrc95.rickyandmorty.framework.database.dao.EpisodeDetailDao
 import com.adrc95.rickyandmorty.framework.database.dao.LocationDetailDao
 import com.adrc95.rickyandmorty.framework.database.dao.RemoteKeyDao
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import org.koin.core.annotation.Module
+import org.koin.core.annotation.Single
 
 @Module
-@InstallIn(SingletonComponent::class)
-object DataBaseModule {
-    @Provides
-    @Singleton
-    fun providesDatabase(@ApplicationContext context: Context): AppDatabase = Room.databaseBuilder(
+class DataBaseModule {
+    @Single
+    fun providesDatabase(context: Context): AppDatabase = Room.databaseBuilder(
         context = context,
         klass = AppDatabase::class.java,
         name = DATABASE_NAME
     ).build()
 
-    @Provides
-    @Singleton
+    @Single
     fun providesCharacterDao(db: AppDatabase): CharacterDao = db.characterDao()
 
-    @Provides
-    @Singleton
+    @Single
     fun providesRemoteKeyDao(db: AppDatabase): RemoteKeyDao = db.remoteKeyDao()
 
-    @Provides
-    @Singleton
+    @Single
     fun providesLocationDetailDao(db: AppDatabase): LocationDetailDao = db.locationDetailDao()
 
-    @Provides
-    @Singleton
+    @Single
     fun providesEpisodeDetailDao(db: AppDatabase): EpisodeDetailDao = db.episodeDetailDao()
 }

@@ -14,9 +14,6 @@ import com.adrc95.rickyandmorty.mockwebserver.MockWebServerRule
 import com.adrc95.rickyandmorty.mockwebserver.MockWebServerUrlHolder
 import com.adrc95.rickyandmorty.testing.createPagingDataDiffer
 import com.adrc95.rickyandmorty.testing.extension.readJsonAsset
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
-import javax.inject.Inject
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
@@ -27,32 +24,22 @@ import okhttp3.mockwebserver.SocketPolicy
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.test.KoinTest
+import org.koin.test.inject
 
 @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
-@HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
-class CharacterRepositoryIntegrationTest {
+class CharacterRepositoryIntegrationTest : KoinTest {
 
     @get:Rule(order = 0)
     val mockWebServerRule = MockWebServerRule()
 
-    @get:Rule(order = 1)
-    val hiltRule = HiltAndroidRule(this)
+    private val repository: CharacterRepository by inject()
 
-    @Inject
-    lateinit var repository: CharacterRepository
-
-    @Inject
-    lateinit var database: AppDatabase
-
-    @Before
-    fun setUp() {
-        hiltRule.inject()
-    }
+    private val database: AppDatabase by inject()
 
     @After
     fun tearDown() {

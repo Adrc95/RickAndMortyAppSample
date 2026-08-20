@@ -19,10 +19,11 @@ import com.adrc95.rickyandmorty.framework.database.mapper.toEntity
 import com.adrc95.rickyandmorty.framework.database.mapper.toEntity as episodeToEntity
 import com.adrc95.rickyandmorty.framework.database.mapper.toEntity as locationToEntity
 import com.adrc95.rickyandmorty.framework.database.paging.CharacterPagingSource
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import org.koin.core.annotation.Single
 
-class RoomDataSource @Inject constructor(
+@Single(binds = [LocalDataSource::class])
+class RoomDataSource(
     private val database: AppDatabase,
     private val characterDao: CharacterDao,
     private val remoteKeyDao: RemoteKeyDao,
