@@ -1,6 +1,9 @@
 package com.adrc95.rickyandmorty.data.repository
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.adrc95.rickyandmorty.di.dataTestModule
+import com.adrc95.rickyandmorty.di.databaseTestModule
+import com.adrc95.rickyandmorty.di.networkTestModule
 import com.adrc95.rickyandmorty.domain.exception.AppError
 import com.adrc95.rickyandmorty.domain.exception.Result
 import com.adrc95.rickyandmorty.domain.model.EpisodeDetail
@@ -11,6 +14,7 @@ import com.adrc95.rickyandmorty.framework.database.builder.episodeDetailEntity
 import com.adrc95.rickyandmorty.framework.database.mapper.toDomain
 import com.adrc95.rickyandmorty.mockwebserver.MockWebServerRule
 import com.adrc95.rickyandmorty.mockwebserver.MockWebServerUrlHolder
+import com.adrc95.rickyandmorty.testing.KoinTestRule
 import com.adrc95.rickyandmorty.testing.extension.readJsonAsset
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -28,6 +32,15 @@ class EpisodeRepositoryIntegrationTest : KoinTest {
 
     @get:Rule(order = 0)
     val mockWebServerRule = MockWebServerRule()
+
+    @get:Rule(order = 1)
+    val koinRule = KoinTestRule(
+        modules = listOf(
+            dataTestModule,
+            networkTestModule,
+            databaseTestModule
+        )
+    )
 
     private val repository: EpisodeRepository by inject()
 

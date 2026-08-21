@@ -3,6 +3,9 @@ package com.adrc95.rickyandmorty.data.repository
 import androidx.paging.LoadState
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
+import com.adrc95.rickyandmorty.di.dataTestModule
+import com.adrc95.rickyandmorty.di.databaseTestModule
+import com.adrc95.rickyandmorty.di.networkTestModule
 import com.adrc95.rickyandmorty.domain.exception.AppError
 import com.adrc95.rickyandmorty.domain.exception.AppErrorException
 import com.adrc95.rickyandmorty.domain.model.Character
@@ -12,6 +15,7 @@ import com.adrc95.rickyandmorty.framework.database.builder.characterEntity
 import com.adrc95.rickyandmorty.framework.database.builder.remoteKeyEntity
 import com.adrc95.rickyandmorty.mockwebserver.MockWebServerRule
 import com.adrc95.rickyandmorty.mockwebserver.MockWebServerUrlHolder
+import com.adrc95.rickyandmorty.testing.KoinTestRule
 import com.adrc95.rickyandmorty.testing.createPagingDataDiffer
 import com.adrc95.rickyandmorty.testing.extension.readJsonAsset
 import kotlinx.coroutines.cancelAndJoin
@@ -36,6 +40,15 @@ class CharacterRepositoryIntegrationTest : KoinTest {
 
     @get:Rule(order = 0)
     val mockWebServerRule = MockWebServerRule()
+
+    @get:Rule(order = 1)
+    val koinRule = KoinTestRule(
+        modules = listOf(
+            dataTestModule,
+            networkTestModule,
+            databaseTestModule
+        )
+    )
 
     private val repository: CharacterRepository by inject()
 

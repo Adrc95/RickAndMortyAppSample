@@ -6,8 +6,11 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.adrc95.rickyandmorty.data.DataConstants.THEME_MODE_KEY
+import com.adrc95.rickyandmorty.di.dataStoreTestModule
+import com.adrc95.rickyandmorty.di.dataTestModule
 import com.adrc95.rickyandmorty.domain.model.ThemeMode
 import com.adrc95.rickyandmorty.domain.repository.SettingsRepository
+import com.adrc95.rickyandmorty.testing.KoinTestRule
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
@@ -21,6 +24,14 @@ import org.koin.test.inject
 
 @RunWith(AndroidJUnit4::class)
 class SettingsRepositoryIntegrationTest : KoinTest {
+
+    @get:Rule(order = 0)
+    val koinRule = KoinTestRule(
+        modules = listOf(
+            dataTestModule,
+            dataStoreTestModule
+        )
+    )
 
     private val repository: SettingsRepository by inject()
 
