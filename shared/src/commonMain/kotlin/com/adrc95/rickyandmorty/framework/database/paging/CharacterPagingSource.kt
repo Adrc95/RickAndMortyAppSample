@@ -27,8 +27,6 @@ class CharacterPagingSource(private val source: PagingSource<Int, CharacterEntit
             )
         }
 
-    override fun getRefreshKey(state: PagingState<Int, Character>): Int? = state.anchorPosition?.let { anchor ->
-        state.closestPageToPosition(anchor)?.prevKey?.plus(1)
-            ?: state.closestPageToPosition(anchor)?.nextKey?.minus(1)
-    }
+    override fun getRefreshKey(state: PagingState<Int, Character>): Int? =
+        state.anchorPosition?.let { anchor -> maxOf(0, anchor - (state.config.initialLoadSize / 2)) }
 }
