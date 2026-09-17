@@ -1,0 +1,14 @@
+package com.adrc95.rickyandmorty.domain.usecase
+
+import com.adrc95.rickyandmorty.common.OpenForMokkery
+import com.adrc95.rickyandmorty.domain.exception.Result
+import com.adrc95.rickyandmorty.domain.model.EpisodeDetail
+import com.adrc95.rickyandmorty.domain.repository.EpisodeRepository
+import org.koin.core.annotation.Factory
+
+@Factory
+@OpenForMokkery
+class GetEpisodesByIdsUseCase(private val episodeRepository: EpisodeRepository) {
+    suspend operator fun invoke(characterId: Int, episodeIds: List<Int>): Result<List<EpisodeDetail>> =
+        episodeRepository.getEpisodes(characterId, episodeIds)
+}

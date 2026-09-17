@@ -1,0 +1,88 @@
+package com.adrc95.rickyandmorty.framework.database.datasource
+
+import androidx.paging.PagingSource
+import androidx.room.Transactor
+import androidx.room.useWriterConnection
+import com.adrc95.rickyandmorty.data.DataConstants.CHARACTERS_RESOURCE
+import com.adrc95.rickyandmorty.data.datasource.LocalDataSource
+import com.adrc95.rickyandmorty.domain.model.Character
+import com.adrc95.rickyandmorty.domain.model.EpisodeDetail
+import com.adrc95.rickyandmorty.domain.model.LocationDetail
+import com.adrc95.rickyandmorty.domain.model.RemoteKey
+import com.adrc95.rickyandmorty.framework.database.AppDatabase
+import com.adrc95.rickyandmorty.framework.database.dao.CharacterDao
+import com.adrc95.rickyandmorty.framework.database.dao.EpisodeDetailDao
+import com.adrc95.rickyandmorty.framework.database.dao.LocationDetailDao
+import com.adrc95.rickyandmorty.framework.database.dao.RemoteKeyDao
+import com.adrc95.rickyandmorty.framework.database.entity.RemoteKeyEntity
+import com.adrc95.rickyandmorty.framework.database.mapper.toDomain
+import com.adrc95.rickyandmorty.framework.database.mapper.toEntity
+import com.adrc95.rickyandmorty.framework.database.mapper.toEntity as episodeToEntity
+import com.adrc95.rickyandmorty.framework.database.mapper.toEntity as locationToEntity
+import com.adrc95.rickyandmorty.framework.database.paging.CharacterPagingSource
+import kotlinx.coroutines.flow.Flow
+import org.koin.core.annotation.Factory
+import kotlin.time.Clock
+
+@Factory(binds = [LocalDataSource::class])
+class RoomDataSource(
+    private val database: AppDatabase,
+    private val characterDao: CharacterDao,
+    private val remoteKeyDao: RemoteKeyDao,
+    private val locationDetailDao: LocationDetailDao,
+    private val episodeDetailDao: EpisodeDetailDao
+) : LocalDataSource {
+
+    override suspend fun getCharacterById(id: Int): Character? = characterDao.getById(id)?.toDomain()
+
+    override fun getCharacters(): PagingSource<Int, Character> = CharacterPagingSource(characterDao.getCharacters())
+
+    override suspend fun getRemoteKey(resource: String): RemoteKey? = remoteKeyDao.get(resource)?.toDomain()
+
+    override suspend fun hasCachedCharacters(): Boolean = characterDao.count() > 0
+
+    override suspend fun insertCharacters(characters: List<Character>, nextPage: Int?, deleteOld: Boolean) {
+        database.useWriterConnection { connection ->
+            connection.withTransaction(
+                type = Transactor.SQLiteTransactionType.IMMEDIATE
+            ) {
+                if (deleteOld) {
+                    remoteKeyDao.clear()
+                    characterDao.clear()
+                }
+                characterDao.insertAll(characters.map { it.toEntity() })
+                remoteKeyDao.insert(
+                    RemoteKeyEntity(
+                        resource = CHARACTERS_RESOURCE,
+                        nextPage = nextPage,
+                        lastUpdatedAt = Clock.System.now().toEpochMilliseconds(),
+                    )
+                )
+            }
+        }
+    }
+
+    override suspend fun saveCharacters(characters: List<Character>) {
+        characterDao.insertAll(characters.map { it.toEntity() })
+    }
+
+    override suspend fun getLocationByCharacterId(characterId: Int, isOrigin: Boolean): LocationDetail? =
+        locationDetailDao.getByCharacterId(characterId, isOrigin)?.toDomain()
+
+    override suspend fun saveLocationDetail(location: LocationDetail, characterId: Int, isOrigin: Boolean) {
+        locationDetailDao.insert(location.locationToEntity(characterId, isOrigin))
+    }
+
+    override suspend fun getEpisodesByCharacterId(characterId: Int): List<EpisodeDetail> =
+        episodeDetailDao.getByCharacterId(characterId).map { it.toDomain() }
+
+    override suspend fun saveEpisodeDetails(episodes: List<EpisodeDetail>, characterId: Int) {
+        episodeDetailDao.insertAll(episodes.map { it.episodeToEntity(characterId) })
+    }
+
+    override fun isFavourite(characterId: Int): Flow<Boolean> = characterDao.isFavourite(characterId)
+
+    override suspend fun toggleFavourite(characterId: Int) {
+        characterDao.toggleFavourite(characterId)
+    }
+}

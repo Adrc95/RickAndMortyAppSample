@@ -9,7 +9,14 @@
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
+build/
+.kotlin/
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+
+# Xcode user-specific files
+iosApp/iosApp.xcodeproj/xcuserdata/
+iosApp/iosApp.xcodeproj/project.xcworkspace/xcuserdata/
+iosApp/iosApp.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
