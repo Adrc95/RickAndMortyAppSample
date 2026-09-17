@@ -183,8 +183,7 @@ jobs:
 
       - name: Publish test results
         if: always()
-        continue-on-error: true
-        uses: EnricoMi/publish-unit-test-result-action@v2
+        uses: EnricoMi/publish-unit-test-result-action/macos@v2
         with:
           check_name: iOS test results
           files: "shared/build/test-results/**/TEST-*.xml"
