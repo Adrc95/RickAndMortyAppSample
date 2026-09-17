@@ -6,12 +6,12 @@
 set -e
 
 echo "[pre-commit] Running ktlintFormat..."
-./gradlew :app:ktlintFormat
+./gradlew :androidApp:ktlintFormat
 
 echo "[pre-commit] Re-staging formatted files..."
 git add -u
 
 echo "[pre-commit] Running ktlintCheck..."
-./gradlew :app:ktlintCheck
+./gradlew :androidApp:ktlintCheck
 
 echo "[pre-commit] ktlint passed."

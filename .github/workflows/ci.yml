@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ compose-multiplatform ]
   pull_request:
-    branches: [ master ]
+    branches: [ compose-multiplatform ]
   workflow_dispatch:
 
 concurrency:
@@ -17,8 +17,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  unit-tests:
-    name: 🧪 Unit tests
+  android-unit-tests:
+    name: 🧪 Android unit tests
     runs-on: ubuntu-latest
 
     steps:
@@ -33,17 +33,17 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Run unit tests
-        run: ./gradlew :app:testDebugUnitTest --stacktrace
+      - name: Run shared host tests
+        run: ./gradlew :shared:testAndroidHostTest --stacktrace
 
       - name: Publish test results
         if: always()
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          check_name: Unit test results
+          check_name: Android unit test results
           files: "**/build/test-results/**/TEST-*.xml"
 
-  build:
+  android-build:
     name: 🏗 Assemble debug APK
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -61,13 +61,13 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Assemble debug
-        run: ./gradlew :app:assembleDebug
+        run: ./gradlew :androidApp:assembleDebug
 
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
           name: debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: androidApp/build/outputs/apk/debug/androidApp-debug.apk
           retention-days: 7
 
   static-analysis:
@@ -88,10 +88,10 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Ktlint
-        run: ./gradlew :app:ktlintCheck --stacktrace
+        run: ./gradlew :androidApp:ktlintCheck --stacktrace
 
-  instrumented-tests:
-    name: 📱 Instrumented & UI (API ${{ matrix.api-level }})
+  android-instrumented-tests:
+    name: 📱 Android instrumented & UI (API ${{ matrix.api-level }})
     runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
@@ -140,14 +140,14 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: ./gradlew connectedDebugAndroidTest --stacktrace
+          script: ./gradlew :shared:connectedAndroidDeviceTest --stacktrace
       - name: Publish instrumented results
         if: always()
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          check_name: Instrumented results (API ${{ matrix.api-level }})
+          check_name: Android instrumented results (API ${{ matrix.api-level }})
           files: |
-            **/build/outputs/androidTest-results/connected/**/*.xml
+            **/build/outputs/androidTest-results/**/*.xml
       - name: Upload instrumented report
         if: failure()
         continue-on-error: true
@@ -157,3 +157,34 @@ jobs:
           path: |
             **/build/reports/androidTests/connected/
           retention-days: 7
+
+  ios:
+    name: 🍎 iOS build & tests
+    runs-on: macos-14
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build iOS device framework
+        run: ./gradlew :shared:linkDebugFrameworkIosArm64 --stacktrace
+
+      - name: Run iOS tests
+        run: ./gradlew :shared:iosSimulatorArm64Test --stacktrace
+
+      - name: Publish test results
+        if: always()
+        continue-on-error: true
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          check_name: iOS test results
+          files: "shared/build/test-results/**/TEST-*.xml"
