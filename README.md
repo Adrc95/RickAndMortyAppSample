@@ -265,22 +265,92 @@ A push while a run is in progress cancels the previous run (`concurrency` with `
 ## Project Structure
 
 ```text
-androidApp/                     Android application entry point (MainActivity and Koin setup)
-iosApp/                         iOS application entry point (Xcode project and SwiftUI wrapper)
-shared/
+androidApp/                          Android application entry point
+└── src/main/
+    ├── java/com/adrc95/rickyandmorty/
+    │   ├── App.kt                   Application class and Koin startup
+    │   └── presentation/            MainActivity and Android presentation glue
+    ├── res/                         Android resources (strings, themes, icons)
+    └── AndroidManifest.xml          Android application manifest
+
+iosApp/                              iOS application entry point (Xcode project)
+└── iosApp/
+    ├── iOSApp.swift                 SwiftUI application entry point
+    └── ContentView.swift            Hosts the shared Compose view controller
+
+shared/                              Kotlin Multiplatform shared module
 └── src/
     ├── commonMain/
     │   ├── kotlin/com/adrc95/rickyandmorty/
-    │   │   ├── data/           Repository implementations, paging and data sources
-    │   │   ├── di/             Koin dependency-injection modules and annotations
-    │   │   ├── domain/         Models, repository contracts, use cases and errors
-    │   │   ├── framework/      Database, network, preferences, image and shared UI
-    │   │   └── presentation/   Compose Multiplatform UI, ViewModels and navigation
-    │   └── composeResources/   Shared drawables, fonts and strings
-    ├── androidMain/            Android actuals (database, DataStore, status bar, theme, image)
-    ├── iosMain/                iOS actuals and the MainViewController entry point
-    ├── commonTest/             Shared unit tests and Compose UI tests
-    └── androidDeviceTest/      Android DAO, integration and UI device tests
+    │   │   ├── common/              Cross-cutting annotations and helpers
+    │   │   │
+    │   │   ├── data/
+    │   │   │   ├── datasource/      Remote, Room and DataStore data sources
+    │   │   │   ├── paging/          RemoteMediator and search PagingSource
+    │   │   │   └── repository/      Repository implementations
+    │   │   │
+    │   │   ├── di/                  Koin dependency-injection modules and annotations
+    │   │   │
+    │   │   ├── domain/
+    │   │   │   ├── exception/       Result and application errors
+    │   │   │   ├── model/           Business models
+    │   │   │   ├── repository/      Repository contracts
+    │   │   │   └── usecase/         Application business use cases
+    │   │   │
+    │   │   ├── framework/
+    │   │   │   ├── database/
+    │   │   │   │   ├── dao/         Room DAOs
+    │   │   │   │   ├── datasource/  Room data source implementation
+    │   │   │   │   ├── entity/      Room entities
+    │   │   │   │   ├── mapper/      Entity-to-domain mappers
+    │   │   │   │   └── paging/      Room-backed PagingSource
+    │   │   │   ├── image/           Shared Coil ImageLoader factory
+    │   │   │   ├── network/
+    │   │   │   │   ├── cache/       Custom Okio Ktor cache storage
+    │   │   │   │   ├── datasource/  Ktorfit remote data source
+    │   │   │   │   ├── dto/         API response models
+    │   │   │   │   ├── mapper/      DTO-to-domain mappers
+    │   │   │   │   └── service/     Ktorfit API services
+    │   │   │   ├── preference/
+    │   │   │   │   └── datasource/  DataStore preference data sources
+    │   │   │   └── ui/              Status bar and system theme helpers
+    │   │   │
+    │   │   └── presentation/
+    │   │       ├── core/
+    │   │       │   ├── composable/  Shared UI components
+    │   │       │   ├── mapper/      Model-to-display mappers
+    │   │       │   └── model/       Display models
+    │   │       ├── detail/
+    │   │       │   └── composable/  Character detail sections
+    │   │       ├── filter/
+    │   │       │   ├── composable/  Filter bottom sheet sections
+    │   │       │   ├── mapper/      Filter display mappers
+    │   │       │   └── model/       Filter display models
+    │   │       ├── home/
+    │   │       │   └── composable/  Character grid and cards
+    │   │       ├── navigation/      Navigation routes and root
+    │   │       ├── settings/
+    │   │       │   ├── composable/  Theme option composables
+    │   │       │   ├── mapper/      Theme display mappers
+    │   │       │   └── model/       Theme display models
+    │   │       ├── ui/theme/        Compose theme, colors and typography
+    │   │       └── RickyAndMortyApp.kt  Shared Compose root
+    │   │
+    │   └── composeResources/        Shared drawables, fonts and strings
+    │
+    ├── androidMain/
+    │   └── kotlin/com/adrc95/rickyandmorty/
+    │       ├── di/                  Android Koin NativeModule
+    │       └── framework/           Android actuals (database, DataStore, status bar, theme)
+    │
+    ├── iosMain/
+    │   └── kotlin/com/adrc95/rickyandmorty/
+    │       ├── MainViewController.kt  Shared Compose entry point for iOS
+    │       ├── di/                  iOS Koin NativeModule
+    │       └── framework/           iOS actuals (database, DataStore, status bar, theme)
+    │
+    ├── commonTest/                  Shared unit, mapper and Compose UI tests
+    └── androidDeviceTest/           Room DAO, MockWebServer integration and device UI tests
 ```
 
 ## API
